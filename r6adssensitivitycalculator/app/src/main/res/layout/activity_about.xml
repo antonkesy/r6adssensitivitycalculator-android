@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:subtitle="@string/subtitle_text"
+            app:title="@string/title_text">
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/pixel_panda" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/about_padding">
+
+            <TextView
+                style="@style/about_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/byAntonKesy" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/websiteButton"
+            style="@style/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Website" />
+
+        <Button
+            android:id="@+id/privacyPolicyButton"
+            style="@style/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privacy Policy" />
+
+        <Button
+            android:id="@+id/contactButton"
+            style="@style/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact" />
+
+        <Button
+            android:id="@+id/sourceCodeButton"
+            style="@style/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Source Code" />
+
+
+        <LinearLayout
+            style="@style/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/reportBugButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Report Bug" />
+
+            <Button
+                android:id="@+id/rateAppButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rate App" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/about_padding">
+
+        <TextView
+            style="@style/about_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VERSION" />
+
+        <TextView
+            android:id="@+id/versionCodeAbout"
+            style="@style/about_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "R6 Y5S3 ADS Sensitivity Calculator"
