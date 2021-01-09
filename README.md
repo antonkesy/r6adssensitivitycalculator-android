@@ -20,8 +20,8 @@ I got the disease of changing my gaming settings every match ... :( Ubisoft chan
 ## Screenshots
 
 <p float="left">
-<img src="store/Screenshot_1.png?raw=true" width="200" />
-<img src="store/Screenshot_2.png?raw=true" width="200" />
+<img src="store/graphics/Screenshot_1.png" width="200" />
+<img src="store/graphics/Screenshot_2.png" width="200" />
 </p>
 
 
