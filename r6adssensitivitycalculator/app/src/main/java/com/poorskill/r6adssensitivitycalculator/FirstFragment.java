@@ -54,13 +54,13 @@ public class FirstFragment extends Fragment implements TextWatcher {
                 //Checks if all EditText are entered
                 if (oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0 && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0
                         //Check if nothing zero
-                        && Integer.parseInt(oldADSEdit.getText().toString()) > 0 && Integer.parseInt(fovEdit.getText().toString()) > 0 && Integer.parseInt(aspectRatioHeightEdit.getText().toString()) > 0 && Integer.parseInt(aspectRatioWidthEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioTextView.getText().toString()) > 0) {
+                        && Double.parseDouble(oldADSEdit.getText().toString()) > 0 && Double.parseDouble(fovEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioHeightEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioWidthEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0) {
                     MainActivity.INSTANCE.setInputValues(Integer.parseInt(oldADSEdit.getText().toString()), Integer.parseInt(fovEdit.getText().toString()), Integer.parseInt(aspectRatioWidthEdit.getText().toString()), Integer.parseInt(aspectRatioHeightEdit.getText().toString()));
                     MainActivity.INSTANCE.calculateNewAds();
                     NavHostFragment.findNavController(FirstFragment.this)
                             .navigate(R.id.action_FirstFragment_to_SecondFragment);
                 } else {
-                    Toast.makeText(getContext(), getContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), requireContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
                 }
             }
         });
