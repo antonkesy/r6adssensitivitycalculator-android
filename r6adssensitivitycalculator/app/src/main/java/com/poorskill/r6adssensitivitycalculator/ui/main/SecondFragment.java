@@ -83,7 +83,7 @@ public class SecondFragment extends Fragment {
         });
         view.findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                copyValueToClipboard(convertAllValuesToString(), "everything");
+                copyValueToClipboard(convertAllValuesToString(), getString(R.string.everything));
             }
         });
 

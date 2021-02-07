@@ -92,4 +92,5 @@
     <string name="copied">"copied "</string>
     <string name="toClipboard">" to clipboard"</string>
     <string name="copyValues" translatable="false">Copie Values</string>
+    <string name="everything">everything</string>
 </resources>
