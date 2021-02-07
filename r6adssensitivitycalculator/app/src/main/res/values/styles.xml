@@ -39,4 +39,10 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="about_button_landscape">
+        <item name="android:layout_marginEnd">50sp</item>
+        <item name="android:layout_marginStart">50sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
 </resources>
