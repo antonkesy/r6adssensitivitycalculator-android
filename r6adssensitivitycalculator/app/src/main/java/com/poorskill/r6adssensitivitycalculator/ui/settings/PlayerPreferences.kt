@@ -35,6 +35,13 @@ abstract class PlayerPreferences {
         }
 
         internal fun getApplicationThemePreferences(context: Context): Theme {
+            //Shared Pref Correction without losing data
+            if (getSharedPreferences(context).getString(
+                            context.getString(R.string.prefApplicationThemePrefKey),
+                            "0"
+                    ).equals(context.getString(R.string.systemKey))) {
+                setApplicationThemePreferences(Theme.System, context)
+            }
             return when (getSharedPreferences(context).getString(
                     context.getString(R.string.prefApplicationThemePrefKey),
                     "0"
