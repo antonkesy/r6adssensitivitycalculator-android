@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator;
+package com.poorskill.r6adssensitivitycalculator.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;

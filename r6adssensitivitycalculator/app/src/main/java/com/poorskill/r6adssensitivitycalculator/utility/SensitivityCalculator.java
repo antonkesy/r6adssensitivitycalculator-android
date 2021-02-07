@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator;
+package com.poorskill.r6adssensitivitycalculator.utility;
 
 public final class SensitivityCalculator {
     private static final double[] fovMultiplier = {.9, .59, .49, .42, .35, .3, .22, .092};

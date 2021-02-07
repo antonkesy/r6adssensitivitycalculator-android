@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator;
+package com.poorskill.r6adssensitivitycalculator.ui.main;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import static com.poorskill.r6adssensitivitycalculator.SensitivityCalculator.calculateAspectRatio;
+import com.poorskill.r6adssensitivitycalculator.utility.LastCalculationValues;
+import com.poorskill.r6adssensitivitycalculator.R;
+
+import static com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator.calculateAspectRatio;
 
 public class FirstFragment extends Fragment implements TextWatcher {
     private EditText oldADSEdit, fovEdit, aspectRatioWidthEdit, aspectRatioHeightEdit;
@@ -55,8 +58,8 @@ public class FirstFragment extends Fragment implements TextWatcher {
                 if (oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0 && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0
                         //Check if nothing zero
                         && Double.parseDouble(oldADSEdit.getText().toString()) > 0 && Double.parseDouble(fovEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioHeightEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioWidthEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0) {
-                    MainActivity.INSTANCE.setInputValues(Integer.parseInt(oldADSEdit.getText().toString()), Integer.parseInt(fovEdit.getText().toString()), Integer.parseInt(aspectRatioWidthEdit.getText().toString()), Integer.parseInt(aspectRatioHeightEdit.getText().toString()));
-                    MainActivity.INSTANCE.calculateNewAds();
+                    MainActivity.Companion.setInputValues(Integer.parseInt(oldADSEdit.getText().toString()), Integer.parseInt(fovEdit.getText().toString()), Integer.parseInt(aspectRatioWidthEdit.getText().toString()), Integer.parseInt(aspectRatioHeightEdit.getText().toString()));
+                    MainActivity.Companion.calculateNewAds();
                     NavHostFragment.findNavController(FirstFragment.this)
                             .navigate(R.id.action_FirstFragment_to_SecondFragment);
                 } else {

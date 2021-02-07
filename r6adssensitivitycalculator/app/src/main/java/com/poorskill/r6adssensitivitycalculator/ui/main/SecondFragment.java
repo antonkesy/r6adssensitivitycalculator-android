@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator;
+package com.poorskill.r6adssensitivitycalculator.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.poorskill.r6adssensitivitycalculator.R;
 
 import java.text.DecimalFormat;
 
@@ -99,7 +101,7 @@ public class SecondFragment extends Fragment {
     }
 
     private void inputCalculatedValues() {
-        double[] adsValues = MainActivity.INSTANCE.getAdsValues();
+        double[] adsValues = MainActivity.Companion.getAdsValues();
         DecimalFormat df = new DecimalFormat("#");
         this.ads_0.setText(df.format(adsValues[0]));
         this.ads_1.setText(df.format(adsValues[1]));
