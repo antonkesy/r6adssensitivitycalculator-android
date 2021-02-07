@@ -21,7 +21,6 @@
         <item>@string/japanese</item>
         <item>@string/portuguese</item>
         <item>@string/italian</item>
-        <item>@string/persian</item>
         <item>@string/polish</item>
         <item>@string/hindi</item>
         <item>@string/chinese</item>
@@ -36,7 +35,6 @@
         <item>@string/japaneseKey</item>
         <item>@string/portugueseKey</item>
         <item>@string/italianKey</item>
-        <item>@string/persianKey</item>
         <item>@string/polishKey</item>
         <item>@string/hindiKey</item>
         <item>@string/chineseKey</item>
