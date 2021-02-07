@@ -30,7 +30,7 @@ public class FirstFragment extends Fragment implements TextWatcher {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        return inflater.inflate(R.layout.fragment_old_values_retrofit, container, false);
+        return inflater.inflate(R.layout.fragment_old_values, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
