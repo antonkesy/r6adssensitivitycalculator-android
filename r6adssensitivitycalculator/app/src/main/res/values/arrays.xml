@@ -41,7 +41,4 @@
         <item>@string/hindiKey</item>
         <item>@string/chineseKey</item>
     </string-array>
-    <!-- FieldSize Preference -->
-    <!-- TextSize Preference -->
-
 </resources>
