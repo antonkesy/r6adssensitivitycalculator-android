@@ -27,14 +27,21 @@
     <string name="subtitle_text">ADS SENSITIVITY CALCULATOR</string>
     <string name="copy_start">R6 Siege Y5S3 ADS Sensitivity Calculator</string>
 
-
-    <string name="byAntonKesy" translatable="false">by Anton Kesy</string>
+    <string name="copyrightAntonKesy" translatable="false">by Anton Kesy</string>
     <string name="poorskillWebsite" translatable="false">https://www.poorskill.com</string>
     <string name="privacyPolicyURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
     <string name="sourceCodeURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android</string>
     <string name="reportBugURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android/issues</string>
     <string name="rateAppURL" translatable="false">https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator</string>
     <string name="contactMail" translatable="false">info@poorskill.com</string>
+    <string name="website">Website</string>
+    <string name="privacyPolicy">Privacy Policy</string>
+    <string name="contact">Contact</string>
+    <string name="sourceCode">Source Code</string>
+    <string name="reportBug">Report Bug</string>
+    <string name="rateApp">Rate App</string>
+    <string name="version">VERSION</string>
+
     <string name="goBack">back</string>
     <string name="_9">9</string>
     <string name="_16">16</string>
