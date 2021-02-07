@@ -43,17 +43,5 @@
     </string-array>
     <!-- FieldSize Preference -->
     <!-- TextSize Preference -->
-    <string-array name="textSize_entries">
-        <item>25%</item>
-        <item>50%</item>
-        <item>75%</item>
-        <item>100%</item>
-    </string-array>
-    <string-array name="textSize_values">
-        <item>25</item>
-        <item>50</item>
-        <item>75</item>
-        <item>100</item>
-    </string-array>
 
 </resources>

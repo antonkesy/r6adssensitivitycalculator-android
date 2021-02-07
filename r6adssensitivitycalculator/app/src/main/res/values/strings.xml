@@ -2,7 +2,6 @@
     <string name="app_name">ADS Calculator</string>
     <string name="first_fragment_label">Old Values Fragment</string>
     <string name="second_fragment_label">New Values Fragment</string>
-    <string name="about_fragment_label">About Fragment</string>
     <string name="input_old_ads_value">Input your old ADS sensitivity value</string>
     <string name="btn_calculate">calculate</string>
     <string name="input_fov_value">Input your FOV value from the menu (degrees)</string>
@@ -42,21 +41,13 @@
     <string name="rateApp">Rate App</string>
     <string name="version">VERSION</string>
 
-    <string name="goBack">back</string>
     <string name="_9">9</string>
     <string name="_16">16</string>
     <string name="_60">60</string>
     <string name="_20">20</string>
     <string name="missingEditText">Please fill out all input fields with valid values</string>
-    <string name="action_reset">Reset Values</string>
     <string name="settingsTitle">Settings</string>
     <string name="aboutTitle">About</string>
-    <string name="prefApplicationThemePrefKey">prefApplicationThemePrefKey</string>
-    <string name="prefApplicationLanguagePrefKey">prefApplicationLanguagePrefKey</string>
-
-    <!-- MenuItems -->
-    <string name="settingsItem">Settings</string>
-    <string name="aboutItem">About</string>
     <!-- Preference Titles -->
     <string name="application_header">Application</string>
     <!-- Theme Preferences -->
@@ -93,8 +84,9 @@
     <string name="hindiKey" translatable="false">hi</string>
     <string name="chineseKey" translatable="false">zh</string>
     <string name="action_settings">Settings</string>
+    <!-- prefKeys -->
+    <string name="prefApplicationThemePrefKey">prefApplicationThemePrefKey</string>
+    <string name="prefApplicationLanguagePrefKey">prefApplicationLanguagePrefKey</string>
 
     <string name="ubisoftHelpURL">https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3IMlDGlaRFgdvQNq3BOSFv/guide-to-ads-sensitivity-in-y5s3</string>
-    <string name="mainTitle">R6 Siege Y5S3 ADS Sensitivity Calculator</string>
-
 </resources>

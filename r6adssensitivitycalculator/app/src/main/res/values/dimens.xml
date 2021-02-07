@@ -1,4 +1,3 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="about_padding">15sp</dimen>
 </resources>
