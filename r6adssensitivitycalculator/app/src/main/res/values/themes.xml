@@ -7,7 +7,4 @@
         <item name="colorAccent">#292929</item>
         <item name="color">@color/black</item>
     </style>
-
-
-
 </resources>
