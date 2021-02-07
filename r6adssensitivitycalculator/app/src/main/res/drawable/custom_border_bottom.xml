@@ -10,5 +10,5 @@
         android:top="5dp" />
     <stroke
         android:width="3dp"
-        android:color="@color/color_border" />
+        android:color="?colorAccent" />
 </shape>
