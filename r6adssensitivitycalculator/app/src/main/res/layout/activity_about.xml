@@ -5,25 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AboutActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:subtitle="@string/subtitle_text"
-            app:title="@string/title_text">
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    tools:context=".ui.about.AboutActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -47,7 +29,7 @@
                 style="@style/about_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/byAntonKesy" />
+                android:text="@string/copyrightAntonKesy" />
 
         </LinearLayout>
 
@@ -56,28 +38,28 @@
             style="@style/about_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Website" />
+            android:text="@string/website" />
 
         <Button
             android:id="@+id/privacyPolicyButton"
             style="@style/about_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Privacy Policy" />
+            android:text="@string/privacyPolicy" />
 
         <Button
             android:id="@+id/contactButton"
             style="@style/about_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contact" />
+            android:text="@string/contact" />
 
         <Button
             android:id="@+id/sourceCodeButton"
             style="@style/about_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Source Code" />
+            android:text="@string/sourceCode" />
 
 
         <LinearLayout
@@ -91,15 +73,17 @@
                 android:id="@+id/reportBugButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5sp"
                 android:layout_weight="1"
-                android:text="Report Bug" />
+                android:text="@string/reportBug" />
 
             <Button
                 android:id="@+id/rateAppButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
                 android:layout_weight="1"
-                android:text="Rate App" />
+                android:text="@string/rateApp" />
 
         </LinearLayout>
 
@@ -116,7 +100,7 @@
             style="@style/about_topic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="VERSION" />
+            android:text="@string/version" />
 
         <TextView
             android:id="@+id/versionCodeAbout"
