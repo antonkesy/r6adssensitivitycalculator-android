@@ -64,9 +64,8 @@ abstract class PlayerPreferences {
             val resources = context.resources
             val config = resources.configuration
             config.setLocale(locale)
-            //resources.updateConfiguration(config, resources.displayMetrics)
+            resources.updateConfiguration(config, resources.displayMetrics)
             context.createConfigurationContext(config)
-            println(locale.language)
         }
 
     }
