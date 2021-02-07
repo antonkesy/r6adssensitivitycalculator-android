@@ -22,11 +22,15 @@ class MainActivity : BaseActivity() {
         @SuppressLint("StaticFieldLeak")
         private lateinit var context: Context
 
-        var oldSensValue = 0.0
-        var fov = 0.0
-        var aspectRatioWidth = 0.0
-        var aspectRatioHeight = 0.0
-        var adsValues = DoubleArray(8)
+        private var oldSensValue = 0.0
+        private var fov = 0.0
+        private var aspectRatioWidth = 0.0
+        private var aspectRatioHeight = 0.0
+        private var adsValues = DoubleArray(8)
+
+        fun getAdsValues(): DoubleArray {
+            return adsValues
+        }
 
         fun calculateNewAds() {
             adsValues = SensitivityCalculator.calculateNewAdsSensitivity(oldSensValue, fov, aspectRatioWidth / aspectRatioHeight)
