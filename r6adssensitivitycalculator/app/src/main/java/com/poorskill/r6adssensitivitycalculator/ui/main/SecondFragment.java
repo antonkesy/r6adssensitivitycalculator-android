@@ -127,8 +127,9 @@ public class SecondFragment extends Fragment {
 
     private void copyValueToClipboard(String value, String name) {
         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", value);
+        android.content.ClipData clip = android.content.ClipData.newPlainText(getString(R.string.copyValues), value);
         clipboard.setPrimaryClip(clip);
-        Toast.makeText(getContext(), "copied " + name + " to clipboard", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.copied) + name + getString(R.string.toClipboard), Toast.LENGTH_SHORT).show();
+
     }
 }
