@@ -1,24 +1,17 @@
 <resources>
-    <!-- Base application theme. -->
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="text_view_info">
-        <item name="android:textColor">@color/text_color_bright</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">?color</item>
     </style>
 
     <style name="edit_text_number_input">
-        <item name="android:textColor">@color/text_color_bright</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">?color</item>
     </style>
 
     <style name="image_button">
