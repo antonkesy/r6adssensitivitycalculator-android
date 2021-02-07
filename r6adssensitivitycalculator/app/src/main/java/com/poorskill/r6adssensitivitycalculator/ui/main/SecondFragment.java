@@ -26,7 +26,7 @@ public class SecondFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        return inflater.inflate(R.layout.fragment_new_values, container, false);
+        return inflater.inflate(R.layout.fragment_new_values_retrofit, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

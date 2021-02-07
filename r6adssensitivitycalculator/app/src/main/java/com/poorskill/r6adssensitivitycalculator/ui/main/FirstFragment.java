@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.poorskill.r6adssensitivitycalculator.utility.LastCalculationValues;
 import com.poorskill.r6adssensitivitycalculator.R;
+import com.poorskill.r6adssensitivitycalculator.utility.LastCalculationValues;
 
 import static com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator.calculateAspectRatio;
 
@@ -30,7 +30,7 @@ public class FirstFragment extends Fragment implements TextWatcher {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        return inflater.inflate(R.layout.fragment_old_values, container, false);
+        return inflater.inflate(R.layout.fragment_old_values_retrofit, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
