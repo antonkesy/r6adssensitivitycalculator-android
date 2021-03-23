@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
@@ -37,11 +38,15 @@ class MainActivity : BaseActivity() {
         }
 
         fun setInputValues(oldSensValue: Int, inputFOV: Int, inputAspectRatioWidth: Int, inputAspectRatioHeight: Int) {
+            try{
             Companion.oldSensValue = oldSensValue.toDouble()
             fov = inputFOV.toDouble()
             aspectRatioWidth = inputAspectRatioWidth.toDouble()
             aspectRatioHeight = inputAspectRatioHeight.toDouble()
             LastCalculationValues.saveValues(context, oldSensValue.toDouble(), inputFOV.toDouble(), inputAspectRatioWidth.toDouble(), inputAspectRatioHeight.toDouble())
+            }catch (e: UninitializedPropertyAccessException){
+                Toast.makeText(context, context.getString(R.string.errorPropertyAccess), Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
