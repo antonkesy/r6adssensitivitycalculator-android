@@ -54,20 +54,24 @@ public class FirstFragment extends Fragment implements TextWatcher {
         view.findViewById(R.id.btn_calculate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Checks if all EditText are entered
-                if (oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0 && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0
-                        //Check if nothing zero
-                        && Double.parseDouble(oldADSEdit.getText().toString()) > 0 && Double.parseDouble(fovEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioHeightEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioWidthEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0) {
-                    //RIP Performance :)
-                    try {
+                try {
+                    //Checks if all EditText are entered
+                    //who wants to read this code anyway lol
+                    if (oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0
+                            && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0
+                            //Check if nothing zero
+                            && Double.parseDouble(oldADSEdit.getText().toString()) > 0 && Double.parseDouble(fovEdit.getText().toString()) > 0
+                            && Double.parseDouble(aspectRatioHeightEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioWidthEdit.getText().toString()) > 0
+                            && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0) {
+                        //RIP Performance :)
                         MainActivity.Companion.setInputValues(Integer.parseInt(oldADSEdit.getText().toString()), Integer.parseInt(fovEdit.getText().toString()), Integer.parseInt(aspectRatioWidthEdit.getText().toString()), Integer.parseInt(aspectRatioHeightEdit.getText().toString()));
                         MainActivity.Companion.calculateNewAds();
                         NavHostFragment.findNavController(FirstFragment.this)
                                 .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                    } catch (NumberFormatException e) {
+                    } else {
                         Toast.makeText(getContext(), requireContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
                     }
-                } else {
+                } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), requireContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
                 }
             }
