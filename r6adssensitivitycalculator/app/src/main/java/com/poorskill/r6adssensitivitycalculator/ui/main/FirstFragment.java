@@ -56,26 +56,52 @@ public class FirstFragment extends Fragment implements TextWatcher {
             public void onClick(View view) {
                 try {
                     //Checks if all EditText are entered
-                    //who wants to read this code anyway lol
-                    if (oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0
-                            && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0
-                            //Check if nothing zero
-                            && Double.parseDouble(oldADSEdit.getText().toString()) > 0 && Double.parseDouble(fovEdit.getText().toString()) > 0
-                            && Double.parseDouble(aspectRatioHeightEdit.getText().toString()) > 0 && Double.parseDouble(aspectRatioWidthEdit.getText().toString()) > 0
-                            && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0) {
-                        //RIP Performance :)
-                        MainActivity.Companion.setInputValues(Integer.parseInt(oldADSEdit.getText().toString()), Integer.parseInt(fovEdit.getText().toString()), Integer.parseInt(aspectRatioWidthEdit.getText().toString()), Integer.parseInt(aspectRatioHeightEdit.getText().toString()));
+                    if (areAllInputsFilled() && areAllInputsValuesLegal()) {
+                        MainActivity.Companion.setInputValues(
+                                getDoubleFromInputField(oldADSEdit),
+                                getDoubleFromInputField(fovEdit),
+                                getDoubleFromInputField(aspectRatioWidthEdit),
+                                getDoubleFromInputField(aspectRatioHeightEdit));
                         MainActivity.Companion.calculateNewAds();
                         NavHostFragment.findNavController(FirstFragment.this)
                                 .navigate(R.id.action_FirstFragment_to_SecondFragment);
                     } else {
-                        Toast.makeText(getContext(), requireContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
+                        shortToast(requireContext().getString(R.string.missingEditText));
                     }
                 } catch (NumberFormatException e) {
-                    Toast.makeText(getContext(), requireContext().getString(R.string.missingEditText), Toast.LENGTH_SHORT).show();
+                    shortToast(requireContext().getString(R.string.missingEditText));
                 }
             }
         });
+    }
+
+    /**
+     * Prints short toast text
+     *
+     * @param text
+     */
+    private void shortToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    private double getDoubleFromInputField(EditText oldADSEdit) {
+        return Double.parseDouble(oldADSEdit.getText().toString().replace(",", "."));
+    }
+
+    private boolean areAllInputsFilled() {
+        return oldADSEdit.getText().length() > 0 && fovEdit.getText().length() > 0 && aspectRatioHeightEdit.getText().length() > 0
+                && aspectRatioWidthEdit.getText().length() > 0 && aspectRatioTextView.getText().length() > 0;
+    }
+
+    /**
+     * Check if no input values are zero
+     *
+     * @return
+     */
+    private boolean areAllInputsValuesLegal() {
+        return getDoubleFromInputField(oldADSEdit) > 0 && getDoubleFromInputField(fovEdit) > 0
+                && getDoubleFromInputField(aspectRatioHeightEdit) > 0 && getDoubleFromInputField(aspectRatioWidthEdit) > 0
+                && Double.parseDouble(aspectRatioTextView.getText().toString().replace(",", ".")) > 0;
     }
 
     @Override
