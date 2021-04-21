@@ -37,14 +37,14 @@ class MainActivity : BaseActivity() {
             adsValues = SensitivityCalculator.calculateNewAdsSensitivity(oldSensValue, fov, aspectRatioWidth / aspectRatioHeight)
         }
 
-        fun setInputValues(oldSensValue: Int, inputFOV: Int, inputAspectRatioWidth: Int, inputAspectRatioHeight: Int) {
-            try{
-            Companion.oldSensValue = oldSensValue.toDouble()
-            fov = inputFOV.toDouble()
-            aspectRatioWidth = inputAspectRatioWidth.toDouble()
-            aspectRatioHeight = inputAspectRatioHeight.toDouble()
-            LastCalculationValues.saveValues(context, oldSensValue.toDouble(), inputFOV.toDouble(), inputAspectRatioWidth.toDouble(), inputAspectRatioHeight.toDouble())
-            }catch (e: UninitializedPropertyAccessException){
+        fun setInputValues(oldSensValue: Double, inputFOV: Double, inputAspectRatioWidth: Double, inputAspectRatioHeight: Double) {
+            try {
+                Companion.oldSensValue = oldSensValue
+                fov = inputFOV.toDouble()
+                aspectRatioWidth = inputAspectRatioWidth
+                aspectRatioHeight = inputAspectRatioHeight
+                LastCalculationValues.saveValues(context, oldSensValue, inputFOV, inputAspectRatioWidth, inputAspectRatioHeight)
+            } catch (e: UninitializedPropertyAccessException) {
                 Toast.makeText(context, context.getString(R.string.errorPropertyAccess), Toast.LENGTH_SHORT).show()
             }
         }
