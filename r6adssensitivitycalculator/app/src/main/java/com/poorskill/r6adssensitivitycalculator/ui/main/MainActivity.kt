@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
         fun setInputValues(oldSensValue: Double, inputFOV: Double, inputAspectRatioWidth: Double, inputAspectRatioHeight: Double) {
             try {
                 Companion.oldSensValue = oldSensValue
-                fov = inputFOV.toDouble()
+                fov = inputFOV
                 aspectRatioWidth = inputAspectRatioWidth
                 aspectRatioHeight = inputAspectRatioHeight
                 LastCalculationValues.saveValues(context, oldSensValue, inputFOV, inputAspectRatioWidth, inputAspectRatioHeight)
