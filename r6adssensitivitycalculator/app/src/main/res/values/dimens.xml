@@ -1,6 +1,6 @@
 <resources>
     <dimen name="about_padding">15sp</dimen>
-    <dimen name="seek_bar_thickness">4dp</dimen>
-    <dimen name="seek_bar_thumb_size">15dp</dimen>
+    <dimen name="seek_bar_thickness">6dp</dimen>
+    <dimen name="seek_bar_thumb_size">20dp</dimen>
     <dimen name="text_size_values">30sp</dimen>
 </resources>
