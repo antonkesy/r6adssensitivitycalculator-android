@@ -45,13 +45,13 @@
 
         <TextView
             style="@style/oldTextView"
-            android:text="@string/old_fov" />
+            android:text="@string/fov" />
 
         <EditText
             android:id="@+id/fovEdit"
             style="@style/edit_text_number_input"
-            android:autofillHints="@string/inputOldFOVHint"
-            android:hint="@string/inputOldFOVHint"
+            android:autofillHints="@string/inputFOVHint"
+            android:hint="@string/inputFOVHint"
             android:text="@string/_20" />
 
         <SeekBar
@@ -65,7 +65,7 @@
 
         <TextView
             style="@style/oldTextView"
-            android:text="@string/old_aspect_ratio" />
+            android:text="@string/aspect_ratio" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/aspectRatioSpinner"

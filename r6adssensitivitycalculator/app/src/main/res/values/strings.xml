@@ -79,10 +79,10 @@
     <string name="copyValues" translatable="false">Copie Values</string>
     <string name="everything">everything</string>
     <string name="errorPropertyAccess" translatable="false">uninitialized property access</string>
-    <string name="old_fov">FOV</string>
+    <string name="fov">FOV</string>
     <string name="old_ads">Old ADS</string>
-    <string name="old_aspect_ratio">Old aspect ratio</string>
-    <string name="inputOldFOVHint">input old FOV value</string>
+    <string name="aspect_ratio">Aspect Ratio</string>
+    <string name="inputFOVHint">input FOV value</string>
     <string name="inputOldADSHint">input old ADS value</string>
     <string name="copy_start" translatable="false">R6 Siege Y5S3 ADS Sensitivity Calculator</string>
 
