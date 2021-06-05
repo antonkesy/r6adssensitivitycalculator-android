@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,7 +23,6 @@ import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
-import java.text.DecimalFormat
 
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
@@ -36,7 +36,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private var oldAdsValue = 50 //game default
     private var fov = 75 //game default
     private var aspectRatio = (16.0 / 9) //game default 16:9
-    private var adsValues = DoubleArray(8)
+    private var adsValues = IntArray(8)
 
     private var isStartLayout = true
 
@@ -245,28 +245,28 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         val ads7 = findViewById<TextView>(R.id.output_ads_7)
 
         findViewById<View>(R.id.ads0_row).setOnClickListener(
-            adsViewClickListener(adsValues[0].toString(), "ADS 1x")
+            adsViewClickListener(adsValues[0], "ADS 1x")
         )
         findViewById<View>(R.id.ads1_row).setOnClickListener(
-            adsViewClickListener(adsValues[1].toString(), "ADS 1.5x")
+            adsViewClickListener(adsValues[1], "ADS 1.5x")
         )
         findViewById<View>(R.id.ads2_row).setOnClickListener(
-            adsViewClickListener(adsValues[2].toString(), "ADS 2x")
+            adsViewClickListener(adsValues[2], "ADS 2x")
         )
         findViewById<View>(R.id.ads3_row).setOnClickListener(
-            adsViewClickListener(adsValues[3].toString(), "ADS 2.5x")
+            adsViewClickListener(adsValues[3], "ADS 2.5x")
         )
         findViewById<View>(R.id.ads4_row).setOnClickListener(
-            adsViewClickListener(adsValues[4].toString(), "ADS 3x")
+            adsViewClickListener(adsValues[4], "ADS 3x")
         )
         findViewById<View>(R.id.ads5_row).setOnClickListener(
-            adsViewClickListener(adsValues[5].toString(), "ADS 4x")
+            adsViewClickListener(adsValues[5], "ADS 4x")
         )
         findViewById<View>(R.id.ads6_row).setOnClickListener(
-            adsViewClickListener(adsValues[6].toString(), "ADS 5x")
+            adsViewClickListener(adsValues[6], "ADS 5x")
         )
         findViewById<View>(R.id.ads7_row).setOnClickListener(
-            adsViewClickListener(adsValues[7].toString(), "ADS 12x")
+            adsViewClickListener(adsValues[7], "ADS 12x")
         )
 
         findViewById<View>(R.id.btn_share).setOnClickListener {
@@ -285,22 +285,22 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             clearFocusFromEditTexts(adsEdit, fovEdit)
             motionLayout.transitionToEnd()
             calculateNewAdsValues()
-            val df = DecimalFormat("#")
-            ads0.text = df.format(adsValues[0])
-            ads1.text = df.format(adsValues[1])
-            ads2.text = df.format(adsValues[2])
-            ads3.text = df.format(adsValues[3])
-            ads4.text = df.format(adsValues[4])
-            ads5.text = df.format(adsValues[5])
-            ads6.text = df.format(adsValues[6])
-            ads7.text = df.format(adsValues[7])
+            ads0.text = adsValues[0].toString()
+            ads1.text = adsValues[1].toString()
+            ads2.text = adsValues[2].toString()
+            ads3.text = adsValues[3].toString()
+            ads4.text = adsValues[4].toString()
+            ads5.text = adsValues[5].toString()
+            ads6.text = adsValues[6].toString()
+            ads7.text = adsValues[7].toString()
             isStartLayout = false
         }
     }
 
-    private fun adsViewClickListener(name: String, valueString: String): View.OnClickListener {
+    private fun adsViewClickListener(adsValue: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
-            copyValueToClipboard(valueString, name)
+            Log.d("ps", adsValue.toString())
+            copyValueToClipboard(adsValue.toString(), name)
         }
     }
 
@@ -385,6 +385,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             fov,
             aspectRatio
         )
+        Log.d("ps", adsValues.contentToString())
     }
 
     //---- Options Menu ----------------------------------------------------
