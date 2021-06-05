@@ -4,7 +4,7 @@ public final class SensitivityCalculator {
     private static final double[] fovMultiplier = {.9, .59, .49, .42, .35, .3, .22, .092};
     private static final double[] adsMultiplier = {.6, .59, .49, .42, .35, .3, .22, .14};
 
-    public static double[] calculateNewAdsSensitivity(double oldAds, double fov, double aspectRatio) {
+    public static double[] calculateNewAdsSensitivity(int oldAds, int fov, double aspectRatio) {
         double[] result = new double[8];
         double horizontalFOV = calculateHorizontalFOV(fov, aspectRatio);
         double verticalFOV = horizontalFOV > 150 ? calculateVerticalFOV(aspectRatio) : fov;
@@ -14,11 +14,7 @@ public final class SensitivityCalculator {
         }
         return result;
     }
-
-    public static double calculateAspectRatio(double width, double height) {
-        return width / height;
-    }
-
+    
     private static double calculateFOVAdjustment(double fovMultiplier, double verticalFOV) {
         return Math.tan(Math.toRadians(fovMultiplier * verticalFOV / 2.)) / Math.tan(Math.toRadians(verticalFOV / 2.));
     }
