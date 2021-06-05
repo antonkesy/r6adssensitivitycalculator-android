@@ -8,6 +8,7 @@
     <style name="edit_text_number_input">
         <item name="android:gravity">center</item>
         <item name="android:textColor">?color</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="about_topic">
