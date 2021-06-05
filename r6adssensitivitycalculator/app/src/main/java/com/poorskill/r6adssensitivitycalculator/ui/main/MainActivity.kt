@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.constraintlayout.motion.widget.MotionLayout
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
@@ -40,9 +41,19 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         supportActionBar?.title = getString(R.string.title_text)
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
-        setupNewValuesView()
+        val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
+
+        setupNewValuesView(motionLayout)
+        setupOldValuesView(motionLayout)
         setupSpinner()
 
+    }
+
+    private fun setupNewValuesView(motionLayout: MotionLayout) {
+
+        findViewById<Button>(R.id.btnEditValues).setOnClickListener {
+            motionLayout.transitionToStart()
+        }
     }
 
     private fun setupSpinner() {
@@ -75,7 +86,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         // Another interface callback
     }
 
-    private fun setupNewValuesView() {
+    private fun setupOldValuesView(motionLayout: MotionLayout) {
         //get ads textViews
         val ads0 = findViewById<TextView>(R.id.output_ads_0)
         val ads1 = findViewById<TextView>(R.id.output_ads_1)
@@ -133,8 +144,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             )
         }
 
+
         findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-            //todo motion layout start
+            motionLayout.transitionToEnd()
             val df = DecimalFormat("#")
             ads0.text = df.format(adsValues[0])
             ads1.text = df.format(adsValues[1])
@@ -145,6 +157,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads6.text = df.format(adsValues[6])
             ads7.text = df.format(adsValues[7])
         }
+
     }
 
     private fun copyValueToClipboard(value: String, name: String) {
