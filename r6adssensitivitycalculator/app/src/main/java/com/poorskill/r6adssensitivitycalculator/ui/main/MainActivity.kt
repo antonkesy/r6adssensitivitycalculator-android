@@ -2,6 +2,7 @@ package com.poorskill.r6adssensitivitycalculator.ui.main
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
@@ -33,6 +35,8 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private var fov = 75 //game default
     private var aspectRatio = (16.0 / 9) //game default 16:9
     private var adsValues = DoubleArray(8)
+
+    private var isStartLayout = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -272,10 +276,11 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
         findViewById<Button>(R.id.btnEditValues).setOnClickListener {
             motionLayout.transitionToStart()
+            isStartLayout = true
         }
 
         findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-            //TODO change and prevent click when empty
+            clearFocusFromEditTexts(adsEdit, fovEdit)
             motionLayout.transitionToEnd()
             calculateNewAdsValues()
             val df = DecimalFormat("#")
@@ -287,6 +292,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads5.text = df.format(adsValues[5])
             ads6.text = df.format(adsValues[6])
             ads7.text = df.format(adsValues[7])
+            isStartLayout = false
         }
     }
 
@@ -414,11 +420,28 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     //---------------------------------------------------------------------------------
 
     private fun clearFocusFromEditTexts(adsEdit: EditText, fovEdit: EditText) {
-        //TODO
         adsEdit.clearFocus()
         fovEdit.clearFocus()
         findViewById<LinearLayout>(R.id.dummy).requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        //https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-programmatically
+        this.currentFocus?.let { view ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
+
+    /**
+     * Overrides backPress to go back to start motion layout if in end
+     */
+    override fun onBackPressed() {
+        if (!isStartLayout) {
+            findViewById<MotionLayout>(R.id.motionLayoutMain).transitionToStart()
+            isStartLayout = true
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 
 }
