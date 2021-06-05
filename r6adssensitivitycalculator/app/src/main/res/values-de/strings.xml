@@ -1,13 +1,6 @@
 <resources>
     <string name="app_name">ADS-Rechner</string>
-    <string name="first_fragment_label">Fragment alter Werte</string>
-    <string name="second_fragment_label">Neues Wertefragment</string>
-    <string name="input_old_ads_value">Geben Sie Ihren alten ADS-Empfindlichkeitswert ein</string>
     <string name="btn_calculate">Berechnung</string>
-    <string name="input_fov_value">Geben Sie Ihren FOV-Wert aus dem Menü ein (Grad)</string>
-    <string name="input_aspect_ratio_width">Geben Sie die Breite Ihres Seitenverhältnisses ein</string>
-    <string name="input_aspect_ratio_height">Geben Sie die Höhe Ihres Seitenverhältnisses ein</string>
-    <string name="text_aspect_ratio">Seitenverhältnis</string>
     <string name="btn_edit_values">neu berechnen</string>
     <string name="btn_copy_all">Werte kopieren</string>
     <string name="action_about">Über</string>
@@ -21,11 +14,7 @@
     <string name="rateApp">Bewertungs App</string>
     <string name="version">AUSFÜHRUNG</string>
 
-    <string name="_9">9</string>
-    <string name="_16">16</string>
-    <string name="_60">60</string>
     <string name="_20">20</string>
-    <string name="missingEditText">Bitte füllen Sie alle Eingabefelder mit gültigen Werten aus</string>
     <string name="settingsTitle">Einstellungen</string>
     <string name="aboutTitle">Über</string>
 
@@ -45,7 +34,6 @@
     <string name="japanese">japanisch</string>
     <string name="portuguese">Portugiesisch</string>
     <string name="italian">Italienisch</string>
-    <string name="persian">Persisch</string>
     <string name="polish">Polnisch</string>
     <string name="hindi">Hindi</string>
     <string name="chinese">Chinesisch</string>

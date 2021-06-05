@@ -10,18 +10,14 @@
         android:layout_alignParentTop="true">
 
         <TextView
-            android:id="@+id/oldAdsTV"
             style="@style/oldTextView"
             android:text="@string/old_ads" />
 
         <EditText
-            android:id="@+id/editAds"
             style="@style/edit_text_number_input"
             android:text="@string/_20" />
 
-        <SeekBar
-            android:id="@+id/oldAdsSeekBar"
-            style="@style/seekBar" />
+        <SeekBar style="@style/seekBar" />
     </LinearLayout>
 
 
@@ -31,27 +27,21 @@
         android:layout_below="@+id/adsLayout">
 
         <TextView
-            android:id="@+id/oldFovTV"
             style="@style/oldTextView"
             android:text="@string/old_fov" />
 
         <EditText
-            android:id="@+id/editFov"
             style="@style/edit_text_number_input"
             android:text="@string/_20" />
 
-        <SeekBar
-            android:id="@+id/oldFovSeekBar"
-            style="@style/seekBar" />
+        <SeekBar style="@style/seekBar" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/aspectLayout"
         style="@style/oldLinearLayoutGroup"
         android:layout_below="@+id/fovLayout">
 
         <TextView
-            android:id="@+id/oldAspectRatio"
             style="@style/oldTextView"
             android:text="@string/old_aspect_ratio" />
 
