@@ -11,7 +11,7 @@
     <style name="edit_text_number_input">
         <item name="android:gravity">center</item>
         <item name="android:textColor">?color</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">@dimen/text_size_values</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">5sp</item>
