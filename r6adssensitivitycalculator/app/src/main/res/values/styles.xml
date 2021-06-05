@@ -40,6 +40,7 @@
     </style>
 
     <style name="oldTextView">
+        <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
