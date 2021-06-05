@@ -64,7 +64,11 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         print(parent.getItemAtPosition(pos))
-
+        Toast.makeText(
+            parent.context,
+            "Selected: " + parent.getItemAtPosition(pos),
+            Toast.LENGTH_LONG
+        ).show();
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
