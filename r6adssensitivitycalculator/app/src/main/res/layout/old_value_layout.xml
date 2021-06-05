@@ -10,11 +10,14 @@
         android:layout_alignParentTop="true">
 
         <TextView
+            android:id="@+id/oldAdsTV"
             style="@style/oldTextView"
             android:text="@string/old_ads" />
 
         <EditText
             style="@style/edit_text_number_input"
+            android:autofillHints="@string/inputOldADSHint"
+            android:hint="@string/inputOldADSHint"
             android:text="@string/_20" />
 
         <SeekBar style="@style/seekBar" />
@@ -32,6 +35,8 @@
 
         <EditText
             style="@style/edit_text_number_input"
+            android:autofillHints="@string/inputOldFOVHint"
+            android:hint="@string/inputOldFOVHint"
             android:text="@string/_20" />
 
         <SeekBar style="@style/seekBar" />
@@ -57,6 +62,7 @@
 
     <Button
         android:id="@+id/btnCalculate"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

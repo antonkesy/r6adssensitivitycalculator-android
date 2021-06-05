@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?background"
+    android:gravity="bottom"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:id="@+id/ads0_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_alignParentTop="true">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -39,8 +39,7 @@
 
     <LinearLayout
         android:id="@+id/ads1_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads0_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -68,8 +67,7 @@
 
     <LinearLayout
         android:id="@+id/ads2_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads1_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -97,8 +95,7 @@
 
     <LinearLayout
         android:id="@+id/ads3_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads2_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -126,8 +123,7 @@
 
     <LinearLayout
         android:id="@+id/ads4_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads3_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -155,8 +151,7 @@
 
     <LinearLayout
         android:id="@+id/ads5_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads4_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -184,8 +179,7 @@
 
     <LinearLayout
         android:id="@+id/ads6_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads5_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -213,8 +207,7 @@
 
     <LinearLayout
         android:id="@+id/ads7_row"
-        style="@style/newLinearLayoutGroup"
-        android:layout_below="@+id/ads6_row">
+        style="@style/newLinearLayoutGroup">
 
         <TextView
             style="@style/text_view_info"
@@ -243,30 +236,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="25dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnEditValues"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5sp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="@string/btn_edit_values"
             android:textColor="?color" />
 
         <Button
             android:id="@+id/btn_share"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5sp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="@string/btn_copy_all"
             android:textColor="?color" />
-
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
