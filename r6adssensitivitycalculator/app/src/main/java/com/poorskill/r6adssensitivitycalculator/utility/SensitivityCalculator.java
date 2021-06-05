@@ -14,7 +14,7 @@ public final class SensitivityCalculator {
         }
         return result;
     }
-    
+
     private static double calculateFOVAdjustment(double fovMultiplier, double verticalFOV) {
         return Math.tan(Math.toRadians(fovMultiplier * verticalFOV / 2.)) / Math.tan(Math.toRadians(verticalFOV / 2.));
     }
