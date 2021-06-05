@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -233,7 +232,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             }
         }
         )
-
         //get ads textViews
         val ads0 = findViewById<TextView>(R.id.output_ads_0)
         val ads1 = findViewById<TextView>(R.id.output_ads_1)
@@ -245,28 +243,29 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         val ads7 = findViewById<TextView>(R.id.output_ads_7)
 
         findViewById<View>(R.id.ads0_row).setOnClickListener(
-            adsViewClickListener(adsValues[0], "ADS 1x")
+            adsViewClickListener(0, "ADS 1x")
         )
+
         findViewById<View>(R.id.ads1_row).setOnClickListener(
-            adsViewClickListener(adsValues[1], "ADS 1.5x")
+            adsViewClickListener(1, "ADS 1.5x")
         )
         findViewById<View>(R.id.ads2_row).setOnClickListener(
-            adsViewClickListener(adsValues[2], "ADS 2x")
+            adsViewClickListener(2, "ADS 2x")
         )
         findViewById<View>(R.id.ads3_row).setOnClickListener(
-            adsViewClickListener(adsValues[3], "ADS 2.5x")
+            adsViewClickListener(3, "ADS 2.5x")
         )
         findViewById<View>(R.id.ads4_row).setOnClickListener(
-            adsViewClickListener(adsValues[4], "ADS 3x")
+            adsViewClickListener(4, "ADS 3x")
         )
         findViewById<View>(R.id.ads5_row).setOnClickListener(
-            adsViewClickListener(adsValues[5], "ADS 4x")
+            adsViewClickListener(5, "ADS 4x")
         )
         findViewById<View>(R.id.ads6_row).setOnClickListener(
-            adsViewClickListener(adsValues[6], "ADS 5x")
+            adsViewClickListener(6, "ADS 5x")
         )
         findViewById<View>(R.id.ads7_row).setOnClickListener(
-            adsViewClickListener(adsValues[7], "ADS 12x")
+            adsViewClickListener(7, "ADS 12x")
         )
 
         findViewById<View>(R.id.btn_share).setOnClickListener {
@@ -297,10 +296,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun adsViewClickListener(adsValue: Int, name: String): View.OnClickListener {
+    private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
-            Log.d("ps", adsValue.toString())
-            copyValueToClipboard(adsValue.toString(), name)
+            copyValueToClipboard(adsValues[adsValueIndex].toString(), name)
         }
     }
 
@@ -385,7 +383,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             fov,
             aspectRatio
         )
-        Log.d("ps", adsValues.contentToString())
     }
 
     //---- Options Menu ----------------------------------------------------
