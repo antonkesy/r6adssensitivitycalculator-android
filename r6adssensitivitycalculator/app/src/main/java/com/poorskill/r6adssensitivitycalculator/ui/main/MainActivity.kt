@@ -9,9 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
@@ -21,7 +19,7 @@ import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 import java.text.DecimalFormat
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     //new values
 
 
@@ -43,6 +41,34 @@ class MainActivity : BaseActivity() {
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
         setupNewValuesView()
+        setupSpinner()
+
+    }
+
+    private fun setupSpinner() {
+        val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
+        spinner.onItemSelectedListener = this
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.aspect_ratio_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        print(parent.getItemAtPosition(pos))
+
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
     }
 
     private fun setupNewValuesView() {
