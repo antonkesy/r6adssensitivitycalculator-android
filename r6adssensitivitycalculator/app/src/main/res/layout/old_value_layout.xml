@@ -7,10 +7,12 @@
 
     <!-- Dummy to get auto focus -->
     <LinearLayout
+        android:id="@+id/dummy"
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:orientation="horizontal"
         tools:ignore="UselessLeaf" />
 
     <LinearLayout
@@ -46,7 +48,7 @@
             android:text="@string/old_fov" />
 
         <EditText
-            android:id="@+id/oldFovEdit"
+            android:id="@+id/fovEdit"
             style="@style/edit_text_number_input"
             android:autofillHints="@string/inputOldFOVHint"
             android:hint="@string/inputOldFOVHint"
