@@ -15,6 +15,8 @@ import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
+import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
@@ -303,18 +305,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun setupSpinner(startPos: Int) {
+        val aspectRatios = listOf(
+            AspectRatioItem("16:9", 16.0 / 9),
+            AspectRatioItem("16:10", 16.0 / 10),
+            AspectRatioItem("4:3", 4.0 / 3),
+            AspectRatioItem("3:2", 3.0 / 2),
+            AspectRatioItem("5:3", 5.0 / 3),
+            AspectRatioItem("5:4", 5.0 / 4),
+            AspectRatioItem("19:10", 19.0 / 10),
+            AspectRatioItem("21:10", 21.0 / 9)
+        )
         val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
         spinner.onItemSelectedListener = this
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.aspect_ratio_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinner.adapter = adapter
-        }
+        val customAspectAdapter = AspectRatioAdapter(this, aspectRatios)
+        spinner.adapter = customAspectAdapter
         spinner.setSelection(startPos)
     }
 
