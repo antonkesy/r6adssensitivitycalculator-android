@@ -24,12 +24,15 @@
             android:text="@string/old_ads" />
 
         <EditText
+            android:id="@+id/oldAdsEdit"
             style="@style/edit_text_number_input"
             android:autofillHints="@string/inputOldADSHint"
             android:hint="@string/inputOldADSHint"
             android:text="@string/_20" />
 
-        <SeekBar style="@style/seekBar" />
+        <SeekBar
+            android:id="@+id/adsSeekBar"
+            style="@style/seekBar" />
     </LinearLayout>
 
 
@@ -43,12 +46,15 @@
             android:text="@string/old_fov" />
 
         <EditText
+            android:id="@+id/oldFovEdit"
             style="@style/edit_text_number_input"
             android:autofillHints="@string/inputOldFOVHint"
             android:hint="@string/inputOldFOVHint"
             android:text="@string/_20" />
 
-        <SeekBar style="@style/seekBar" />
+        <SeekBar
+            android:id="@+id/fovSeekBar"
+            style="@style/seekBar" />
     </LinearLayout>
 
     <LinearLayout
