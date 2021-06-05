@@ -5,7 +5,8 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="250">
+        motion:duration="250"
+        motion:motionInterpolator="easeIn">
         <KeyFrameSet />
     </Transition>
 
@@ -36,4 +37,8 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
+    <Transition
+        motion:constraintSetStart="@+id/end"
+        motion:constraintSetEnd="@+id/start"
+        motion:motionInterpolator="easeOut" />
 </MotionScene>
