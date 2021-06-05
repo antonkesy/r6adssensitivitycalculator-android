@@ -94,7 +94,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         updateFOVAndEditText(fovDefault)
 
         //EditText Range
-        //TODO fix courser jumps to front caused by on progress changed edits text
         //check while changing text
         fovEdit.doAfterTextChanged {
             if (fovEdit.text.isNotEmpty()) {
@@ -102,6 +101,12 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                     val fovValue = Integer.parseInt(fovEdit.text.toString())
                     if (fovValue in fovMin..fovMax) {
                         updateFOVAndSeekBar(fovValue, fovSeekBar)
+                    } else {
+                        Toast.makeText(
+                            this,
+                            if (fovValue > fovMax) "too big" else "too small",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } catch (ignore: Exception) {
                 }
@@ -115,21 +120,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 try {
                     if (fovEdit.text.isNotEmpty()) {
                         val readFovValue = Integer.parseInt(fovEdit.text.toString())
-                        if (readFovValue in fovMin..fovMax) {
-                            fovValue = readFovValue
+                        fovValue = if (readFovValue in fovMin..fovMax) {
+                            readFovValue
                         } else {
                             //set to min/max
-                            fovValue = if (readFovValue > fovMax) {
+                            if (readFovValue > fovMax) {
                                 fovMax
                             } else {
                                 fovMin
                             }
-                            //update edit text
-                            fovEdit.setText(fovValue)
                         }
                     }
                 } catch (ignore: Exception) {
                 }
+                fovEdit.setText(fovValue.toString())
                 updateFOVAndSeekBar(fovValue, fovSeekBar)
             }
         }
@@ -140,6 +144,12 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                     val adsValue = Integer.parseInt(adsEdit.text.toString())
                     if (adsValue in adsMin..adsMax) {
                         updateADSAndSeekBar(adsValue, adsSeekBar)
+                    } else {
+                        Toast.makeText(
+                            this,
+                            if (adsValue > adsMax) "too big" else "too small",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } catch (ignore: Exception) {
                 }
@@ -153,21 +163,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 try {
                     if (adsEdit.text.isNotEmpty()) {
                         val readAdsValue = Integer.parseInt(adsEdit.text.toString())
-                        if (readAdsValue in adsMin..adsMax) {
-                            adsValue = readAdsValue
+                        adsValue = if (readAdsValue in adsMin..adsMax) {
+                            readAdsValue
                         } else {
                             //set to min/max
-                            adsValue = if (readAdsValue > adsMax) {
+                            if (readAdsValue > adsMax) {
                                 adsMax
                             } else {
                                 adsMin
                             }
-                            //update edit text
-                            adsEdit.setText(adsValue)
                         }
                     }
                 } catch (ignore: Exception) {
                 }
+                adsEdit.setText(adsValue.toString())
                 updateADSAndSeekBar(adsValue, adsSeekBar)
             }
         }
@@ -182,7 +191,10 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         fovSeekBar.progress = fovDefault - fovMin
         fovSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                updateFOVAndEditText(fovMin + progress)
+                if (fromUser)
+                    updateFOVAndEditText(fovMin + progress)
+                else
+                    updateFOV(fovMin + progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -200,7 +212,10 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         adsSeekBar.progress = adsDefault - adsMin
         adsSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                updateADSAndEditText(adsMin + progress)
+                if (fromUser)
+                    updateADSAndEditText(adsMin + progress)
+                else
+                    updateADS(adsMin + progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
