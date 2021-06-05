@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/oldAdsTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="OLD ADS"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/editAds"
+        style="@style/edit_text_number_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@android:color/transparent"
+        android:inputType="number"
+        android:text="@string/_20" />
+
+    <SeekBar
+        android:id="@+id/oldAdsSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp" />
+
+    <View
+        android:id="@+id/dividerAdsFov"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/oldFovTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="OLD FOV"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/editFov"
+        style="@style/edit_text_number_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:layout_weight="2"
+        android:background="@android:color/transparent"
+        android:inputType="number"
+        android:text="@string/_20" />
+
+    <SeekBar
+        android:id="@+id/oldFovSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp" />
+
+    <View
+        android:id="@+id/dividerFovAspect"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/oldAspectRatio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Aspect Ratio"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/aspectRatioSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_calculate"
+        android:textColor="?color" />
+
+</LinearLayout>
