@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/oldAdsTV"
             style="@style/oldTextView"
-            android:text="OLD ADS" />
+            android:text="@string/old_ads" />
 
         <EditText
             android:id="@+id/editAds"
@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/oldFovTV"
             style="@style/oldTextView"
-            android:text="OLD FOV" />
+            android:text="@string/old_fov" />
 
         <EditText
             android:id="@+id/editFov"
@@ -53,7 +53,7 @@
         <TextView
             android:id="@+id/oldAspectRatio"
             style="@style/oldTextView"
-            android:text="Aspect Ratio" />
+            android:text="@string/old_aspect_ratio" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/aspectRatioSpinner"
