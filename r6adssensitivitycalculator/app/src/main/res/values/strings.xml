@@ -94,6 +94,9 @@
     <string name="copyValues" translatable="false">Copie Values</string>
     <string name="everything">everything</string>
     <string name="errorPropertyAccess" translatable="false">uninitialized property access</string>
+    <string name="old_fov">Old FOV</string>
+    <string name="old_ads">Old ADS</string>
+    <string name="old_aspect_ratio">Old aspect ratio</string>
 
 
 </resources>
