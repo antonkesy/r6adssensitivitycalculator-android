@@ -8,6 +8,7 @@ public class UserPreferencesManager {
     private static final String prefADSKey = "adsKey";
     private static final String prefFOVKey = "fovKey";
     private static final String prefPosAspectRatioKey = "aspectPosKey";
+    private static final String prefUsageKey = "uKey";
 
     private static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
@@ -44,5 +45,18 @@ public class UserPreferencesManager {
     public static void setFOV(Context context, int value) {
         setInt(context, prefFOVKey, value);
     }
+
+    private static void setUsage(Context context, int value) {
+        setInt(context, prefUsageKey, value);
+    }
+
+    public static void incrementUsage(Context context) {
+        setUsage(context, getUsage(context) + 1);
+    }
+
+    public static int getUsage(Context context) {
+        return getSharedPreferences(context).getInt(prefUsageKey, 0);
+    }
+
 
 }
