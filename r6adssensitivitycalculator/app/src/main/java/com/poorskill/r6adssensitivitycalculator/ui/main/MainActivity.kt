@@ -294,6 +294,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads7.text = adsValues[7].toString()
             isStartLayout = false
         }
+
+        findViewById<TextView>(R.id.oldAdsTV).setOnClickListener {
+            adsEdit.requestFocus()
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(fovEdit, InputMethodManager.SHOW_IMPLICIT)
+            adsEdit.setSelection(adsEdit.text.length)
+        }
+
+        findViewById<TextView>(R.id.fovTV).setOnClickListener {
+            fovEdit.requestFocus()
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(fovEdit, InputMethodManager.SHOW_IMPLICIT)
+            fovEdit.setSelection(fovEdit.text.length)
+        }
     }
 
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
@@ -318,6 +332,10 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         val customAspectAdapter = AspectRatioAdapter(this, aspectRatios)
         spinner.adapter = customAspectAdapter
         spinner.setSelection(startPos)
+
+        findViewById<TextView>(R.id.aspectTV).setOnClickListener {
+            spinner.performClick()
+        }
     }
 
     /**

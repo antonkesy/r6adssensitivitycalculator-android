@@ -43,6 +43,7 @@
         android:layout_below="@+id/adsLayout">
 
         <TextView
+            android:id="@+id/fovTV"
             style="@style/oldTextView"
             android:text="@string/fov" />
 
@@ -62,6 +63,7 @@
         android:layout_below="@+id/fovLayout">
 
         <TextView
+            android:id="@+id/aspectTV"
             style="@style/oldTextView"
             android:text="@string/aspect_ratio" />
 
