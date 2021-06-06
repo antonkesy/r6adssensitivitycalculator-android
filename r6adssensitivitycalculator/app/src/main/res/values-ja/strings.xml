@@ -3,8 +3,6 @@
     <!--          https://asrt.gluege.boerde.de             -->
     <string name="app_name">ADS電卓</string>
     <string name="btn_calculate">計算する</string>
-    <string name="btn_edit_values">再計算</string>
-    <string name="btn_copy_all">値をコピーする</string>
     <string name="action_about">約</string>
     <string name="action_help">助けて</string>
 
@@ -16,7 +14,6 @@
     <string name="rateApp">アプリを評価</string>
     <string name="version">バージョン</string>
 
-    <string name="_20">20</string>
     <string name="settingsTitle">設定</string>
     <string name="aboutTitle">約</string>
 

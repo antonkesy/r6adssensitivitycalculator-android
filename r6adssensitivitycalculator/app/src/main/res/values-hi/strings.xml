@@ -3,8 +3,6 @@
     <!--          https://asrt.gluege.boerde.de             -->
     <string name="app_name">ADS कैलक्यूलेटर</string>
     <string name="btn_calculate">गणना करें</string>
-    <string name="btn_edit_values">फिर से गणना करें</string>
-    <string name="btn_copy_all">मूल्यों को कॉपी करें</string>
     <string name="action_about">के बारे में</string>
     <string name="action_help">हाथ बटाना</string>
 
@@ -16,7 +14,6 @@
     <string name="rateApp">एप्प का मूल्यांकन</string>
     <string name="version">संस्करण</string>
 
-    <string name="_20">२०</string>
     <string name="settingsTitle">समायोजन</string>
     <string name="aboutTitle">के बारे में</string>
 

@@ -52,18 +52,6 @@
         <item>@string/chineseKey</item>
     </string-array>
 
-    <string-array name="aspect_ratio_array">
-        <item>16:9 (Auto)</item>
-        <item>16:10</item>
-        <item>4:3</item>
-        <item>3:2</item>
-        <item>5:3</item>
-        <item>5:4</item>
-        <item>19:10</item>
-        <item>21:9</item>
-    </string-array>
-
-    <string name="blue">Blue</string>
     <string name="blackIce">Black Ice</string>
     <string name="dustLine">Dust Line</string>
     <string name="skullRain">Skull Rain</string>

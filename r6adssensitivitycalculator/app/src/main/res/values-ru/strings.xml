@@ -3,8 +3,6 @@
     <!--          https://asrt.gluege.boerde.de             -->
     <string name="app_name">Калькулятор ADS</string>
     <string name="btn_calculate">вычислить</string>
-    <string name="btn_edit_values">пересчитать</string>
-    <string name="btn_copy_all">копировать значения</string>
     <string name="action_about">Около</string>
     <string name="action_help">Помогите</string>
 
@@ -16,7 +14,6 @@
     <string name="rateApp">Оценить приложение</string>
     <string name="version">ВЕРСИЯ</string>
 
-    <string name="_20">20</string>
     <string name="settingsTitle">Настройки</string>
     <string name="aboutTitle">Около</string>
 

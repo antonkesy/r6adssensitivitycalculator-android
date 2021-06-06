@@ -3,8 +3,6 @@
     <!--          https://asrt.gluege.boerde.de             -->
     <string name="app_name">Calculadora de ADS</string>
     <string name="btn_calculate">calcular</string>
-    <string name="btn_edit_values">recalcular</string>
-    <string name="btn_copy_all">copiar valores</string>
     <string name="action_about">Acerca de</string>
     <string name="action_help">Ayuda</string>
 
@@ -16,7 +14,6 @@
     <string name="rateApp">Calificar aplicacion</string>
     <string name="version">VERSIÓN</string>
 
-    <string name="_20">20</string>
     <string name="settingsTitle">Configuraciones</string>
     <string name="aboutTitle">Acerca de</string>
 

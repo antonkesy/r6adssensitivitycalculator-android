@@ -3,8 +3,6 @@
     <!--          https://asrt.gluege.boerde.de             -->
     <string name="app_name">ADS计算器</string>
     <string name="btn_calculate">计算</string>
-    <string name="btn_edit_values">重新计算</string>
-    <string name="btn_copy_all">复制值</string>
     <string name="action_about">关于</string>
     <string name="action_help">救命</string>
 
@@ -16,7 +14,6 @@
     <string name="rateApp">评价应用</string>
     <string name="version">版</string>
 
-    <string name="_20">20</string>
     <string name="settingsTitle">设定值</string>
     <string name="aboutTitle">关于</string>
 
