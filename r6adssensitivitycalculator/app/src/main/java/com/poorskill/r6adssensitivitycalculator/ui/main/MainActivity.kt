@@ -14,6 +14,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
@@ -46,8 +49,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         supportActionBar?.title = getString(R.string.title_text)
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
-        val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
+        checkInAppUpdate()
 
+        val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
         setupViews(motionLayout)
     }
 
@@ -482,5 +486,32 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun favButtonClick() {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this.getString(R.string.rateAppURL))))
+    }
+
+    private fun checkInAppUpdate() {
+        //https://developer.android.com/guide/playcore/in-app-updates/kotlin-java
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+// Returns an intent object that you use to check for an update.
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+// Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                // This example applies an immediate update. To apply a flexible update
+                // instead, pass in AppUpdateType.FLEXIBLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                // Request the update.
+                appUpdateManager.startUpdateFlowForResult(
+                    // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                    appUpdateInfo,
+                    // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                    AppUpdateType.IMMEDIATE,
+                    // The current activity making the update request.
+                    this,
+                    // Include a request code to later monitor this update request.
+                    0
+                )
+            }
+        }
     }
 }
