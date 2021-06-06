@@ -85,6 +85,7 @@
     <string name="inputFOVHint">input FOV value</string>
     <string name="inputOldADSHint">input old ADS value</string>
     <string name="copy_start" translatable="false">R6 Siege Y5S3 ADS Sensitivity Calculator</string>
+    <string name="shareTitle">Share to:</string>
 
 
 </resources>
