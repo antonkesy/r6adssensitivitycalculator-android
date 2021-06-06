@@ -322,7 +322,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinner(startPos: Int) {
         val aspectRatios = listOf(
-            AspectRatioItem("16:9", 16.0 / 9),
+            AspectRatioItem("16:9 (Auto)", 16.0 / 9),
             AspectRatioItem("16:10", 16.0 / 10),
             AspectRatioItem("4:3", 4.0 / 3),
             AspectRatioItem("3:2", 3.0 / 2),
