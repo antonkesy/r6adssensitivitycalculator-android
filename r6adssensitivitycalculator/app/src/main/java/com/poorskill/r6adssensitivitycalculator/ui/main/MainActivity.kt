@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +18,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
@@ -53,6 +55,10 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
         val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
         setupViews(motionLayout)
+
+        if (UserPreferencesManager.getUsage(this) > 5) {
+            checkInAppReview()
+        }
     }
 
     private fun updateFOV(value: Int) {
@@ -297,6 +303,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads6.text = adsValues[6].toString()
             ads7.text = adsValues[7].toString()
             isStartLayout = false
+            UserPreferencesManager.incrementUsage(this)
         }
 
         findViewById<TextView>(R.id.oldAdsTV).setOnClickListener {
@@ -511,6 +518,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                     // Include a request code to later monitor this update request.
                     0
                 )
+            }
+        }
+    }
+
+    private fun checkInAppReview() {
+        val manager = ReviewManagerFactory.create(this)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            Log.d("ps", "Check inapp rev")
+            if (task.isSuccessful) {
+                Log.d("ps", "inapp rev succ")
+                // We got the ReviewInfo object
+                val reviewInfo = task.result
+                manager.launchReviewFlow(this, reviewInfo)
             }
         }
     }
