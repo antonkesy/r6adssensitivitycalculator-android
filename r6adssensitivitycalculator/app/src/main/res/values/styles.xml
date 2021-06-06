@@ -16,8 +16,8 @@
         <item name="colorPrimary">#CBA746</item>
         <item name="colorPrimaryDark">#CBA746</item>
         <!-- ^^ -->
-        <item name="colorAccent">#5B5D5B</item>
-        <item name="color">#060C0D</item>
+        <item name="colorAccent">#BF9445</item>
+        <item name="color">@color/white</item>
     </style>
 
     <style name="ThemeSkullRain" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
