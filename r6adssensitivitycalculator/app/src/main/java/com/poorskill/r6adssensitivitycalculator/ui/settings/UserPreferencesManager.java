@@ -12,9 +12,9 @@ import java.util.Locale;
 
 public class UserPreferencesManager {
     private static final String prefADSKey = "adsKey";
-    private static final String prefFOVKey = "fKey";
-    private static final String prefPosAspectRatioKey = "aKey";
-    private static final String prefUsageKey = "uKey";
+    private static final String prefFOVKey = "fovKey";
+    private static final String prefPosAspectRatioKey = "aspKey";
+    private static final String prefUsageKey = "useKey";
 
     private static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
