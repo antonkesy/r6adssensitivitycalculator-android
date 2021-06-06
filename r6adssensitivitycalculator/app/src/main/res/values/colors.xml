@@ -5,7 +5,7 @@
     <!-- background theme colors -->
     <color name="backgroundDark">#141414</color>
     <color name="backgroundLight">#FFFFFF</color>
-    <color name="backgroundBlackIce">#FFFFFF</color>
+    <color name="backgroundBlackIce">#2F476C</color>
     <color name="backgroundDustLine">#FFFFFF</color>
     <color name="backgroundSkullRain">#FFFFFF</color>
     <color name="backgroundRedCrow">#FFFFFF</color>
