@@ -268,7 +268,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             adsViewClickListener(7, "ADS 12x")
         )
 
-        findViewById<View>(R.id.btn_share).setOnClickListener {
+        findViewById<View>(R.id.btnCopyAll).setOnClickListener {
             copyValueToClipboard(
                 convertAllValuesToString(),
                 getString(R.string.everything)
@@ -308,7 +308,11 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             imm.showSoftInput(fovEdit, InputMethodManager.SHOW_IMPLICIT)
             fovEdit.setSelection(fovEdit.text.length)
         }
+
+        findViewById<Button>(R.id.btnShare).setOnClickListener { shareADSValues() }
+        findViewById<Button>(R.id.btnFavorite).setOnClickListener { favButtonClick() }
     }
+
 
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
@@ -463,5 +467,20 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    private fun shareADSValues() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT, convertAllValuesToString())
+        intent.type = "text/plain"
+        startActivity(
+            Intent.createChooser(
+                intent,
+                getString(R.string.shareTitle)
+            )
+        )
+    }
 
+    private fun favButtonClick() {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this.getString(R.string.rateAppURL))))
+    }
 }
