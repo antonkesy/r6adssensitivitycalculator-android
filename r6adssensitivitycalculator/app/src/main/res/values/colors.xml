@@ -9,6 +9,6 @@
     <color name="backgroundDustLine">#73664F</color>
     <color name="backgroundSkullRain">#0C250E</color>
     <color name="backgroundRedCrow">#F3800601</color>
-    <color name="backgroundVelvetShell">#FFFFFF</color>
-    <color name="backgroundHealth">#FFFFFF</color>
+    <color name="backgroundVelvetShell">#542A7A</color>
+    <color name="backgroundHealth">#2C3359</color>
 </resources>
