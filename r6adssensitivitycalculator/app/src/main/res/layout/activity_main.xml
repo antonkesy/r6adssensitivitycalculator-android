@@ -12,6 +12,7 @@
     tools:context=".ui.main.MainActivity">
 
     <include
+        android:id="@+id/include1"
         layout="@layout/old_value_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
+        android:id="@+id/include2"
         layout="@layout/new_value_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
