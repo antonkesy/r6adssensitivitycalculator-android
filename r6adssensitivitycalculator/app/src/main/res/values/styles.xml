@@ -26,8 +26,8 @@
         <item name="colorPrimary">#4A8B3B</item>
         <item name="colorPrimaryDark">#4A8B3B</item>
         <!-- ^^ -->
-        <item name="colorAccent">#5B5D5B</item>
-        <item name="color">#060C0D</item>
+        <item name="colorAccent">#1B4C22</item>
+        <item name="color">@color/white</item>
     </style>
 
 
