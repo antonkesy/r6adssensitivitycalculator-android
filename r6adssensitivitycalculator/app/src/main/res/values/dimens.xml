@@ -3,5 +3,6 @@
     <dimen name="seek_bar_thickness">6dp</dimen>
     <dimen name="seek_bar_thumb_size">20dp</dimen>
     <dimen name="text_size_values">30sp</dimen>
-    <dimen name="text_size_button">15sp</dimen>
+    <dimen name="text_size_button">20sp</dimen>
+    <dimen name="button_height">60dp</dimen>
 </resources>
