@@ -1,21 +1,96 @@
 <resources>
+    <!-- todo change action bar text color -->
+    <style name="ThemeBlackIce" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundBlackIce</item>
+        <!-- same -->
+        <item name="colorPrimary">#4190B3</item>
+        <item name="colorPrimaryDark">#4190B3</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#A0BED9</item>
+        <item name="color">#FFFFFF</item>
+    </style>
 
-    <style name="text_view_info">
+    <style name="ThemeDustLine" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundDustLine</item>
+        <!-- same -->
+        <item name="colorPrimary">#CBA746</item>
+        <item name="colorPrimaryDark">#CBA746</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#BF9445</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="ThemeSkullRain" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundSkullRain</item>
+        <!-- same -->
+        <item name="colorPrimary">#4A8B3B</item>
+        <item name="colorPrimaryDark">#4A8B3B</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#1B4C22</item>
+        <item name="color">@color/white</item>
+    </style>
+
+
+    <style name="ThemeRedCrow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundRedCrow</item>
+        <!-- same -->
+        <item name="colorPrimary">#B7242E</item>
+        <item name="colorPrimaryDark">#B7242E</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#FB0015</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="ThemeVelvetShell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundVelvetShell</item>
+        <!-- same -->
+        <item name="colorPrimary">#722493</item>
+        <item name="colorPrimaryDark">#722493</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#A33FC5</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="ThemeHealth" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundHealth</item>
+        <!-- same -->
+        <item name="colorPrimary">#2845B3</item>
+        <item name="colorPrimaryDark">#2845B3</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#2646A6</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="equalsBinderNewValues">
         <item name="android:gravity">center</item>
         <item name="android:textColor">?color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:text">@string/equals</item>
     </style>
 
     <style name="edit_text_number_input">
         <item name="android:gravity">center</item>
         <item name="android:textColor">?color</item>
+        <item name="android:textSize">@dimen/text_size_values</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5sp</item>
+        <item name="android:layout_marginBottom">10sp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:inputType">number</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:digits">0123456789</item>
     </style>
 
     <style name="about_topic">
         <item name="android:gravity">center</item>
         <item name="textAllCaps">true</item>
+        <item name="android:textColor">?color</item>
     </style>
 
     <style name="about_content">
+        <item name="android:textColor">?color</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -32,4 +107,70 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="oldTextView">
+        <item name="android:textColor">?color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="seekBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">5sp</item>
+        <item name="android:layout_marginEnd">5sp</item>
+        <item name="android:progressDrawable">@drawable/seek_bar</item>
+        <item name="android:thumb">@drawable/seek_thumb</item>
+
+    </style>
+
+
+    <style name="oldLinearLayoutGroup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">35dp</item>
+        <item name="android:orientation">vertical</item>
+
+    </style>
+
+
+    <style name="newLinearLayoutGroup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+    <style name="newValueTextView">
+        <item name="android:textSize">@dimen/text_size_small_values</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="ButtonIconOnly" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">@dimen/button_height</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">?color</item>
+    </style>
 </resources>

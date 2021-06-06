@@ -1,15 +1,6 @@
 <resources>
     <string name="app_name">ADS Calculator</string>
-    <string name="first_fragment_label">Old Values Fragment</string>
-    <string name="second_fragment_label">New Values Fragment</string>
-    <string name="input_old_ads_value">Input your old ADS sensitivity value</string>
     <string name="btn_calculate">calculate</string>
-    <string name="input_fov_value">Input your FOV value from the menu (degrees)</string>
-    <string name="input_aspect_ratio_width">Input your aspect ratio width</string>
-    <string name="input_aspect_ratio_height">Input your aspect ratio height</string>
-    <string name="text_aspect_ratio">Aspect Ratio</string>
-    <string name="btn_edit_values">re-calculate</string>
-    <string name="btn_copy_all">copy values</string>
     <string name="action_about">About</string>
     <string name="action_help">Help</string>
 
@@ -21,11 +12,6 @@
     <string name="rateApp">Rate App</string>
     <string name="version">VERSION</string>
 
-    <string name="_9">9</string>
-    <string name="_16">16</string>
-    <string name="_60">60</string>
-    <string name="_20">20</string>
-    <string name="missingEditText">Please fill out all input fields with valid values</string>
     <string name="settingsTitle">Settings</string>
     <string name="aboutTitle">About</string>
     <!-- Preference Titles -->
@@ -45,7 +31,6 @@
     <string name="japanese">Japanese*</string>
     <string name="portuguese">Portuguese*</string>
     <string name="italian">Italian*</string>
-    <string name="persian">Persian*</string>
     <string name="polish">Polish*</string>
     <string name="hindi">Hindi*</string>
     <string name="chinese">Chinese*</string>
@@ -60,4 +45,12 @@
     <string name="copied">"copied "</string>
     <string name="toClipboard">" to clipboard"</string>
     <string name="everything">everything</string>
+    <string name="fov">FOV</string>
+    <string name="old_ads">Old ADS</string>
+    <string name="aspect_ratio">Aspect Ratio</string>
+    <string name="inputFOVHint">input FOV value</string>
+    <string name="inputOldADSHint">input old ADS value</string>
+    <string name="shareTitle">Share to:</string>
+    <string name="tooBig">too big</string>
+    <string name="tooSmall">too small</string>
 </resources>

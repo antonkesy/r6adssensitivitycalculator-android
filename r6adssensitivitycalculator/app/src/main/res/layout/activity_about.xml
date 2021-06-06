@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?background"
     tools:context=".ui.about.AboutActivity">
 
     <ImageView
@@ -26,6 +27,7 @@
             android:padding="@dimen/about_padding">
 
             <TextView
+
                 style="@style/about_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
