@@ -45,7 +45,7 @@ public class UserPreferencesManager {
     }
 
     public static int getFOV(Context context) {
-        return getSharedPreferences(context).getInt(prefFOVKey, 50);
+        return getSharedPreferences(context).getInt(prefFOVKey, 60);
     }
 
     public static void setFOV(Context context, int value) {
