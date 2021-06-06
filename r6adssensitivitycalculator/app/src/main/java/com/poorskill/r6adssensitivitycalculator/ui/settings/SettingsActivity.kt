@@ -14,9 +14,9 @@ class SettingsActivity : BaseActivity() {
         setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.settings, SettingsFragment())
-                    .commit()
+                .beginTransaction()
+                .replace(R.id.settings, SettingsFragment())
+                .commit()
         }
         setTitle(R.string.settingsTitle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -33,7 +33,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(),
-            SharedPreferences.OnSharedPreferenceChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -47,7 +47,7 @@ class SettingsActivity : BaseActivity() {
         }
 
         private fun changeLanguage() {
-            PlayerPreferences.updateLanguage(requireContext())
+            UserPreferencesManager.updateLanguage(requireContext())
             val intent = activity?.intent
             this.activity?.finish()
             startActivity(intent)
