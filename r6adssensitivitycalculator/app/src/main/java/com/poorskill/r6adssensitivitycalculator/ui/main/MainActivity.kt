@@ -119,7 +119,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                     } else {
                         Toast.makeText(
                             this,
-                            if (fovValue > fovMax) "too big" else "too small",
+                            if (fovValue > fovMax) getString(R.string.tooBig) else getString(R.string.tooSmall),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -162,7 +162,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                     } else {
                         Toast.makeText(
                             this,
-                            if (adsValue > adsMax) "too big" else "too small",
+                            if (adsValue > adsMax) getString(R.string.tooBig) else getString(R.string.tooSmall),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
