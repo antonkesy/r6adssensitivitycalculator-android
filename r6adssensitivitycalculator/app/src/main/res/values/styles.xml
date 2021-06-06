@@ -32,13 +32,13 @@
 
 
     <style name="ThemeRedCrow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="background">@color/backgroundLight</item>
+        <item name="background">@color/backgroundRedCrow</item>
         <!-- same -->
         <item name="colorPrimary">#B7242E</item>
         <item name="colorPrimaryDark">#B7242E</item>
         <!-- ^^ -->
-        <item name="colorAccent">#5B5D5B</item>
-        <item name="color">#060C0D</item>
+        <item name="colorAccent">#FB0015</item>
+        <item name="color">@color/white</item>
     </style>
 
     <style name="ThemeVelvetShell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -52,7 +52,7 @@
     </style>
 
     <style name="ThemeHealth" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="background">@color/backgroundLight</item>
+        <item name="background">@color/backgroundHealth</item>
         <!-- same -->
         <item name="colorPrimary">#2845B3</item>
         <item name="colorPrimaryDark">#2845B3</item>
