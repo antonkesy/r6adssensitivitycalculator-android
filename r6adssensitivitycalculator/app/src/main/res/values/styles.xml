@@ -86,9 +86,11 @@
     <style name="about_topic">
         <item name="android:gravity">center</item>
         <item name="textAllCaps">true</item>
+        <item name="android:textColor">?color</item>
     </style>
 
     <style name="about_content">
+        <item name="android:textColor">?color</item>
         <item name="android:gravity">center</item>
     </style>
 
