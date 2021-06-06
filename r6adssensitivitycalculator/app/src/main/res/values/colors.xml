@@ -2,6 +2,13 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <!-- background theme colors -->
     <color name="backgroundDark">#141414</color>
     <color name="backgroundLight">#FFFFFF</color>
+    <color name="backgroundBlackIce">#FFFFFF</color>
+    <color name="backgroundDustLine">#FFFFFF</color>
+    <color name="backgroundSkullRain">#FFFFFF</color>
+    <color name="backgroundRedCrow">#FFFFFF</color>
+    <color name="backgroundVelvetShell">#FFFFFF</color>
+    <color name="backgroundHealth">#FFFFFF</color>
 </resources>

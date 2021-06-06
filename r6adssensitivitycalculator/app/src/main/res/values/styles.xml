@@ -1,5 +1,67 @@
 <resources>
 
+    <style name="ThemeBlackIce" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundBlackIce</item>
+        <!-- same -->
+        <item name="colorPrimary">#00A6E6</item>
+        <item name="colorPrimaryDark">#0D7AA5</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+    <style name="ThemeDustLine" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundDustLine</item>
+        <!-- same -->
+        <item name="colorPrimary">#CBA746</item>
+        <item name="colorPrimaryDark">#CBA746</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+    <style name="ThemeSkullRain" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundSkullRain</item>
+        <!-- same -->
+        <item name="colorPrimary">#4A8B3B</item>
+        <item name="colorPrimaryDark">#4A8B3B</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+
+    <style name="ThemeRedCrow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundLight</item>
+        <!-- same -->
+        <item name="colorPrimary">#B7242E</item>
+        <item name="colorPrimaryDark">#B7242E</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+    <style name="ThemeVelvetShell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundVelvetShell</item>
+        <!-- same -->
+        <item name="colorPrimary">#722493</item>
+        <item name="colorPrimaryDark">#722493</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+    <style name="ThemeHealth" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="background">@color/backgroundLight</item>
+        <!-- same -->
+        <item name="colorPrimary">#2845B3</item>
+        <item name="colorPrimaryDark">#2845B3</item>
+        <!-- ^^ -->
+        <item name="colorAccent">#5B5D5B</item>
+        <item name="color">#060C0D</item>
+    </style>
+
+
     <style name="equalsBinderNewValues">
         <item name="android:gravity">center</item>
         <item name="android:textColor">?color</item>

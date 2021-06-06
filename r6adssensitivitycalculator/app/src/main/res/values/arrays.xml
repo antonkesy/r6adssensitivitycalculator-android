@@ -4,11 +4,23 @@
         <item>@string/system</item>
         <item>@string/light</item>
         <item>@string/dark</item>
+        <item>@string/blackIce</item>
+        <item>@string/dustLine</item>
+        <item>@string/skullRain</item>
+        <item>@string/redCrow</item>
+        <item>@string/velvetShell</item>
+        <item>@string/health</item>
     </string-array>
     <string-array name="theme_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
     </string-array>
     <!-- Language Preference -->
     <string-array name="language_entries">
@@ -51,4 +63,11 @@
         <item>21:9</item>
     </string-array>
 
+    <string name="blue">Blue</string>
+    <string name="blackIce">Black Ice</string>
+    <string name="dustLine">Dust Line</string>
+    <string name="skullRain">Skull Rain</string>
+    <string name="velvetShell">Velvet Shell</string>
+    <string name="health">Health</string>
+    <string name="redCrow">Red Crow</string>
 </resources>

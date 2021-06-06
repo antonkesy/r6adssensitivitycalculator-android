@@ -22,32 +22,45 @@ abstract class PlayerPreferences {
             return PreferenceManager.getDefaultSharedPreferences(context)
         }
 
-        internal fun setApplicationThemePreferences(theme: Theme, context: Context) {
+        private fun setApplicationThemePreferences(theme: Theme, context: Context) {
             val themeId: Int = when (theme) {
+                Theme.System -> 0
                 Theme.Light -> 1
                 Theme.Dark -> 2
-                Theme.System -> 0
+                Theme.BlackIce -> 3
+                Theme.DustLine -> 4
+                Theme.SkullRain -> 5
+                Theme.RedCrow -> 6
+                Theme.VelvetShell -> 7
+                Theme.Health -> 8
             }
             getPrefsEditor(context).putInt(
-                    context.getString(R.string.prefApplicationThemePrefKey),
-                    themeId
+                context.getString(R.string.prefApplicationThemePrefKey),
+                themeId
             ).apply()
         }
 
         internal fun getApplicationThemePreferences(context: Context): Theme {
             //Shared Pref Correction without losing data
             if (getSharedPreferences(context).getString(
-                            context.getString(R.string.prefApplicationThemePrefKey),
-                            "0"
-                    ).equals(context.getString(R.string.systemKey))) {
+                    context.getString(R.string.prefApplicationThemePrefKey),
+                    "0"
+                ).equals(context.getString(R.string.systemKey))
+            ) {
                 setApplicationThemePreferences(Theme.System, context)
             }
             return when (getSharedPreferences(context).getString(
-                    context.getString(R.string.prefApplicationThemePrefKey),
-                    "0"
+                context.getString(R.string.prefApplicationThemePrefKey),
+                "0"
             )!!.toInt()) {
                 1 -> Theme.Light
                 2 -> Theme.Dark
+                3 -> Theme.BlackIce
+                4 -> Theme.DustLine
+                5 -> Theme.SkullRain
+                6 -> Theme.RedCrow
+                7 -> Theme.VelvetShell
+                8 -> Theme.Health
                 else ->
                     Theme.System
             }
@@ -56,8 +69,8 @@ abstract class PlayerPreferences {
 
         internal fun updateLanguage(context: Context) {
             var languageCode = getSharedPreferences(context).getString(
-                    context.getString(R.string.prefApplicationLanguagePrefKey),
-                    context.getString(R.string.systemKey)
+                context.getString(R.string.prefApplicationLanguagePrefKey),
+                context.getString(R.string.systemKey)
             )
             if (languageCode.equals(context.getString(R.string.systemKey))) {
                 languageCode = defaultLocale.language
