@@ -29,7 +29,8 @@
             android:id="@+id/oldAdsEdit"
             style="@style/edit_text_number_input"
             android:autofillHints="@string/inputOldADSHint"
-            android:hint="@string/inputOldADSHint" />
+            android:hint="@string/inputOldADSHint"
+            android:maxLength="3" />
 
         <SeekBar
             android:id="@+id/adsSeekBar"
@@ -51,7 +52,8 @@
             android:id="@+id/fovEdit"
             style="@style/edit_text_number_input"
             android:autofillHints="@string/inputFOVHint"
-            android:hint="@string/inputFOVHint" />
+            android:hint="@string/inputFOVHint"
+            android:maxLength="2" />
 
         <SeekBar
             android:id="@+id/fovSeekBar"
