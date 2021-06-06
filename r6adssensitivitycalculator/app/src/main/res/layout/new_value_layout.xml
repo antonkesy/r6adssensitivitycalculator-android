@@ -152,7 +152,8 @@
             android:layout_marginEnd="5sp"
             android:layout_weight="1"
             android:text="@string/btn_edit_values"
-            android:textColor="?color" />
+            android:textColor="?color"
+            android:textSize="@dimen/text_size_button" />
 
         <Button
             android:id="@+id/btn_share"
@@ -162,7 +163,8 @@
             android:layout_marginStart="5sp"
             android:layout_weight="1"
             android:text="@string/btn_copy_all"
-            android:textColor="?color" />
+            android:textColor="?color"
+            android:textSize="@dimen/text_size_button" />
 
     </LinearLayout>
 
