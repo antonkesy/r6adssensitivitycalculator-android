@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnCalculate"
         android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/adsLayout"
@@ -95,7 +95,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/btn_calculate"
         android:textColor="?color"
         android:textSize="@dimen/text_size_button" />

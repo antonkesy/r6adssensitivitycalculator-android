@@ -83,6 +83,7 @@
         <item name="android:digits">0123456789</item>
     </style>
 
+
     <style name="about_topic">
         <item name="android:gravity">center</item>
         <item name="textAllCaps">true</item>
@@ -119,23 +120,23 @@
         <item name="android:textSize">30sp</item>
     </style>
 
+
     <style name="seekBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">5sp</item>
-        <item name="android:layout_marginEnd">5sp</item>
+        <item name="android:layout_margin">5sp</item>
         <item name="android:progressDrawable">@drawable/seek_bar</item>
         <item name="android:thumb">@drawable/seek_thumb</item>
-
     </style>
 
 
     <style name="oldLinearLayoutGroup">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">35dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:orientation">vertical</item>
-
     </style>
 
 
@@ -143,8 +144,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginBottom">15dp</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:layout_weight">1</item>
     </style>
 
