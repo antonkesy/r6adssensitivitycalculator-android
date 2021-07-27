@@ -20,7 +20,7 @@
     <string name="privacyPolicyURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
     <string name="sourceCodeURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android</string>
     <string name="reportBugURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/issues</string>
-    <string name="rateAppURL" translatable="false">https://play.google.com/store/apps/details?id=com.antonkesy.r6adssensitivitycalculator</string>
+    <string name="rateAppURL" translatable="false">https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator</string>
     <string name="contactMail" translatable="false">info@poorskill.com</string>
     <string name="website">Website</string>
     <string name="privacyPolicy">Privacy Policy</string>
