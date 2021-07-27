@@ -147,7 +147,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEditValues"
+            android:id="@+id/btnBack"
             style="@style/ButtonIconOnly"
             android:layout_marginEnd="25dp"
             app:icon="@drawable/ic_baseline_edit_24" />

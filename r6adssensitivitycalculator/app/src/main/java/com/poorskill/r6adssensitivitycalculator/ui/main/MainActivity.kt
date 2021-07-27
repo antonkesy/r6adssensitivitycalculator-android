@@ -285,7 +285,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             )
         }
 
-        findViewById<Button>(R.id.btnEditValues).setOnClickListener {
+        findViewById<Button>(R.id.btnBack).setOnClickListener {
             motionLayout.transitionToStart()
             isStartLayout = true
         }
