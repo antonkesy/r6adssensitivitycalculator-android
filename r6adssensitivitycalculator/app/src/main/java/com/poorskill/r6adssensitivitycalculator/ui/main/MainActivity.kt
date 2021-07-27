@@ -321,7 +321,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         }
 
         findViewById<Button>(R.id.btnShare).setOnClickListener { shareADSValues() }
-        findViewById<Button>(R.id.btnFavorite).setOnClickListener { favButtonClick() }
+        findViewById<Button>(R.id.btnHelp).setOnClickListener { helpButtonClick() }
     }
 
 
@@ -491,8 +491,13 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         )
     }
 
-    private fun favButtonClick() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this.getString(R.string.rateAppURL))))
+    private fun helpButtonClick() {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(this.getString(R.string.ubisoftHelpURL))
+            )
+        )
     }
 
     private fun checkInAppUpdate() {
