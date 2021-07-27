@@ -17,10 +17,10 @@
 
     <string name="copyrightAntonKesy" translatable="false">by Anton Kesy</string>
     <string name="poorskillWebsite" translatable="false">https://www.poorskill.com</string>
-    <string name="privacyPolicyURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
-    <string name="sourceCodeURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android</string>
-    <string name="reportBugURL" translatable="false">https://github.com/PoorSkill/r6adssensitivitycalculator-android/issues</string>
-    <string name="rateAppURL" translatable="false">https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator</string>
+    <string name="privacyPolicyURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
+    <string name="sourceCodeURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android</string>
+    <string name="reportBugURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/issues</string>
+    <string name="rateAppURL" translatable="false">https://play.google.com/store/apps/details?id=com.antonkesy.r6adssensitivitycalculator</string>
     <string name="contactMail" translatable="false">info@poorskill.com</string>
     <string name="website">Website</string>
     <string name="privacyPolicy">Privacy Policy</string>
@@ -73,7 +73,7 @@
     <string name="ubisoftHelpURL">https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3IMlDGlaRFgdvQNq3BOSFv/guide-to-ads-sensitivity-in-y5s3</string>
     <string name="copied">"copied "</string>
     <string name="toClipboard">" to clipboard"</string>
-    <string name="copyValues" translatable="false">Copie Values</string>
+    <string name="copyValues" translatable="false">Copy Values</string>
     <string name="everything">everything</string>
     <string name="fov">FOV</string>
     <string name="old_ads">Old ADS</string>
