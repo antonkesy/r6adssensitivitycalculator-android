@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -56,7 +55,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
         setupViews(motionLayout)
 
-        if (UserPreferencesManager.getUsage(this) > 5) {
+        if (UserPreferencesManager.getUsage(this) > 10) {
             checkInAppReview()
         }
     }
@@ -531,9 +530,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         val manager = ReviewManagerFactory.create(this)
         val request = manager.requestReviewFlow()
         request.addOnCompleteListener { task ->
-            Log.d("ps", "Check inapp rev")
+            //Log.d("ps", "Check inapp rev")
             if (task.isSuccessful) {
-                Log.d("ps", "inapp rev succ")
+                //Log.d("ps", "inapp rev succ")
                 // We got the ReviewInfo object
                 val reviewInfo = task.result
                 manager.launchReviewFlow(this, reviewInfo)
