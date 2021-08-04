@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "861700379809",
+    "project_id": "r6adscalculator-android",
+    "storage_bucket": "r6adscalculator-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861700379809:android:b54fe1aaa3da7fe6054ce0",
+        "android_client_info": {
+          "package_name": "com.poorskill.r6adssensitivitycalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861700379809-cgoa8qq3evr0j4jt6dh96h9ptj6dkqvf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZkt-eV5PIsP_g9S6tUaOVs_mJVajsLmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861700379809-cgoa8qq3evr0j4jt6dh96h9ptj6dkqvf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
