@@ -24,7 +24,7 @@ import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
-import com.poorskill.r6adssensitivitycalculator.ui.settings.UserPreferencesManager
+import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 
 
