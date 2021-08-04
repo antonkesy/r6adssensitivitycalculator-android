@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui.settings;
+package com.poorskill.r6adssensitivitycalculator.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.poorskill.r6adssensitivitycalculator.R;
+import com.poorskill.r6adssensitivitycalculator.ui.settings.Theme;
 
 import java.util.Locale;
 
