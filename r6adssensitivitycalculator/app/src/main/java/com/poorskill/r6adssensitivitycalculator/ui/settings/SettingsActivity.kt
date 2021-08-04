@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.preference.PreferenceFragmentCompat
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
+import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
 
 class SettingsActivity : BaseActivity() {
 
