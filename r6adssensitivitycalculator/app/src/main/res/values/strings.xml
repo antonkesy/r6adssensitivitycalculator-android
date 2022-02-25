@@ -16,7 +16,7 @@
     <string name="subtitle_text" translatable="false">ADS SENSITIVITY CALCULATOR</string>
 
     <string name="copyrightAntonKesy" translatable="false">by Anton Kesy</string>
-    <string name="poorskillWebsite" translatable="false">https://www.poorskill.com</string>
+    <string name="poorskillWebsite" translatable="false">https://www.antonkesy.de</string>
     <string name="privacyPolicyURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
     <string name="sourceCodeURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android</string>
     <string name="reportBugURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/issues</string>
