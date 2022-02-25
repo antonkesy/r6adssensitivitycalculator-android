@@ -85,5 +85,10 @@
     <string name="tooBig">too big</string>
     <string name="tooSmall">too small</string>
 
-
+    <string name="blackIce" translatable="false">Black Ice</string>
+    <string name="dustLine" translatable="false">Dust Line</string>
+    <string name="skullRain" translatable="false">Skull Rain</string>
+    <string name="velvetShell" translatable="false">Velvet Shell</string>
+    <string name="health" translatable="false">Health</string>
+    <string name="redCrow" translatable="false">Red Crow</string>
 </resources>
