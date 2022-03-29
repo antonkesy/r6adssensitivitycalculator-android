@@ -16,7 +16,7 @@
     <string name="subtitle_text" translatable="false">ADS SENSITIVITY CALCULATOR</string>
 
     <string name="copyrightAntonKesy" translatable="false">by Anton Kesy</string>
-    <string name="poorskillWebsite" translatable="false">https://www.poorskill.com</string>
+    <string name="poorskillWebsite" translatable="false">https://www.antonkesy.de</string>
     <string name="privacyPolicyURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/blob/main/store/privacy%20policy/privacy_policy.md</string>
     <string name="sourceCodeURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android</string>
     <string name="reportBugURL" translatable="false">https://github.com/antonkesy/r6adssensitivitycalculator-android/issues</string>
@@ -85,5 +85,10 @@
     <string name="tooBig">too big</string>
     <string name="tooSmall">too small</string>
 
-
+    <string name="blackIce" translatable="false">Black Ice</string>
+    <string name="dustLine" translatable="false">Dust Line</string>
+    <string name="skullRain" translatable="false">Skull Rain</string>
+    <string name="velvetShell" translatable="false">Velvet Shell</string>
+    <string name="health" translatable="false">Health</string>
+    <string name="redCrow" translatable="false">Red Crow</string>
 </resources>

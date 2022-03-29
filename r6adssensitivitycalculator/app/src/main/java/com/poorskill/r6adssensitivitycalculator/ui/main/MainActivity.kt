@@ -14,26 +14,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
+import com.poorskill.r6adssensitivitycalculator.settings.Settings
+import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
-import com.poorskill.r6adssensitivitycalculator.utility.FirebaseEventLogging
-import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
+    //TODO remove calculator/converter responsibilities from ui activity
     private val adsMin = 1
     private val adsMax = 100
 
@@ -47,9 +42,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private var isStartLayout = true
 
-    //firebase
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
+    private lateinit var settings: Settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,24 +50,21 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         supportActionBar?.title = getString(R.string.title_text)
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
-        // Obtain the FirebaseAnalytics instance.
-        firebaseAnalytics = Firebase.analytics
+        settings = UserPreferencesManager(this)
 
-        checkInAppUpdate()
+        with(GoogleServices(this, settings)) {
+            checkInAppUpdate()
+            checkInAppReview()
+        }
 
         val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
         setupViews(motionLayout)
 
-        val usage = UserPreferencesManager.getUsage(this)
-        FirebaseEventLogging.eventLogUserUsageStart(firebaseAnalytics, usage)
-        if (usage > 10) {
-            checkInAppReview()
-        }
     }
 
     private fun updateFOV(value: Int) {
         fov = value
-        UserPreferencesManager.setFOV(this, fov)
+        settings.putFOV(fov)
     }
 
     private fun updateFOVAndEditText(value: Int) {
@@ -89,7 +79,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun updateADS(value: Int) {
         oldAdsValue = value
-        UserPreferencesManager.setADS(this, oldAdsValue)
+        settings.putADS(oldAdsValue)
     }
 
     private fun updateADSAndEditText(value: Int) {
@@ -104,9 +94,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setupViews(motionLayout: MotionLayout) {
         //set defaults
-        val adsDefault = UserPreferencesManager.getADS(this)
-        val fovDefault = UserPreferencesManager.getFOV(this)
-        val posAspectRatioDefault = UserPreferencesManager.getAspectRatioPos(this)
+        val adsDefault = settings.getADS()
+        val fovDefault = settings.getFOV()
+        val posAspectRatioDefault = settings.getAspectRatioPos()
         //set val
         val adsSeekBar = findViewById<SeekBar>(R.id.adsSeekBar)
         val fovSeekBar = findViewById<SeekBar>(R.id.fovSeekBar)
@@ -294,24 +284,14 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 convertAllValuesToString(),
                 getString(R.string.everything)
             )
-            FirebaseEventLogging.eventLogCopyButton(firebaseAnalytics)
         }
 
         findViewById<Button>(R.id.btnBack).setOnClickListener {
             motionLayout.transitionToStart()
             isStartLayout = true
-            FirebaseEventLogging.eventLogBackButton(firebaseAnalytics)
         }
 
         findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-
-            FirebaseEventLogging.eventLogCalculateADS(
-                firebaseAnalytics,
-                oldAdsValue,
-                fov,
-                aspectRatio
-            )
-
             clearFocusFromEditTexts(adsEdit, fovEdit)
             motionLayout.transitionToEnd()
             calculateNewAdsValues()
@@ -324,7 +304,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads6.text = adsValues[6].toString()
             ads7.text = adsValues[7].toString()
             isStartLayout = false
-            UserPreferencesManager.incrementUsage(this)
+            settings.incrementUsage()
         }
 
         findViewById<TextView>(R.id.oldAdsTV).setOnClickListener {
@@ -341,21 +321,17 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             fovEdit.setSelection(fovEdit.text.length)
         }
 
-        findViewById<Button>(R.id.btnShare).setOnClickListener {
-            shareADSValues()
-            FirebaseEventLogging.eventLogAdsShareButtonClicked(firebaseAnalytics)
-        }
-        findViewById<Button>(R.id.btnHelp).setOnClickListener {
-            helpButtonClick()
-            FirebaseEventLogging.eventLogAdsHelpButtonClicked(firebaseAnalytics)
-        }
+        findViewById<Button>(R.id.btnShare).setOnClickListener { shareADSValues() }
+        findViewById<Button>(R.id.btnHelp).setOnClickListener { helpButtonClick() }
     }
 
 
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
-            FirebaseEventLogging.eventLogAdsViewClicked(firebaseAnalytics, name)
-            copyValueToClipboard(adsValues[adsValueIndex].toString(), name)
+            copyValueToClipboard(
+                adsValues[adsValueIndex].toString(),
+                name
+            )
         }
     }
 
@@ -400,7 +376,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         setAspectRatio(getAspectRatioFromArray(pos))
-        UserPreferencesManager.setAspectRatio(this, pos)
+        settings.putAspectRatio(pos)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
@@ -439,7 +415,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
 
     private fun calculateNewAdsValues() {
-        adsValues = SensitivityCalculator.calculateNewAdsSensitivity(
+        adsValues = R6Y5S3SensitivityConverter().calculateNewAdsSensitivity(
             oldAdsValue,
             fov,
             aspectRatio
@@ -476,7 +452,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun openAboutActivity() {
-        FirebaseEventLogging.eventLogOpenAbout(firebaseAnalytics)
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
     }
@@ -527,46 +502,5 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 Uri.parse(this.getString(R.string.ubisoftHelpURL))
             )
         )
-    }
-
-    private fun checkInAppUpdate() {
-        //https://developer.android.com/guide/playcore/in-app-updates/kotlin-java
-        val appUpdateManager = AppUpdateManagerFactory.create(this)
-// Returns an intent object that you use to check for an update.
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-// Checks that the platform will allow the specified type of update.
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                // This example applies an immediate update. To apply a flexible update
-                // instead, pass in AppUpdateType.FLEXIBLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-            ) {
-                // Request the update.
-                appUpdateManager.startUpdateFlowForResult(
-                    // Pass the intent that is returned by 'getAppUpdateInfo()'.
-                    appUpdateInfo,
-                    // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
-                    AppUpdateType.IMMEDIATE,
-                    // The current activity making the update request.
-                    this,
-                    // Include a request code to later monitor this update request.
-                    0
-                )
-            }
-        }
-    }
-
-    private fun checkInAppReview() {
-        val manager = ReviewManagerFactory.create(this)
-        val request = manager.requestReviewFlow()
-        request.addOnCompleteListener { task ->
-            //Log.d("ps", "Check inapp rev")
-            if (task.isSuccessful) {
-                //Log.d("ps", "inapp rev succ")
-                // We got the ReviewInfo object
-                val reviewInfo = task.result
-                manager.launchReviewFlow(this, reviewInfo)
-            }
-        }
     }
 }

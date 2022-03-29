@@ -52,10 +52,4 @@
         <item>@string/chineseKey</item>
     </string-array>
 
-    <string name="blackIce">Black Ice</string>
-    <string name="dustLine">Dust Line</string>
-    <string name="skullRain">Skull Rain</string>
-    <string name="velvetShell">Velvet Shell</string>
-    <string name="health">Health</string>
-    <string name="redCrow">Red Crow</string>
 </resources>
