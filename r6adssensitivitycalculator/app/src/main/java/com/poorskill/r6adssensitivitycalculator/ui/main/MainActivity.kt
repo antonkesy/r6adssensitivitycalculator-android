@@ -28,6 +28,7 @@ import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
+    //TODO remove calculator/converter responsibilities from ui activity
     private val adsMin = 1
     private val adsMax = 100
 
