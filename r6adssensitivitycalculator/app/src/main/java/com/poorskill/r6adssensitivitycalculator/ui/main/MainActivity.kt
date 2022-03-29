@@ -20,12 +20,13 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.calculator.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.settings.Settings
+import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
-import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
 
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
@@ -43,26 +44,29 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private var isStartLayout = true
 
+    private lateinit var settings: Settings
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.title = getString(R.string.title_text)
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
+        settings = UserPreferencesManager(this)
+
         checkInAppUpdate()
 
         val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
         setupViews(motionLayout)
 
-        val usage = UserPreferencesManager.getUsage(this)
-        if (usage > 10) {
+        if (settings.getUsage() > 10) {
             checkInAppReview()
         }
     }
 
     private fun updateFOV(value: Int) {
         fov = value
-        UserPreferencesManager.setFOV(this, fov)
+        settings.putFOV(fov)
     }
 
     private fun updateFOVAndEditText(value: Int) {
@@ -77,7 +81,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun updateADS(value: Int) {
         oldAdsValue = value
-        UserPreferencesManager.setADS(this, oldAdsValue)
+        settings.putADS(oldAdsValue)
     }
 
     private fun updateADSAndEditText(value: Int) {
@@ -92,9 +96,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun setupViews(motionLayout: MotionLayout) {
         //set defaults
-        val adsDefault = UserPreferencesManager.getADS(this)
-        val fovDefault = UserPreferencesManager.getFOV(this)
-        val posAspectRatioDefault = UserPreferencesManager.getAspectRatioPos(this)
+        val adsDefault = settings.getADS()
+        val fovDefault = settings.getFOV()
+        val posAspectRatioDefault = settings.getAspectRatioPos()
         //set val
         val adsSeekBar = findViewById<SeekBar>(R.id.adsSeekBar)
         val fovSeekBar = findViewById<SeekBar>(R.id.fovSeekBar)
@@ -302,7 +306,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             ads6.text = adsValues[6].toString()
             ads7.text = adsValues[7].toString()
             isStartLayout = false
-            UserPreferencesManager.incrementUsage(this)
+            settings.incrementUsage()
         }
 
         findViewById<TextView>(R.id.oldAdsTV).setOnClickListener {
@@ -374,7 +378,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         setAspectRatio(getAspectRatioFromArray(pos))
-        UserPreferencesManager.setAspectRatio(this, pos)
+        settings.putAspectRatio(pos)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {

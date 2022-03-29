@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.preference.PreferenceFragmentCompat
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
-import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
 
 class SettingsActivity : BaseActivity() {
 
@@ -48,7 +48,7 @@ class SettingsActivity : BaseActivity() {
         }
 
         private fun changeLanguage() {
-            UserPreferencesManager.updateLanguage(requireContext())
+            UserPreferencesManager(requireContext()).updateLanguage()
             val intent = activity?.intent
             this.activity?.finish()
             startActivity(intent)
