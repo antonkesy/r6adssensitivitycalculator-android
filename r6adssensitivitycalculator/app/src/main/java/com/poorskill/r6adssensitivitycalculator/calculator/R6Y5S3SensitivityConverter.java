@@ -1,10 +1,13 @@
-package com.poorskill.r6adssensitivitycalculator.utility;
+package com.poorskill.r6adssensitivitycalculator.calculator;
 
-public final class SensitivityCalculator {
+import androidx.annotation.NonNull;
+
+public final class R6Y5S3SensitivityConverter implements SensitivityConverter {
     private static final double[] fovMultiplier = {.9, .59, .49, .42, .35, .3, .22, .092};
     private static final double[] adsMultiplier = {.6, .59, .49, .42, .35, .3, .22, .14};
 
-    public static int[] calculateNewAdsSensitivity(int oldAds, int fov, double aspectRatio) {
+    @NonNull
+    public int[] calculateNewAdsSensitivity(int oldAds, int fov, double aspectRatio) {
         int[] result = new int[8];
         double horizontalFOV = calculateHorizontalFOV(fov, aspectRatio);
         double verticalFOV = horizontalFOV > 150 ? calculateVerticalFOV(aspectRatio) : fov;
@@ -15,19 +18,19 @@ public final class SensitivityCalculator {
         return result;
     }
 
-    private static double calculateFOVAdjustment(double fovMultiplier, double verticalFOV) {
+    private double calculateFOVAdjustment(double fovMultiplier, double verticalFOV) {
         return Math.tan(Math.toRadians(fovMultiplier * verticalFOV / 2.)) / Math.tan(Math.toRadians(verticalFOV / 2.));
     }
 
-    private static int calculateNewAds(double adsMultiplier, double fovAdjustment, double oldAds) {
+    private int calculateNewAds(double adsMultiplier, double fovAdjustment, double oldAds) {
         return (int) ((adsMultiplier / fovAdjustment) * oldAds);
     }
 
-    private static double calculateVerticalFOV(double aspectRatio) {
+    private double calculateVerticalFOV(double aspectRatio) {
         return 2 * Math.atan(Math.tan(Math.toRadians(75.)) / aspectRatio);
     }
 
-    public static double calculateHorizontalFOV(double verticalFOV, double aspectRatio) {
+    private double calculateHorizontalFOV(double verticalFOV, double aspectRatio) {
         return 2 * Math.atan(Math.tan(Math.toRadians(verticalFOV / 2.)) * aspectRatio);
     }
 }

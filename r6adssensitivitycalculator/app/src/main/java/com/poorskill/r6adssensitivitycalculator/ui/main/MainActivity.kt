@@ -19,13 +19,13 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.calculator.R6Y5S3SensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
@@ -413,7 +413,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
 
     private fun calculateNewAdsValues() {
-        adsValues = SensitivityCalculator.calculateNewAdsSensitivity(
+        adsValues = R6Y5S3SensitivityConverter().calculateNewAdsSensitivity(
             oldAdsValue,
             fov,
             aspectRatio
