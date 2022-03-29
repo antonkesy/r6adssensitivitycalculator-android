@@ -18,16 +18,12 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
-import com.poorskill.r6adssensitivitycalculator.utility.FirebaseEventLogging
 import com.poorskill.r6adssensitivitycalculator.utility.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.utility.SensitivityCalculator
 
@@ -47,18 +43,11 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private var isStartLayout = true
 
-    //firebase
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.title = getString(R.string.title_text)
         supportActionBar?.subtitle = getString(R.string.subtitle_text)
-
-        // Obtain the FirebaseAnalytics instance.
-        firebaseAnalytics = Firebase.analytics
 
         checkInAppUpdate()
 
@@ -66,7 +55,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         setupViews(motionLayout)
 
         val usage = UserPreferencesManager.getUsage(this)
-        FirebaseEventLogging.eventLogUserUsageStart(firebaseAnalytics, usage)
         if (usage > 10) {
             checkInAppReview()
         }
@@ -294,24 +282,14 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 convertAllValuesToString(),
                 getString(R.string.everything)
             )
-            FirebaseEventLogging.eventLogCopyButton(firebaseAnalytics)
         }
 
         findViewById<Button>(R.id.btnBack).setOnClickListener {
             motionLayout.transitionToStart()
             isStartLayout = true
-            FirebaseEventLogging.eventLogBackButton(firebaseAnalytics)
         }
 
         findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-
-            FirebaseEventLogging.eventLogCalculateADS(
-                firebaseAnalytics,
-                oldAdsValue,
-                fov,
-                aspectRatio
-            )
-
             clearFocusFromEditTexts(adsEdit, fovEdit)
             motionLayout.transitionToEnd()
             calculateNewAdsValues()
@@ -341,21 +319,17 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             fovEdit.setSelection(fovEdit.text.length)
         }
 
-        findViewById<Button>(R.id.btnShare).setOnClickListener {
-            shareADSValues()
-            FirebaseEventLogging.eventLogAdsShareButtonClicked(firebaseAnalytics)
-        }
-        findViewById<Button>(R.id.btnHelp).setOnClickListener {
-            helpButtonClick()
-            FirebaseEventLogging.eventLogAdsHelpButtonClicked(firebaseAnalytics)
-        }
+        findViewById<Button>(R.id.btnShare).setOnClickListener { shareADSValues() }
+        findViewById<Button>(R.id.btnHelp).setOnClickListener { helpButtonClick() }
     }
 
 
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
-            FirebaseEventLogging.eventLogAdsViewClicked(firebaseAnalytics, name)
-            copyValueToClipboard(adsValues[adsValueIndex].toString(), name)
+            copyValueToClipboard(
+                adsValues[adsValueIndex].toString(),
+                name
+            )
         }
     }
 
@@ -476,7 +450,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun openAboutActivity() {
-        FirebaseEventLogging.eventLogOpenAbout(firebaseAnalytics)
         val intent = Intent(this, AboutActivity::class.java)
         startActivity(intent)
     }
