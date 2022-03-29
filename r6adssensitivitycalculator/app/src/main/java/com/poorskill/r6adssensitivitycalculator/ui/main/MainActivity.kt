@@ -15,7 +15,7 @@ import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
 import com.poorskill.r6adssensitivitycalculator.R
-import com.poorskill.r6adssensitivitycalculator.calculator.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager

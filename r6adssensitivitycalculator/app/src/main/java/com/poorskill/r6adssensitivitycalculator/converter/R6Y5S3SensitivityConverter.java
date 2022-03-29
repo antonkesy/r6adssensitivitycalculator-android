@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.calculator;
+package com.poorskill.r6adssensitivitycalculator.converter;
 
 import androidx.annotation.NonNull;
 
