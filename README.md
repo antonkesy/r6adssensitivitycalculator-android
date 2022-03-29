@@ -27,9 +27,7 @@ I got the disease of changing my gaming settings every match ... :( Ubisoft chan
 
 ## Install
 
-APK Link and GooglePlayStore Link
-
-[GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator "Rainbow Six Siege Y5S3 ADS Sensitivity Calculator on GooglePlayStore") or [download the APK from this repository](r6adssensitivitycalculator/app/release/r6adssensitivitycalculator.apk)
+[GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator "Rainbow Six Siege Y5S3 ADS Sensitivity Calculator on GooglePlayStore")
 
 ## License
 
