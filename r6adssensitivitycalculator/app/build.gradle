@@ -10,8 +10,8 @@ android {
         applicationId "com.poorskill.r6adssensitivitycalculator"
         minSdkVersion 14
         targetSdkVersion 31
-        versionCode 15
-        versionName "4.5"
+        versionCode 17
+        versionName "4.6"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
