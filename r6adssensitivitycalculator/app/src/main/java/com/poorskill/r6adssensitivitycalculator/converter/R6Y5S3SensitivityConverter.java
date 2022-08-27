@@ -7,7 +7,7 @@ public final class R6Y5S3SensitivityConverter implements SensitivityConverter {
     private static final double[] adsMultiplier = {.6, .59, .49, .42, .35, .3, .22, .14};
 
     @NonNull
-    public int[] calculateNewAdsSensitivity(int oldAds, int fov, double aspectRatio) {
+    public Sensitivity calculateNewAdsSensitivity(int oldAds, int fov, double aspectRatio) {
         int[] result = new int[8];
         double horizontalFOV = calculateHorizontalFOV(fov, aspectRatio);
         double verticalFOV = horizontalFOV > 150 ? calculateVerticalFOV(aspectRatio) : fov;
@@ -15,7 +15,7 @@ public final class R6Y5S3SensitivityConverter implements SensitivityConverter {
         for (int i = 0; i < result.length; ++i) {
             result[i] = calculateNewAds(adsMultiplier[i], calculateFOVAdjustment(fovMultiplier[i], verticalFOV), oldAds);
         }
-        return result;
+        return new Sensitivity(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7]);
     }
 
     private double calculateFOVAdjustment(double fovMultiplier, double verticalFOV) {

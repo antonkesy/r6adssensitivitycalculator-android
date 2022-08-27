@@ -16,6 +16,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.converter.SensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
@@ -38,7 +39,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private var oldAdsValue = 50 //game default
     private var fov = 75 //game default
     private var aspectRatio = (16.0 / 9) //game default 16:9
-    private var adsValues = IntArray(8)
+    private lateinit var adsValues : SensitivityConverter.Sensitivity
 
     private var isStartLayout = true
 
@@ -295,14 +296,14 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             clearFocusFromEditTexts(adsEdit, fovEdit)
             motionLayout.transitionToEnd()
             calculateNewAdsValues()
-            ads0.text = adsValues[0].toString()
-            ads1.text = adsValues[1].toString()
-            ads2.text = adsValues[2].toString()
-            ads3.text = adsValues[3].toString()
-            ads4.text = adsValues[4].toString()
-            ads5.text = adsValues[5].toString()
-            ads6.text = adsValues[6].toString()
-            ads7.text = adsValues[7].toString()
+            ads0.text = adsValues.x1.toString()
+            ads1.text = adsValues.x1_5.toString()
+            ads2.text = adsValues.x2.toString()
+            ads3.text = adsValues.x2_5.toString()
+            ads4.text = adsValues.x3.toString()
+            ads5.text = adsValues.x4.toString()
+            ads6.text = adsValues.x5.toString()
+            ads7.text = adsValues.x12.toString()
             isStartLayout = false
             settings.incrementUsage()
         }
@@ -329,7 +330,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
             copyValueToClipboard(
-                adsValues[adsValueIndex].toString(),
+                adsValues.asArray()[adsValueIndex].toString(),
                 name
             )
         }
@@ -402,14 +403,14 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private fun convertAllValuesToString(): String {
         return """
              ${resources.getString(R.string.copy_start)}
-             ADS 1x = ${adsValues[0]}
-             ADS 1.5x = ${adsValues[1]}
-             ADS 2x = ${adsValues[2]}
-             ADS 2.5x = ${adsValues[3]}
-             ADS 3x = ${adsValues[4]}
-             ADS 4x = ${adsValues[5]}
-             ADS 5x = ${adsValues[6]}
-             ADS 12x = ${adsValues[7]}
+             ADS 1x = ${adsValues.x1}
+             ADS 1.5x = ${adsValues.x1_5}
+             ADS 2x = ${adsValues.x2}
+             ADS 2.5x = ${adsValues.x2_5}
+             ADS 3x = ${adsValues.x3}
+             ADS 4x = ${adsValues.x4}
+             ADS 5x = ${adsValues.x5}
+             ADS 12x = ${adsValues.x12}
              """.trimIndent()
     }
 
