@@ -1,18 +1,24 @@
 package com.poorskill.r6adssensitivitycalculator.converter
 
 import kotlin.math.*
+import com.poorskill.r6adssensitivitycalculator.data.RangedValue
+import com.poorskill.r6adssensitivitycalculator.data.AspectRatios
 
 class R6Y5S3SensitivityConverter : SensitivityConverter {
     private val fovMultiplier = doubleArrayOf(0.9, 0.59, 0.49, 0.42, 0.35, 0.3, 0.22, 0.092)
     private val adsMultiplier = doubleArrayOf(0.6, 0.59, 0.49, 0.42, 0.35, 0.3, 0.22, 0.14)
 
-    override fun calculateNewAdsSensitivity(oldAds: Int, fov: Int, aspectRatio: Double): SensitivityConverter.Sensitivity {
+    val ads = RangedValue(min = 1, max = 100, value = 50)
+    val fov = RangedValue(min = 60, max = 90, value = 70)
+    var aspectRatio = AspectRatios.getAll().first()
+
+    override fun calculateNewAdsSensitivity(): SensitivityConverter.Sensitivity {
         val result = IntArray(8)
-        val horizontalFOV = calculateHorizontalFOV(fov.toDouble(), aspectRatio)
-        val verticalFOV = if (horizontalFOV > 150) calculateVerticalFOV(aspectRatio) else fov.toDouble()
+        val horizontalFOV = calculateHorizontalFOV(fov.value.toDouble(), aspectRatio.value)
+        val verticalFOV = if (horizontalFOV > 150) calculateVerticalFOV(aspectRatio.value) else fov.value.toDouble()
 
         for (i in result.indices)
-            result[i] = calculateNewAds(adsMultiplier[i], calculateFOVAdjustment(fovMultiplier[i], verticalFOV), oldAds)
+            result[i] = calculateNewAds(adsMultiplier[i], calculateFOVAdjustment(fovMultiplier[i], verticalFOV), ads.value)
 
         return SensitivityConverter.Sensitivity(
             x1 = result[0],

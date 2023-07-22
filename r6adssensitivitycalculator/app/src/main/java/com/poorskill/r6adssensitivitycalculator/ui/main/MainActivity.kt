@@ -16,30 +16,20 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.widget.doAfterTextChanged
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
-import com.poorskill.r6adssensitivitycalculator.converter.SensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
 import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
-import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioItem
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
+import com.poorskill.r6adssensitivitycalculator.data.AspectRatios
+import com.poorskill.r6adssensitivitycalculator.data.RangedValue
 
 
 class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
-    //TODO remove calculator/converter responsibilities from ui activity
-    private val adsMin = 1
-    private val adsMax = 100
-
-    private val fovMin = 60
-    private val fovMax = 90
-
-    private var oldAdsValue = 50 //game default
-    private var fov = 75 //game default
-    private var aspectRatio = (16.0 / 9) //game default 16:9
-    private lateinit var adsValues : SensitivityConverter.Sensitivity
+    private val adsCalculator = R6Y5S3SensitivityConverter()
 
     private var isStartLayout = true
 
@@ -64,8 +54,8 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun updateFOV(value: Int) {
-        fov = value
-        settings.putFOV(fov)
+        adsCalculator.fov.value = value
+        settings.putFOV(value)
     }
 
     private fun updateFOVAndEditText(value: Int) {
@@ -75,12 +65,12 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun updateFOVAndSeekBar(value: Int, fovSeekBar: SeekBar) {
         updateFOV(value)
-        fovSeekBar.progress = value - fovMin
+        fovSeekBar.progress = value - adsCalculator.fov.min
     }
 
     private fun updateADS(value: Int) {
-        oldAdsValue = value
-        settings.putADS(oldAdsValue)
+        adsCalculator.ads.value = value
+        settings.putADS(value)
     }
 
     private fun updateADSAndEditText(value: Int) {
@@ -90,160 +80,114 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     private fun updateADSAndSeekBar(value: Int, adsSeekBar: SeekBar) {
         updateADS(value)
-        adsSeekBar.progress = value - adsMin
+        adsSeekBar.progress = value - adsCalculator.ads.min
+    }
+
+    private fun updateEdit(editText : EditText, range : RangedValue<Int>, seekbar : SeekBar, update : (Int, SeekBar) -> Unit) {
+        //check while changing text
+        editText.doAfterTextChanged {
+            if (editText.text.isNotEmpty()) {
+                try {
+                    val newValue = Integer.parseInt(editText.text.toString())
+                    if (newValue in range.min..range.max) {
+                        update(newValue, seekbar)
+                    } else {
+                        Toast.makeText(
+                            this,
+                            if (newValue > range.max) getString(R.string.tooBig) else getString(R.string.tooSmall),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (ignore: Exception) {
+                }
+            }
+        }
+        //check after lost focus
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                //check if fovEdit value is legal (not empty & in range)
+                var newValue = range.min
+                try {
+                    if (editText.text.isNotEmpty()) {
+                        val readFovValue = Integer.parseInt(editText.text.toString())
+                        newValue = if (readFovValue in range.min..range.max) {
+                            readFovValue
+                        } else {
+                            //set to min/max
+                            if (readFovValue > range.max) {
+                                range.max
+                            } else {
+                                range.min
+                            }
+                        }
+                    }
+                } catch (ignore: Exception) {
+                }
+                editText.setText(newValue.toString())
+                update(newValue, seekbar)
+            }
+        }
+    }
+
+    private fun initSeekBar(bar : SeekBar, range : RangedValue<Int>, onProgressChanged : (Boolean, Int) -> Unit){
+        bar.max = range.max - range.min 
+        bar.progress =  range.value - range.min 
+        bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                onProgressChanged(fromUser, range.min + progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                clearFocusFromEditTexts()
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                //nothing
+            }
+        }
+        )
     }
 
     private fun setupViews(motionLayout: MotionLayout) {
         //set defaults
-        val adsDefault = settings.getADS()
-        val fovDefault = settings.getFOV()
-        val posAspectRatioDefault = settings.getAspectRatioPos()
+        adsCalculator.ads.value = settings.getADS()
+        adsCalculator.fov.value = settings.getFOV()
+        adsCalculator.aspectRatio = AspectRatios.getAll()[settings.getAspectRatioPos()]
         //set val
         val adsSeekBar = findViewById<SeekBar>(R.id.adsSeekBar)
         val fovSeekBar = findViewById<SeekBar>(R.id.fovSeekBar)
         val fovEdit = findViewById<EditText>(R.id.fovEdit)
         val adsEdit = findViewById<EditText>(R.id.oldAdsEdit)
-        //update aspect ratio
-        setupSpinner(posAspectRatioDefault)
-        aspectRatio = getAspectRatioFromArray(posAspectRatioDefault)
-
-        updateADSAndEditText(adsDefault)
-        updateFOVAndEditText(fovDefault)
+        
+        setupSpinner(settings.getAspectRatioPos())
+        updateADSAndEditText(settings.getADS())
+        updateFOVAndEditText(settings.getFOV())
 
         //EditText Range
         //check while changing text
-        fovEdit.doAfterTextChanged {
-            if (fovEdit.text.isNotEmpty()) {
-                try {
-                    val fovValue = Integer.parseInt(fovEdit.text.toString())
-                    if (fovValue in fovMin..fovMax) {
-                        updateFOVAndSeekBar(fovValue, fovSeekBar)
-                    } else {
-                        Toast.makeText(
-                            this,
-                            if (fovValue > fovMax) getString(R.string.tooBig) else getString(R.string.tooSmall),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } catch (ignore: Exception) {
-                }
-            }
-        }
-        //check after lost focus
-        fovEdit.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                //check if fovEdit value is legal (not empty & in range)
-                var fovValue = fovMin
-                try {
-                    if (fovEdit.text.isNotEmpty()) {
-                        val readFovValue = Integer.parseInt(fovEdit.text.toString())
-                        fovValue = if (readFovValue in fovMin..fovMax) {
-                            readFovValue
-                        } else {
-                            //set to min/max
-                            if (readFovValue > fovMax) {
-                                fovMax
-                            } else {
-                                fovMin
-                            }
-                        }
-                    }
-                } catch (ignore: Exception) {
-                }
-                fovEdit.setText(fovValue.toString())
-                updateFOVAndSeekBar(fovValue, fovSeekBar)
-            }
-        }
-        //check while changing text
+        updateEdit(fovEdit, adsCalculator.fov, fovSeekBar){ v, bar -> updateFOVAndSeekBar(v,bar)}
+        updateEdit(adsEdit, adsCalculator.ads, adsSeekBar) { v, bar -> updateADSAndSeekBar(v,bar)}
+        
         adsEdit.doAfterTextChanged {
-            if (adsEdit.text.isNotEmpty()) {
-                try {
-                    val adsValue = Integer.parseInt(adsEdit.text.toString())
-                    if (adsValue in adsMin..adsMax) {
-                        updateADSAndSeekBar(adsValue, adsSeekBar)
-                    } else {
-                        Toast.makeText(
-                            this,
-                            if (adsValue > adsMax) getString(R.string.tooBig) else getString(R.string.tooSmall),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } catch (ignore: Exception) {
-                }
-            }
-        }
-        //check after lost focus
-        adsEdit.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                //check if adsEdit value is legal (not empty & in range)
-                var adsValue = adsMin
-                try {
-                    if (adsEdit.text.isNotEmpty()) {
-                        val readAdsValue = Integer.parseInt(adsEdit.text.toString())
-                        adsValue = if (readAdsValue in adsMin..adsMax) {
-                            readAdsValue
-                        } else {
-                            //set to min/max
-                            if (readAdsValue > adsMax) {
-                                adsMax
-                            } else {
-                                adsMin
-                            }
-                        }
-                    }
-                } catch (ignore: Exception) {
-                }
-                adsEdit.setText(adsValue.toString())
-                updateADSAndSeekBar(adsValue, adsSeekBar)
-            }
+            updateADS(if (adsEdit.text.isEmpty()) adsCalculator.ads.value else Integer.parseInt(adsEdit.text.toString()))
         }
 
-
-        adsEdit.doAfterTextChanged {
-            updateADS(if (adsEdit.text.isEmpty()) adsDefault else Integer.parseInt(adsEdit.text.toString()))
-        }
-
-        //FOV Seekbar
-        fovSeekBar.max = fovMax - fovMin
-        fovSeekBar.progress = fovDefault - fovMin
-        fovSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser)
-                    updateFOVAndEditText(fovMin + progress)
+        initSeekBar(fovSeekBar, adsCalculator.fov) { 
+          fromUser,value -> 
+              if (fromUser)
+                    updateFOVAndEditText(value)
                 else
-                    updateFOV(fovMin + progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                clearFocusFromEditTexts(adsEdit, fovEdit)
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                //nothing
-            }
+                    updateFOV(value)
         }
-        )
 
-        //ADS Seekbar
-        adsSeekBar.max = adsMax - adsMin
-        adsSeekBar.progress = adsDefault - adsMin
-        adsSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser)
-                    updateADSAndEditText(adsMin + progress)
+        initSeekBar(adsSeekBar, adsCalculator.ads) { 
+          fromUser,value -> 
+              if (fromUser)
+                    updateADSAndEditText(value)
                 else
-                    updateADS(adsMin + progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                clearFocusFromEditTexts(adsEdit, fovEdit)
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                //nothing
-            }
+                    updateADS(value)
         }
-        )
+        
         //get ads textViews
         val ads0 = findViewById<TextView>(R.id.output_ads_0)
         val ads1 = findViewById<TextView>(R.id.output_ads_1)
@@ -293,9 +237,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         }
 
         findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-            clearFocusFromEditTexts(adsEdit, fovEdit)
+            clearFocusFromEditTexts()
             motionLayout.transitionToEnd()
-            calculateNewAdsValues()
+            val adsValues = adsCalculator.calculateNewAdsSensitivity()
             ads0.text = adsValues.x1.toString()
             ads1.text = adsValues.x1_5.toString()
             ads2.text = adsValues.x2.toString()
@@ -330,26 +274,16 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
         return View.OnClickListener {
             copyValueToClipboard(
-                adsValues.asArray()[adsValueIndex].toString(),
+                adsCalculator.calculateNewAdsSensitivity().asArray()[adsValueIndex].toString(),
                 name
             )
         }
     }
 
     private fun setupSpinner(startPos: Int) {
-        val aspectRatios = listOf(
-            AspectRatioItem("16:9 (Auto)", 16.0 / 9),
-            AspectRatioItem("16:10", 16.0 / 10),
-            AspectRatioItem("4:3", 4.0 / 3),
-            AspectRatioItem("3:2", 3.0 / 2),
-            AspectRatioItem("5:3", 5.0 / 3),
-            AspectRatioItem("5:4", 5.0 / 4),
-            AspectRatioItem("19:10", 19.0 / 10),
-            AspectRatioItem("21:10", 21.0 / 9)
-        )
         val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
         spinner.onItemSelectedListener = this
-        val customAspectAdapter = AspectRatioAdapter(this, aspectRatios)
+        val customAspectAdapter = AspectRatioAdapter(this)
         spinner.adapter = customAspectAdapter
         spinner.setSelection(startPos)
 
@@ -358,34 +292,13 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    /**
-     * get aspect ratio by pos -> @arrays.aspect_ratio_array
-     */
-    private fun getAspectRatioFromArray(pos: Int): Double {
-        return when (pos) {
-            0 -> (19.0 / 9)
-            1 -> (19.0 / 10)
-            2 -> (4.0 / 3)
-            3 -> (3.0 / 2)
-            4 -> (5.0 / 3)
-            5 -> (5.0 / 4)
-            6 -> (19.0 / 10)
-            7 -> (21.0 / 9)
-            else -> 1.0
-        }
-    }
-
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        setAspectRatio(getAspectRatioFromArray(pos))
+        adsCalculator.aspectRatio = AspectRatios.getAll()[pos]
         settings.putAspectRatio(pos)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
-    }
-
-    private fun setAspectRatio(aspectRatio: Double) {
-        this.aspectRatio = aspectRatio
     }
 
 
@@ -401,6 +314,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun convertAllValuesToString(): String {
+        val adsValues = adsCalculator.calculateNewAdsSensitivity()
         return """
              ${resources.getString(R.string.copy_start)}
              ADS 1x = ${adsValues.x1}
@@ -412,15 +326,6 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
              ADS 5x = ${adsValues.x5}
              ADS 12x = ${adsValues.x12}
              """.trimIndent()
-    }
-
-
-    private fun calculateNewAdsValues() {
-        adsValues = R6Y5S3SensitivityConverter().calculateNewAdsSensitivity(
-            oldAdsValue,
-            fov,
-            aspectRatio
-        )
     }
 
     //---- Options Menu ----------------------------------------------------
@@ -459,7 +364,10 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     //---------------------------------------------------------------------------------
 
-    private fun clearFocusFromEditTexts(adsEdit: EditText, fovEdit: EditText) {
+    private fun clearFocusFromEditTexts() {
+        val fovEdit = findViewById<EditText>(R.id.fovEdit)
+        val adsEdit = findViewById<EditText>(R.id.oldAdsEdit)
+
         adsEdit.clearFocus()
         fovEdit.clearFocus()
         findViewById<LinearLayout>(R.id.dummy).requestFocus()
