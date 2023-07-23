@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 
 import androidx.preference.PreferenceManager;
 
@@ -105,9 +106,13 @@ public class UserPreferencesManager implements Settings {
         Locale.setDefault(locale);
         Resources r = context.getResources();
         Configuration c = r.getConfiguration();
-        c.setLocale(locale);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            c.setLocale(locale);
+        }
         r.updateConfiguration(c, r.getDisplayMetrics());
-        context.createConfigurationContext(c);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            context.createConfigurationContext(c);
+        }
     }
 
 
