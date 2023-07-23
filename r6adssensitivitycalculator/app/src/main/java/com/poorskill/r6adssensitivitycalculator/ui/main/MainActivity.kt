@@ -1,16 +1,11 @@
 package com.poorskill.r6adssensitivitycalculator.ui.main
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.poorskill.r6adssensitivitycalculator.R
@@ -23,6 +18,8 @@ import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
 import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
+import copyValueToClipboard
+import clearFocus
 
 class MainActivity : BaseActivity() {
 
@@ -94,7 +91,7 @@ class MainActivity : BaseActivity() {
     findViewById<View>(R.id.ads7_row).setOnClickListener(adsViewClickListener(7, "ADS 12x"))
 
     findViewById<View>(R.id.btnCopyAll).setOnClickListener {
-      copyValueToClipboard(convertAllValuesToString(), getString(R.string.everything))
+      copyValueToClipboard(convertAllValuesToString(), getString(R.string.everything), this)
     }
 
     findViewById<Button>(R.id.btnBack).setOnClickListener {
@@ -103,7 +100,7 @@ class MainActivity : BaseActivity() {
     }
 
     findViewById<Button>(R.id.btnCalculate).setOnClickListener {
-      clearFocusFromEditTexts()
+      clearFocus(this)
       motionLayout.transitionToEnd()
       val adsValues = adsCalculator.calculateNewAdsSensitivity()
       ads0.text = adsValues.x1.toString()
@@ -126,7 +123,8 @@ class MainActivity : BaseActivity() {
     return View.OnClickListener {
       copyValueToClipboard(
           adsCalculator.calculateNewAdsSensitivity().asArray()[adsValueIndex].toString(),
-          name
+          name,
+          this
       )
     }
   }
@@ -134,18 +132,6 @@ class MainActivity : BaseActivity() {
   private fun setupSpinner() {
     val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
     AspectRatioSpinner(spinner, findViewById(R.id.aspectTV), this, adsCalculator.aspectRatio)
-  }
-
-  private fun copyValueToClipboard(value: String, name: String) {
-    val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText(getString(R.string.copyValues), value)
-    clipboard.setPrimaryClip(clip)
-    Toast.makeText(
-            this,
-            getString(R.string.copied) + name + getString(R.string.toClipboard),
-            Toast.LENGTH_SHORT
-        )
-        .show()
   }
 
   private fun convertAllValuesToString(): String {
@@ -195,24 +181,6 @@ class MainActivity : BaseActivity() {
   private fun openAboutActivity() {
     val intent = Intent(this, AboutActivity::class.java)
     startActivity(intent)
-  }
-
-  // ---------------------------------------------------------------------------------
-
-  private fun clearFocusFromEditTexts() {
-    // TODO make available for all
-    val fovEdit = findViewById<EditText>(R.id.fovEdit)
-    val adsEdit = findViewById<EditText>(R.id.oldAdsEdit)
-
-    adsEdit.clearFocus()
-    fovEdit.clearFocus()
-    findViewById<LinearLayout>(R.id.dummy).requestFocus()
-    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-    // https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-programmatically
-    this.currentFocus?.let { view ->
-      val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-      imm?.hideSoftInputFromWindow(view.windowToken, 0)
-    }
   }
 
   /** Overrides backPress to go back to start motion layout if in end */
