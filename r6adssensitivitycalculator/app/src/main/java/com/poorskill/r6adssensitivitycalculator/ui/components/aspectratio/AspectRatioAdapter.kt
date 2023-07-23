@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui
+package com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio
 
 import android.content.Context
 import android.view.LayoutInflater

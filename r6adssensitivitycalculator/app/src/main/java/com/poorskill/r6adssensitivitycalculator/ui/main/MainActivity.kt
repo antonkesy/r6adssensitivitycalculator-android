@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
+import clearFocus
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
@@ -19,7 +20,6 @@ import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
 import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 import copyValueToClipboard
-import clearFocus
 
 class MainActivity : BaseActivity() {
 
