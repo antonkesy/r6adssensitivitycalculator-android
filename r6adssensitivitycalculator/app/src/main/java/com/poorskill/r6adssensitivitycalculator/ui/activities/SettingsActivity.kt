@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui.settings
+package com.poorskill.r6adssensitivitycalculator.ui.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.preference.PreferenceFragmentCompat
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 
 class SettingsActivity : BaseActivity() {
 

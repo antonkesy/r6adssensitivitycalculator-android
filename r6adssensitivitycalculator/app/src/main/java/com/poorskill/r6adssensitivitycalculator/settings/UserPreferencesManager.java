@@ -9,7 +9,7 @@ import android.os.Build;
 import androidx.preference.PreferenceManager;
 
 import com.poorskill.r6adssensitivitycalculator.R;
-import com.poorskill.r6adssensitivitycalculator.ui.settings.Theme;
+import com.poorskill.r6adssensitivitycalculator.ui.Theme;
 
 import org.jetbrains.annotations.NotNull;
 

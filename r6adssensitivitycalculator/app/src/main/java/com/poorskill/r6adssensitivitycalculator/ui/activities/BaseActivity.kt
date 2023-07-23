@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui.base
+package com.poorskill.r6adssensitivitycalculator.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.ui.settings.Theme.*
+import com.poorskill.r6adssensitivitycalculator.ui.Theme.*
 
 open class BaseActivity : AppCompatActivity() {
 

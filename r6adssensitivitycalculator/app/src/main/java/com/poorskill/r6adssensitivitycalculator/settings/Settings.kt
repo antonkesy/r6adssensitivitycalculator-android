@@ -1,6 +1,6 @@
 package com.poorskill.r6adssensitivitycalculator.settings
 
-import com.poorskill.r6adssensitivitycalculator.ui.settings.Theme
+import com.poorskill.r6adssensitivitycalculator.ui.Theme
 
 interface Settings {
     fun getAspectRatioPos(): Int

@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui.main
+package com.poorskill.r6adssensitivitycalculator.ui.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -14,11 +14,8 @@ import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConve
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
-import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
 import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
-import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 import copyValueToClipboard
 
 class MainActivity : BaseActivity() {

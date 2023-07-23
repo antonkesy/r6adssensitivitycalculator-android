@@ -11,12 +11,12 @@
         android:theme="@style/Theme.Base"
         android:allowBackup="true"
         android:fullBackupContent="true">
-        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.activities.AboutActivity" />
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:label="@string/settingsTitle" />
         <activity
-            android:name="com.poorskill.r6adssensitivitycalculator.ui.main.MainActivity"
+            android:name="com.poorskill.r6adssensitivitycalculator.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

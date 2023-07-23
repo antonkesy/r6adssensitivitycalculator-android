@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.ui.about
+package com.poorskill.r6adssensitivitycalculator.ui.activities
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.poorskill.r6adssensitivitycalculator.R
-import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 
 class AboutActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +51,6 @@ class AboutActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    /**
-     * ActionMenu
-     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -65,9 +61,6 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    /**
-     * MailTo Intent
-     */
     private fun openMail(address: String, subject: String) {
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:") // only email apps should handle this
@@ -76,16 +69,10 @@ class AboutActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    /**
-     * Browser Intent
-     */
     private fun openURLInBrowser(url: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    /**
-     * Get SystemService and copies to clipboard
-     */
     private fun copyURLToClipboard(url: String): Boolean {
         val clipboard: ClipboardManager =
             getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

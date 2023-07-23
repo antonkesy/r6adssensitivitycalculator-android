@@ -9,7 +9,7 @@
     android:background="?background"
     android:fitsSystemWindows="true"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.activities.MainActivity">
 
     <include
         android:id="@+id/include"

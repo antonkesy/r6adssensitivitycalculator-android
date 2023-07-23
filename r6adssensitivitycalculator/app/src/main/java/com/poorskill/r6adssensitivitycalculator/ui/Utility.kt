@@ -5,9 +5,6 @@ import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.poorskill.r6adssensitivitycalculator.R
 
