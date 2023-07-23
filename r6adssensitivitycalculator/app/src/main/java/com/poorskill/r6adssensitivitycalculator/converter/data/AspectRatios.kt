@@ -1,4 +1,4 @@
-package com.poorskill.r6adssensitivitycalculator.data
+package com.poorskill.r6adssensitivitycalculator.converter.data
 
 class AspectRatios {
 

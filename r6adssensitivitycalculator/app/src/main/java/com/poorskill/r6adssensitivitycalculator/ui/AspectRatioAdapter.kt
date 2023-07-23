@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.poorskill.r6adssensitivitycalculator.R
-import com.poorskill.r6adssensitivitycalculator.data.AspectRatio
-import com.poorskill.r6adssensitivitycalculator.data.AspectRatios
+import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatio
+import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
 
 class AspectRatioAdapter(context: Context) : BaseAdapter() {
 
