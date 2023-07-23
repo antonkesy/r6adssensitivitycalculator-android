@@ -19,13 +19,13 @@ import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.ui.AspectRatioAdapter
 import com.poorskill.r6adssensitivitycalculator.ui.about.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.base.BaseActivity
 import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
+import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
 import com.poorskill.r6adssensitivitycalculator.ui.settings.SettingsActivity
 
-class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
+class MainActivity : BaseActivity() {
 
   private val adsCalculator = R6Y5S3SensitivityConverter()
 
@@ -54,7 +54,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     // TODO: settings.putADS(value) -> create decorator for Conveter to save/get from
     adsCalculator.ads.value = settings.getADS()
     adsCalculator.fov.value = settings.getFOV()
-    adsCalculator.aspectRatio = AspectRatios.getAll()[settings.getAspectRatioPos()]
+    adsCalculator.aspectRatio.currentIndex = settings.getAspectRatioPos()
 
     TextEditSeekbar(
         adsCalculator.ads,
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         this
     )
 
-    setupSpinner(settings.getAspectRatioPos())
+    setupSpinner()
 
     // get ads textViews
     val ads0 = findViewById<TextView>(R.id.output_ads_0)
@@ -132,23 +132,9 @@ class MainActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
   }
 
-  private fun setupSpinner(startPos: Int) {
+  private fun setupSpinner() {
     val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
-    spinner.onItemSelectedListener = this
-    val customAspectAdapter = AspectRatioAdapter(this)
-    spinner.adapter = customAspectAdapter
-    spinner.setSelection(startPos)
-
-    findViewById<TextView>(R.id.aspectTV).setOnClickListener { spinner.performClick() }
-  }
-
-  override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-    adsCalculator.aspectRatio = AspectRatios.getAll()[pos]
-    settings.putAspectRatio(pos)
-  }
-
-  override fun onNothingSelected(parent: AdapterView<*>) {
-    // Another interface callback
+    AspectRatioSpinner(spinner, findViewById(R.id.aspectTV), this, adsCalculator.aspectRatio)
   }
 
   private fun copyValueToClipboard(value: String, name: String) {

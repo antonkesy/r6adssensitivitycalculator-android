@@ -1,6 +1,15 @@
 package com.poorskill.r6adssensitivitycalculator.converter.data
 
+import kotlin.math.max
+import kotlin.math.min
+
 class AspectRatios {
+
+  var currentIndex = 0
+
+  fun getCurrent(): AspectRatio {
+    return getAll()[max(0, min(currentIndex, getAll().size - 1))]
+  }
 
   companion object {
     fun getAll(): List<AspectRatio> {

@@ -15,7 +15,7 @@ class TextEditSeekbar(
     private val range: RangedValue<Int>,
     private val textView: TextView,
     private val editText: EditText,
-    private val seekBar: SeekBar, //TODO convert to inner class with specific init
+    private val seekBar: SeekBar, // TODO convert to inner class with specific init
     private val activity: Activity
 ) {
 
