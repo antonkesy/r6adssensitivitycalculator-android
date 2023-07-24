@@ -34,9 +34,4 @@ open class BaseActivity : AppCompatActivity() {
       }
     }
   }
-
-  override fun onRestart() {
-    recreate()
-    super.onRestart()
-  }
 }
