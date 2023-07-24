@@ -1,22 +1,24 @@
 package com.poorskill.r6adssensitivitycalculator.ui.activities
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import clearFocus
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.databinding.ActivityMainBinding
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
+import com.poorskill.r6adssensitivitycalculator.ui.clearFocus
 import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
 import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
-import copyValueToClipboard
+import com.poorskill.r6adssensitivitycalculator.ui.copyToClipboard
+import com.poorskill.r6adssensitivitycalculator.ui.openAbout
+import com.poorskill.r6adssensitivitycalculator.ui.openHelp
+import com.poorskill.r6adssensitivitycalculator.ui.openSettings
+import com.poorskill.r6adssensitivitycalculator.ui.shareString
 
 class MainActivity : BaseActivity() {
   private var isStartLayout = true
@@ -77,11 +79,7 @@ class MainActivity : BaseActivity() {
     binding.include2.ads7Row.setOnClickListener(adsViewClickListener(7, "ADS 12x"))
 
     binding.include2.btnCopyAll.setOnClickListener {
-      copyValueToClipboard(
-          adsCalculator.calculate().toString(),
-          getString(R.string.everything),
-          this
-      )
+      copyToClipboard(adsCalculator.calculate().toString(), this)
     }
 
     binding.include2.btnBack.setOnClickListener {
@@ -105,21 +103,17 @@ class MainActivity : BaseActivity() {
       settings.incrementUsage()
     }
 
-    binding.include2.btnShare.setOnClickListener { shareADSValues() }
-    binding.include2.btnHelp.setOnClickListener { helpButtonClick() }
+    binding.include2.btnShare.setOnClickListener {
+      shareString(adsCalculator.calculate().toString(), this)
+    }
+    binding.include2.btnHelp.setOnClickListener { openHelp(this) }
   }
 
   private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
     return View.OnClickListener {
-      copyValueToClipboard(
-          adsCalculator.calculate().asArray()[adsValueIndex].toString(),
-          name,
-          this
-      )
+      copyToClipboard(adsCalculator.calculate().asArray()[adsValueIndex].toString(), this)
     }
   }
-
-  // ---- Options Menu ----------------------------------------------------
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     val inflater = menuInflater
@@ -129,28 +123,14 @@ class MainActivity : BaseActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
-      R.id.action_settings -> openSettingsActivity()
-      R.id.action_about -> openAboutActivity()
-      R.id.action_help -> openHelpActivity()
+      R.id.action_settings -> openSettings(this)
+      R.id.action_about -> openAbout(this)
+      R.id.action_help -> openHelp(this)
       else -> {
         return super.onOptionsItemSelected(item)
       }
     }
     return true
-  }
-
-  private fun openHelpActivity() {
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.ubisoftHelpURL))))
-  }
-
-  private fun openSettingsActivity() {
-    val intent = Intent(this, SettingsActivity::class.java)
-    startActivity(intent)
-  }
-
-  private fun openAboutActivity() {
-    val intent = Intent(this, AboutActivity::class.java)
-    startActivity(intent)
   }
 
   /** Overrides backPress to go back to start motion layout if in end */
@@ -162,17 +142,5 @@ class MainActivity : BaseActivity() {
     } else {
       super.onBackPressed()
     }
-  }
-
-  private fun shareADSValues() {
-    val intent = Intent()
-    intent.action = Intent.ACTION_SEND
-    intent.putExtra(Intent.EXTRA_TEXT, adsCalculator.calculate().toString())
-    intent.type = "text/plain"
-    startActivity(Intent.createChooser(intent, getString(R.string.shareTitle)))
-  }
-
-  private fun helpButtonClick() {
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(this.getString(R.string.ubisoftHelpURL))))
   }
 }

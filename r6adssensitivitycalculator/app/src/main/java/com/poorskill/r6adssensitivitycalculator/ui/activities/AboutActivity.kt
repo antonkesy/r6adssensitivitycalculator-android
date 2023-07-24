@@ -1,15 +1,12 @@
 package com.poorskill.r6adssensitivitycalculator.ui.activities
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.databinding.ActivityAboutBinding
+import com.poorskill.r6adssensitivitycalculator.ui.copyToClipboard
+import com.poorskill.r6adssensitivitycalculator.ui.openMail
+import com.poorskill.r6adssensitivitycalculator.ui.openURLInBrowser
 
 class AboutActivity : BaseActivity() {
 
@@ -24,40 +21,46 @@ class AboutActivity : BaseActivity() {
         (this.packageManager.getPackageInfo(packageName, 0).versionName).toString()
 
     binding.websiteButton.setOnClickListener {
-      openURLInBrowser(this.getString(R.string.poorskillWebsite))
+      openURLInBrowser(this.getString(R.string.poorskillWebsite), this)
     }
     binding.websiteButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.poorskillWebsite))
+      copyToClipboard(this.getString(R.string.poorskillWebsite), this)
+      return@setOnLongClickListener true
     }
     binding.privacyPolicyButton.setOnClickListener {
-      openURLInBrowser(this.getString(R.string.privacyPolicyURL))
+      openURLInBrowser(this.getString(R.string.privacyPolicyURL), this)
     }
     binding.privacyPolicyButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.privacyPolicyURL))
+      copyToClipboard(this.getString(R.string.privacyPolicyURL), this)
+      return@setOnLongClickListener true
     }
     binding.contactButton.setOnClickListener {
-      openMail(this.getString(R.string.contactMail), this.getString(R.string.app_name))
+      openMail(this.getString(R.string.contactMail), this.getString(R.string.app_name), this)
     }
     binding.contactButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.contactMail))
+      copyToClipboard(this.getString(R.string.contactMail), this)
+      return@setOnLongClickListener true
     }
     binding.sourceCodeButton.setOnClickListener {
-      openURLInBrowser(this.getString(R.string.sourceCodeURL))
+      openURLInBrowser(this.getString(R.string.sourceCodeURL), this)
     }
     binding.sourceCodeButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.sourceCodeURL))
+      copyToClipboard(this.getString(R.string.sourceCodeURL), this)
+      return@setOnLongClickListener true
     }
     binding.reportBugButton.setOnClickListener {
-      openURLInBrowser(this.getString(R.string.reportBugURL))
+      openURLInBrowser(this.getString(R.string.reportBugURL), this)
     }
     binding.reportBugButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.reportBugURL))
+      copyToClipboard(this.getString(R.string.reportBugURL), this)
+      return@setOnLongClickListener true
     }
     binding.rateAppButton.setOnClickListener {
-      openURLInBrowser(this.getString(R.string.rateAppURL))
+      openURLInBrowser(this.getString(R.string.rateAppURL), this)
     }
     binding.rateAppButton.setOnLongClickListener {
-      copyURLToClipboard(this.getString(R.string.rateAppURL))
+      copyToClipboard(this.getString(R.string.rateAppURL), this)
+      return@setOnLongClickListener true
     }
 
     setTitle(R.string.aboutTitle)
@@ -72,26 +75,5 @@ class AboutActivity : BaseActivity() {
       }
       else -> super.onOptionsItemSelected(item)
     }
-  }
-
-  private fun openMail(address: String, subject: String) {
-    val intent = Intent(Intent.ACTION_SENDTO)
-    intent.data = Uri.parse("mailto:") // only email apps should handle this
-    intent.putExtra(Intent.EXTRA_EMAIL, address)
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject)
-    startActivity(intent)
-  }
-
-  private fun openURLInBrowser(url: String) {
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-  }
-
-  private fun copyURLToClipboard(url: String): Boolean {
-    val clipboard: ClipboardManager =
-        getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText(android.R.attr.label.toString(), url)
-    clipboard.setPrimaryClip(clip)
-    Toast.makeText(this, url, Toast.LENGTH_SHORT).show()
-    return true
   }
 }
