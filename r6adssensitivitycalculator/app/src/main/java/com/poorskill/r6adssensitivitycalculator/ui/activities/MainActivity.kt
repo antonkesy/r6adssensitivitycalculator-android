@@ -77,7 +77,11 @@ class MainActivity : BaseActivity() {
     binding.include2.ads7Row.setOnClickListener(adsViewClickListener(7, "ADS 12x"))
 
     binding.include2.btnCopyAll.setOnClickListener {
-      copyValueToClipboard(convertAllValuesToString(), getString(R.string.everything), this)
+      copyValueToClipboard(
+          adsCalculator.calculate().toString(),
+          getString(R.string.everything),
+          this
+      )
     }
 
     binding.include2.btnBack.setOnClickListener {
@@ -113,21 +117,6 @@ class MainActivity : BaseActivity() {
           this
       )
     }
-  }
-
-  private fun convertAllValuesToString(): String {
-    val adsValues = adsCalculator.calculate()
-    return """
-             ${resources.getString(R.string.copy_start)}
-             ADS 1x = ${adsValues.x1}
-             ADS 1.5x = ${adsValues.x1_5}
-             ADS 2x = ${adsValues.x2}
-             ADS 2.5x = ${adsValues.x2_5}
-             ADS 3x = ${adsValues.x3}
-             ADS 4x = ${adsValues.x4}
-             ADS 5x = ${adsValues.x5}
-             ADS 12x = ${adsValues.x12}
-             """.trimIndent()
   }
 
   // ---- Options Menu ----------------------------------------------------
@@ -178,7 +167,7 @@ class MainActivity : BaseActivity() {
   private fun shareADSValues() {
     val intent = Intent()
     intent.action = Intent.ACTION_SEND
-    intent.putExtra(Intent.EXTRA_TEXT, convertAllValuesToString())
+    intent.putExtra(Intent.EXTRA_TEXT, adsCalculator.calculate().toString())
     intent.type = "text/plain"
     startActivity(Intent.createChooser(intent, getString(R.string.shareTitle)))
   }
