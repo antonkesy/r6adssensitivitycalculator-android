@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    supportActionBar?.title = getString(R.string.title_text)
+
     supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
     settings = UserPreferencesManager(this)
@@ -65,9 +65,9 @@ class MainActivity : BaseActivity() {
         this
     )
 
-    setupSpinner()
+    val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
+    AspectRatioSpinner(spinner, findViewById(R.id.aspectTV), this, adsCalculator.aspectRatio)
 
-    // get ads textViews
     val ads0 = findViewById<TextView>(R.id.output_ads_0)
     val ads1 = findViewById<TextView>(R.id.output_ads_1)
     val ads2 = findViewById<TextView>(R.id.output_ads_2)
@@ -124,11 +124,6 @@ class MainActivity : BaseActivity() {
           this
       )
     }
-  }
-
-  private fun setupSpinner() {
-    val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
-    AspectRatioSpinner(spinner, findViewById(R.id.aspectTV), this, adsCalculator.aspectRatio)
   }
 
   private fun convertAllValuesToString(): String {
