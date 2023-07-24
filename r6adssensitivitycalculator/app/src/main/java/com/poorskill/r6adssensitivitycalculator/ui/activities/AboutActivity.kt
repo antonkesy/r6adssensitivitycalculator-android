@@ -11,41 +11,36 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.databinding.ActivityAboutBinding
 
 class AboutActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityAboutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        //Update Version Code
-        findViewById<TextView>(R.id.versionCodeAbout).text =
-            (this.packageManager.getPackageInfo(packageName, 0).versionName).toString()
-        //Define Buttons
-        val websiteButton = findViewById<Button>(R.id.websiteButton)
-        val privacyPolicyButton = findViewById<Button>(R.id.privacyPolicyButton)
-        val contactButton = findViewById<Button>(R.id.contactButton)
-        val sourceCodeButton = findViewById<Button>(R.id.sourceCodeButton)
-        val reportBugButton = findViewById<Button>(R.id.reportBugButton)
-        val rateAppButton = findViewById<Button>(R.id.rateAppButton)
-
-        //Button Listener
-        websiteButton.setOnClickListener { openURLInBrowser(this.getString(R.string.poorskillWebsite)) }
-        websiteButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.poorskillWebsite)) }
-        privacyPolicyButton.setOnClickListener { openURLInBrowser(this.getString(R.string.privacyPolicyURL)) }
-        privacyPolicyButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.privacyPolicyURL)) }
-        contactButton.setOnClickListener {
+        binding.versionCodeAbout.text = (this.packageManager.getPackageInfo(packageName, 0).versionName).toString()
+        
+        binding.websiteButton.setOnClickListener { openURLInBrowser(this.getString(R.string.poorskillWebsite)) }
+        binding.websiteButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.poorskillWebsite)) }
+        binding.privacyPolicyButton.setOnClickListener { openURLInBrowser(this.getString(R.string.privacyPolicyURL)) }
+        binding.privacyPolicyButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.privacyPolicyURL)) }
+        binding.contactButton.setOnClickListener {
             openMail(
                 this.getString(R.string.contactMail),
                 this.getString(R.string.app_name)
             )
         }
-        contactButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.contactMail)) }
-        sourceCodeButton.setOnClickListener { openURLInBrowser(this.getString(R.string.sourceCodeURL)) }
-        sourceCodeButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.sourceCodeURL)) }
-        reportBugButton.setOnClickListener { openURLInBrowser(this.getString(R.string.reportBugURL)) }
-        reportBugButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.reportBugURL)) }
-        rateAppButton.setOnClickListener { openURLInBrowser(this.getString(R.string.rateAppURL)) }
-        rateAppButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.rateAppURL)) }
+       binding.contactButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.contactMail)) }
+       binding.sourceCodeButton.setOnClickListener { openURLInBrowser(this.getString(R.string.sourceCodeURL)) }
+       binding.sourceCodeButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.sourceCodeURL)) }
+       binding.reportBugButton.setOnClickListener { openURLInBrowser(this.getString(R.string.reportBugURL)) }
+       binding.reportBugButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.reportBugURL)) }
+       binding.rateAppButton.setOnClickListener { openURLInBrowser(this.getString(R.string.rateAppURL)) }
+       binding.rateAppButton.setOnLongClickListener { copyURLToClipboard(this.getString(R.string.rateAppURL)) }
 
         setTitle(R.string.aboutTitle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

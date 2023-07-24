@@ -39,7 +39,7 @@ class SettingsActivity : BaseActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
 
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        override fun onSharedPreferenceChanged(p0: SharedPreferences?, key: String?) {
             when (key) {
                 getString(R.string.prefApplicationThemePrefKey) -> activity?.recreate()
                 getString(R.string.prefApplicationLanguagePrefKey) -> changeLanguage()
@@ -48,9 +48,11 @@ class SettingsActivity : BaseActivity() {
 
         private fun changeLanguage() {
             UserPreferencesManager(requireContext()).updateLanguage()
-            val intent = activity?.intent
-            this.activity?.finish()
-            startActivity(intent)
+            activity?.let {
+                val intent = activity?.intent
+                this.activity?.finish()
+                intent?.let { it1 -> startActivity(it1) }
+            }
         }
 
         override fun onResume() {
@@ -62,5 +64,6 @@ class SettingsActivity : BaseActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
             super.onPause()
         }
+
     }
 }

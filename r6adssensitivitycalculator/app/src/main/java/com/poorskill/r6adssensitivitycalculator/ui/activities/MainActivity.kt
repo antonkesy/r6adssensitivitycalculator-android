@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
 import androidx.constraintlayout.motion.widget.MotionLayout
 import clearFocus
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.databinding.ActivityMainBinding
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
@@ -26,9 +26,12 @@ class MainActivity : BaseActivity() {
 
   private lateinit var settings: Settings
 
+  private lateinit var binding: ActivityMainBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
@@ -39,81 +42,75 @@ class MainActivity : BaseActivity() {
       checkInAppReview()
     }
 
-    val motionLayout = findViewById<MotionLayout>(R.id.motionLayoutMain)
-    setupViews(motionLayout)
+    setupViews()
   }
 
-  private fun setupViews(motionLayout: MotionLayout) {
-    // TODO: settings.putADS(value) -> create decorator for Conveter to save/get from
+  private fun setupViews() {
+    // TODO: settings.putADS(value) -> create decorator for Converter to save/get from
     adsCalculator.ads.value = settings.getADS()
     adsCalculator.fov.value = settings.getFOV()
     adsCalculator.aspectRatio.currentIndex = settings.getAspectRatioPos()
 
     TextEditSeekbar(
         adsCalculator.ads,
-        findViewById(R.id.oldAdsTV),
-        findViewById(R.id.oldAdsEdit),
-        findViewById(R.id.adsSeekBar),
+        binding.include.oldAdsTV,
+        binding.include.oldAdsEdit,
+        binding.include.adsSeekBar,
         this
     )
 
     TextEditSeekbar(
         adsCalculator.fov,
-        findViewById(R.id.fovTV),
-        findViewById(R.id.fovEdit),
-        findViewById(R.id.fovSeekBar),
+        binding.include.fovTV,
+        binding.include.fovEdit,
+        binding.include.fovSeekBar,
         this
     )
 
-    val spinner: Spinner = findViewById(R.id.aspectRatioSpinner)
-    AspectRatioSpinner(spinner, findViewById(R.id.aspectTV), this, adsCalculator.aspectRatio)
+    AspectRatioSpinner(
+        binding.include.aspectRatioSpinner,
+        binding.include.aspectTV,
+        this,
+        adsCalculator.aspectRatio
+    )
 
-    val ads0 = findViewById<TextView>(R.id.output_ads_0)
-    val ads1 = findViewById<TextView>(R.id.output_ads_1)
-    val ads2 = findViewById<TextView>(R.id.output_ads_2)
-    val ads3 = findViewById<TextView>(R.id.output_ads_3)
-    val ads4 = findViewById<TextView>(R.id.output_ads_4)
-    val ads5 = findViewById<TextView>(R.id.output_ads_5)
-    val ads6 = findViewById<TextView>(R.id.output_ads_6)
-    val ads7 = findViewById<TextView>(R.id.output_ads_7)
+    binding.include2.ads0Row.setOnClickListener(adsViewClickListener(0, "ADS 1x"))
 
-    findViewById<View>(R.id.ads0_row).setOnClickListener(adsViewClickListener(0, "ADS 1x"))
+    binding.include2.ads1Row.setOnClickListener(adsViewClickListener(1, "ADS 1.5x"))
+    binding.include2.ads2Row.setOnClickListener(adsViewClickListener(2, "ADS 2x"))
+    binding.include2.ads3Row.setOnClickListener(adsViewClickListener(3, "ADS 2.5x"))
+    binding.include2.ads4Row.setOnClickListener(adsViewClickListener(4, "ADS 3x"))
+    binding.include2.ads5Row.setOnClickListener(adsViewClickListener(5, "ADS 4x"))
+    binding.include2.ads6Row.setOnClickListener(adsViewClickListener(6, "ADS 5x"))
+    binding.include2.ads7Row.setOnClickListener(adsViewClickListener(7, "ADS 12x"))
 
-    findViewById<View>(R.id.ads1_row).setOnClickListener(adsViewClickListener(1, "ADS 1.5x"))
-    findViewById<View>(R.id.ads2_row).setOnClickListener(adsViewClickListener(2, "ADS 2x"))
-    findViewById<View>(R.id.ads3_row).setOnClickListener(adsViewClickListener(3, "ADS 2.5x"))
-    findViewById<View>(R.id.ads4_row).setOnClickListener(adsViewClickListener(4, "ADS 3x"))
-    findViewById<View>(R.id.ads5_row).setOnClickListener(adsViewClickListener(5, "ADS 4x"))
-    findViewById<View>(R.id.ads6_row).setOnClickListener(adsViewClickListener(6, "ADS 5x"))
-    findViewById<View>(R.id.ads7_row).setOnClickListener(adsViewClickListener(7, "ADS 12x"))
-
-    findViewById<View>(R.id.btnCopyAll).setOnClickListener {
+    binding.include2.btnCopyAll.setOnClickListener {
       copyValueToClipboard(convertAllValuesToString(), getString(R.string.everything), this)
     }
 
-    findViewById<Button>(R.id.btnBack).setOnClickListener {
-      motionLayout.transitionToStart()
+    binding.include2.btnBack.setOnClickListener {
+      binding.motionLayoutMain.transitionToStart()
       isStartLayout = true
     }
 
-    findViewById<Button>(R.id.btnCalculate).setOnClickListener {
+    binding.include.btnCalculate.setOnClickListener {
       clearFocus(this)
-      motionLayout.transitionToEnd()
+      binding.motionLayoutMain.transitionToEnd()
       val adsValues = adsCalculator.calculateNewAdsSensitivity()
-      ads0.text = adsValues.x1.toString()
-      ads1.text = adsValues.x1_5.toString()
-      ads2.text = adsValues.x2.toString()
-      ads3.text = adsValues.x2_5.toString()
-      ads4.text = adsValues.x3.toString()
-      ads5.text = adsValues.x4.toString()
-      ads6.text = adsValues.x5.toString()
-      ads7.text = adsValues.x12.toString()
+      binding.include2.outputAds0.text = adsValues.x1.toString()
+      binding.include2.outputAds1.text = adsValues.x1_5.toString()
+      binding.include2.outputAds2.text = adsValues.x2.toString()
+      binding.include2.outputAds3.text = adsValues.x2_5.toString()
+      binding.include2.outputAds4.text = adsValues.x3.toString()
+      binding.include2.outputAds5.text = adsValues.x4.toString()
+      binding.include2.outputAds6.text = adsValues.x5.toString()
+      binding.include2.outputAds7.text = adsValues.x12.toString()
       isStartLayout = false
       settings.incrementUsage()
     }
 
-    findViewById<Button>(R.id.btnShare).setOnClickListener { shareADSValues() }
-    findViewById<Button>(R.id.btnHelp).setOnClickListener { helpButtonClick() }
+    binding.include2.btnShare.setOnClickListener { shareADSValues() }
+    binding.include2.btnHelp.setOnClickListener { helpButtonClick() }
   }
 
   private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
@@ -176,6 +173,7 @@ class MainActivity : BaseActivity() {
   }
 
   /** Overrides backPress to go back to start motion layout if in end */
+  @Deprecated("Deprecated in Java")
   override fun onBackPressed() {
     if (!isStartLayout) {
       findViewById<MotionLayout>(R.id.motionLayoutMain).transitionToStart()
