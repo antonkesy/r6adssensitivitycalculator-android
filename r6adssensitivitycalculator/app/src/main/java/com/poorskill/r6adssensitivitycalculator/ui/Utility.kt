@@ -20,9 +20,7 @@ fun copyValueToClipboard(value: String, name: String, context: Context) {
       .show()
 }
 
-fun clearFocus(
-    activity: Activity
-) {
+fun clearFocus(activity: Activity) {
   activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
   // https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-programmatically
   activity.currentFocus?.let { view ->

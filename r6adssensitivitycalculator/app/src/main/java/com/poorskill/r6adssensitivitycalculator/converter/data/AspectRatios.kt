@@ -2,10 +2,11 @@ package com.poorskill.r6adssensitivitycalculator.converter.data
 
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.properties.Delegates
 
-class AspectRatios {
+class AspectRatios(startIndex: Int, private val onIndexChange: ((Int) -> Unit)? = null) {
 
-  var currentIndex = 0
+  var currentIndex by Delegates.observable(startIndex) { _, _, new -> onIndexChange?.invoke(new) }
 
   fun getCurrent(): AspectRatio {
     return getAll()[max(0, min(currentIndex, getAll().size - 1))]

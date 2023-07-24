@@ -14,4 +14,3 @@ data class Sensitivity(
     return intArrayOf(x1, x1_5, x2, x2_5, x3, x4, x5, x12)
   }
 }
-

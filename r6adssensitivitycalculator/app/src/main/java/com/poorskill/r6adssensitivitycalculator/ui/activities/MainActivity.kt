@@ -9,7 +9,7 @@ import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import clearFocus
 import com.poorskill.r6adssensitivitycalculator.R
-import com.poorskill.r6adssensitivitycalculator.converter.R6Y5S3SensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.databinding.ActivityMainBinding
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
@@ -19,15 +19,11 @@ import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.Aspect
 import copyValueToClipboard
 
 class MainActivity : BaseActivity() {
-
-  private val adsCalculator = R6Y5S3SensitivityConverter()
-
   private var isStartLayout = true
 
   private lateinit var settings: Settings
-
+  private lateinit var adsCalculator: PersistentSensitivityConverter
   private lateinit var binding: ActivityMainBinding
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,6 +32,7 @@ class MainActivity : BaseActivity() {
     supportActionBar?.subtitle = getString(R.string.subtitle_text)
 
     settings = UserPreferencesManager(this)
+    adsCalculator = PersistentSensitivityConverter(settings)
 
     with(GoogleServices(this, settings)) {
       checkInAppUpdate()
@@ -46,11 +43,6 @@ class MainActivity : BaseActivity() {
   }
 
   private fun setupViews() {
-    // TODO: settings.putADS(value) -> create decorator for Converter to save/get from
-    adsCalculator.ads.value = settings.getADS()
-    adsCalculator.fov.value = settings.getFOV()
-    adsCalculator.aspectRatio.currentIndex = settings.getAspectRatioPos()
-
     TextEditSeekbar(
         adsCalculator.ads,
         binding.include.oldAdsTV,
@@ -96,7 +88,7 @@ class MainActivity : BaseActivity() {
     binding.include.btnCalculate.setOnClickListener {
       clearFocus(this)
       binding.motionLayoutMain.transitionToEnd()
-      val adsValues = adsCalculator.calculateNewAdsSensitivity()
+      val adsValues = adsCalculator.calculate()
       binding.include2.outputAds0.text = adsValues.x1.toString()
       binding.include2.outputAds1.text = adsValues.x1_5.toString()
       binding.include2.outputAds2.text = adsValues.x2.toString()
@@ -116,7 +108,7 @@ class MainActivity : BaseActivity() {
   private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
     return View.OnClickListener {
       copyValueToClipboard(
-          adsCalculator.calculateNewAdsSensitivity().asArray()[adsValueIndex].toString(),
+          adsCalculator.calculate().asArray()[adsValueIndex].toString(),
           name,
           this
       )
@@ -124,7 +116,7 @@ class MainActivity : BaseActivity() {
   }
 
   private fun convertAllValuesToString(): String {
-    val adsValues = adsCalculator.calculateNewAdsSensitivity()
+    val adsValues = adsCalculator.calculate()
     return """
              ${resources.getString(R.string.copy_start)}
              ADS 1x = ${adsValues.x1}
