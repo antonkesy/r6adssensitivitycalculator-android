@@ -2,7 +2,7 @@
 
 R6 Siege Y5S3 ADS Sensitivity Calculator Android application
 
-Quick 2-hour project to calculate the new ADS sensitiviy for Tom Clancy's Rainbow Six: Siege by Ubisoft.
+Quick 2-hour project to calculate the new ADS sensitivity for Tom Clancy's Rainbow Six: Siege by Ubisoft.
 Not pretty but does it's job :)
 
 ## Table of Contents
@@ -15,13 +15,13 @@ Not pretty but does it's job :)
   - [License](#license)
 
 ## Background
-I got the disease of changing my gaming settings every match ... :( Ubisoft changed the way ADS sensitivity is calculated and I wanted to keep my old settings I switched between. The calculator provided by Ubisoft was to hard to use for me ...
+I have the disease of changing my gaming settings every match ... :( Ubisoft changed the way ADS sensitivity is calculated and I wanted to keep my old settings I switched between. The calculator provided by Ubisoft was to hard to use for me ...
 
 ## Screenshots
 
 <p float="left">
-<img src="store/graphics/Screenshot_1.png" width="200" />
-<img src="store/graphics/Screenshot_2.png" width="200" />
+<img src=".store/graphics/Screenshot_1.png" width="200" />
+<img src=".store/graphics/Screenshot_2.png" width="200" />
 </p>
 
 
