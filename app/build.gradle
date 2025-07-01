@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.poorskill.r6adssensitivitycalculator"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 35
         versionCode 20
         versionName "5.3"
