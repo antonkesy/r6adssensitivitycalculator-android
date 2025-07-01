@@ -85,7 +85,7 @@ public class UserPreferencesManager implements Settings {
         } catch (Exception e) {
             id = 0;
         }
-        for (Theme t : Theme.values()) {
+        for (Theme t : Theme.getEntries()) {
             if (t.getId() == id) {
                 return t;
             }
