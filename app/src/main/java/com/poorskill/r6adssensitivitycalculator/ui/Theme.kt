@@ -11,4 +11,3 @@ enum class Theme(val id: Int) {
   VelvetShell(7),
   Health(8)
 }
-

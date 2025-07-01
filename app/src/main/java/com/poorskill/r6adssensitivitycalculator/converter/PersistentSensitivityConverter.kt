@@ -19,4 +19,3 @@ class PersistentSensitivityConverter(private val settings: Settings) : Sensitivi
     return converter.calculate()
   }
 }
-

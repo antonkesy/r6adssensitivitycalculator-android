@@ -14,4 +14,3 @@ interface Settings {
   fun getTheme(): Theme
   fun updateLanguage()
 }
-

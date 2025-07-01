@@ -42,4 +42,3 @@ class GoogleServices(private val activity: Activity, private val settings: Setti
     }
   }
 }
-
