@@ -1,63 +1,45 @@
 <resources>
     <!-- todo change action bar text color -->
-    <style name="ThemeBlackIce" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeBlackIce" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundBlackIce</item>
-        <!-- same -->
         <item name="colorPrimary">#4190B3</item>
-        <item name="colorPrimaryDark">#4190B3</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#A0BED9</item>
+        <item name="colorSecondary">#A0BED9</item>
         <item name="color">#FFFFFF</item>
     </style>
 
-    <style name="ThemeDustLine" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeDustLine" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundDustLine</item>
-        <!-- same -->
         <item name="colorPrimary">#CBA746</item>
-        <item name="colorPrimaryDark">#CBA746</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#BF9445</item>
+        <item name="colorSecondary">#BF9445</item>
         <item name="color">@color/white</item>
     </style>
 
-    <style name="ThemeSkullRain" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeSkullRain" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundSkullRain</item>
-        <!-- same -->
         <item name="colorPrimary">#4A8B3B</item>
-        <item name="colorPrimaryDark">#4A8B3B</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#1B4C22</item>
+        <item name="colorSecondary">#1B4C22</item>
         <item name="color">@color/white</item>
     </style>
 
 
-    <style name="ThemeRedCrow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeRedCrow" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundRedCrow</item>
-        <!-- same -->
         <item name="colorPrimary">#B7242E</item>
-        <item name="colorPrimaryDark">#B7242E</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#FB0015</item>
+        <item name="colorSecondary">#FB0015</item>
         <item name="color">@color/white</item>
     </style>
 
-    <style name="ThemeVelvetShell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeVelvetShell" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundVelvetShell</item>
-        <!-- same -->
         <item name="colorPrimary">#722493</item>
-        <item name="colorPrimaryDark">#722493</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#A33FC5</item>
+        <item name="colorSecondary">#A33FC5</item>
         <item name="color">@color/white</item>
     </style>
 
-    <style name="ThemeHealth" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="ThemeHealth" parent="Theme.Material3.DayNight">
         <item name="background">@color/backgroundHealth</item>
-        <!-- same -->
         <item name="colorPrimary">#2845B3</item>
-        <item name="colorPrimaryDark">#2845B3</item>
-        <!-- ^^ -->
-        <item name="colorAccent">#2646A6</item>
+        <item name="colorSecondary">#2646A6</item>
         <item name="color">@color/white</item>
     </style>
 
