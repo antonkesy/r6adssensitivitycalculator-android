@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.activity.OnBackPressedCallback
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.databinding.ActivityMainBinding
@@ -21,7 +21,13 @@ import com.poorskill.r6adssensitivitycalculator.ui.openSettings
 import com.poorskill.r6adssensitivitycalculator.ui.shareString
 
 class MainActivity : BaseActivity() {
-  private var isStartLayout = true
+  private val backToStartCallback =
+      object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+          binding.motionLayoutMain.transitionToStart()
+          isEnabled = false
+        }
+      }
 
   private lateinit var settings: Settings
   private lateinit var adsCalculator: PersistentSensitivityConverter
@@ -35,6 +41,7 @@ class MainActivity : BaseActivity() {
 
     settings = UserPreferencesManager(this)
     adsCalculator = PersistentSensitivityConverter(settings)
+    onBackPressedDispatcher.addCallback(this, backToStartCallback)
 
     with(GoogleServices(this, settings)) {
       checkInAppUpdate()
@@ -84,7 +91,7 @@ class MainActivity : BaseActivity() {
 
     binding.include2.btnBack.setOnClickListener {
       binding.motionLayoutMain.transitionToStart()
-      isStartLayout = true
+      backToStartCallback.isEnabled = false
     }
 
     binding.include.btnCalculate.setOnClickListener {
@@ -99,7 +106,7 @@ class MainActivity : BaseActivity() {
       binding.include2.outputAds5.text = adsValues.x4.toString()
       binding.include2.outputAds6.text = adsValues.x5.toString()
       binding.include2.outputAds7.text = adsValues.x12.toString()
-      isStartLayout = false
+      backToStartCallback.isEnabled = true
       settings.incrementUsage()
     }
 
@@ -131,16 +138,5 @@ class MainActivity : BaseActivity() {
       }
     }
     return true
-  }
-
-  /** Overrides backPress to go back to start motion layout if in end */
-  @Deprecated("Deprecated in Java")
-  override fun onBackPressed() {
-    if (!isStartLayout) {
-      findViewById<MotionLayout>(R.id.motionLayoutMain).transitionToStart()
-      isStartLayout = true
-    } else {
-      super.onBackPressed()
-    }
   }
 }

@@ -76,7 +76,7 @@ class TextEditSeekbar(
                 )
                 .show()
           }
-        } catch (ignore: Exception) {}
+        } catch (ignore: NumberFormatException) {}
       }
     }
     // check after lost focus
@@ -98,7 +98,7 @@ class TextEditSeekbar(
                   }
                 }
           }
-        } catch (ignore: Exception) {}
+        } catch (ignore: NumberFormatException) {}
         editText.setText(newValue.toString())
         seekBar.progress = range.value - range.min
       }

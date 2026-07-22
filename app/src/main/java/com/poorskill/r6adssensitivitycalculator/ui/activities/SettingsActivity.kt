@@ -22,7 +22,7 @@ class SettingsActivity : BaseActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       android.R.id.home -> {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         true
       }
       else -> super.onOptionsItemSelected(item)
@@ -46,9 +46,9 @@ class SettingsActivity : BaseActivity() {
     private fun changeLanguage() {
       UserPreferencesManager(requireContext()).updateLanguage()
       activity?.let {
-        val intent = activity?.intent
-        this.activity?.finish()
-        intent?.let { it1 -> startActivity(it1) }
+        val intent = it.intent
+        it.finish()
+        startActivity(intent)
       }
     }
 
