@@ -1,6 +1,7 @@
 package com.poorskill.r6adssensitivitycalculator.ui.screens
 
 import android.app.Activity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -145,7 +146,7 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
 
       Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         SectionHeader(stringResource(R.string.output_header))
-        ResultGrid(values = result.asArray()) { index, value ->
+        ResultList(values = result.asArray()) { index, value ->
           copy(value.toString(), activity.getString(adsLabels[index]))
         }
       }
@@ -188,51 +189,45 @@ private fun SectionHeader(text: String) {
   )
 }
 
+/**
+ * One value per line inside a single card. Rows are hairline-separated rather than individually
+ * boxed, so a row costs ~40dp instead of the ~56dp a card per value would: eight of them plus the
+ * inputs still fit a normal phone without scrolling.
+ */
 @Composable
-private fun ResultGrid(values: IntArray, onCopy: (index: Int, value: Int) -> Unit) {
-  Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-    values.toList().chunked(2).forEachIndexed { rowIndex, pair ->
-      Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        pair.forEachIndexed { columnIndex, value ->
-          val index = rowIndex * 2 + columnIndex
-          ResultCell(
-              label = stringResource(adsLabels[index]),
-              value = value,
-              modifier = Modifier.weight(1f)
-          ) {
-            onCopy(index, value)
-          }
-        }
-      }
-    }
-  }
-}
-
-@Composable
-private fun ResultCell(label: String, value: Int, modifier: Modifier, onClick: () -> Unit) {
+private fun ResultList(values: IntArray, onCopy: (index: Int, value: Int) -> Unit) {
   Card(
-      modifier = modifier.clickable(onClick = onClick),
       shape = RoundedCornerShape(14.dp),
       colors =
           CardDefaults.cardColors(
               containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
           )
   ) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-      Text(
-          label,
-          style = MaterialTheme.typography.labelMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant
-      )
-      Text(
-          value.toString(),
-          style = MaterialTheme.typography.headlineSmall,
-          color = MaterialTheme.colorScheme.primary
-      )
+    values.forEachIndexed { index, value ->
+      // zebra striping instead of dividers: easier to keep your eye on one line, same height
+      val stripe =
+          if (index % 2 == 0) MaterialTheme.colorScheme.surfaceContainerHighest
+          else MaterialTheme.colorScheme.surfaceContainerLow
+      Row(
+          modifier =
+              Modifier.fillMaxWidth()
+                  .background(stripe)
+                  .clickable { onCopy(index, value) }
+                  .padding(horizontal = 14.dp, vertical = 6.dp),
+          verticalAlignment = Alignment.CenterVertically
+      ) {
+        Text(
+            stringResource(adsLabels[index]),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            value.toString(),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+      }
     }
   }
 }
