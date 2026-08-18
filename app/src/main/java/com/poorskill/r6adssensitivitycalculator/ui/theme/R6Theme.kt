@@ -71,6 +71,10 @@ private val LightScheme =
         onPrimary = Color.White,
         secondary = Color(0xFF5B5D5B),
         onSecondary = Color.White,
+        // drives the slider's inactive track and the tonal buttons — left unset it falls back to
+        // Material's baseline lavender, which fights the slate palette
+        secondaryContainer = Color(0xFFD5E0E5),
+        onSecondaryContainer = Color(0xFF22333A),
         background = Color(0xFFFFFFFF),
         onBackground = Color(0xFF060C0D),
         surface = Color(0xFFFFFFFF),
@@ -92,6 +96,8 @@ private val DarkScheme =
         onPrimary = Color(0xFF141414),
         secondary = Color(0xFFD6D6D6),
         onSecondary = Color(0xFF141414),
+        secondaryContainer = Color(0xFF33383A),
+        onSecondaryContainer = Color(0xFFD6E2E7),
         background = Color(0xFF141414),
         onBackground = Color.White,
         surface = Color(0xFF141414),
@@ -118,6 +124,8 @@ private fun season(background: Color, primary: Color, secondary: Color): ColorSc
         onPrimary = contrastOn(primary),
         secondary = secondary,
         onSecondary = contrastOn(secondary),
+        secondaryContainer = lerp(background, secondary, 0.35f),
+        onSecondaryContainer = Color.White,
         background = background,
         onBackground = Color.White,
         surface = background,
