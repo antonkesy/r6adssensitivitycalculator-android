@@ -99,7 +99,8 @@ public class UserPreferencesManager implements Settings {
 
     @NotNull
     public String getLanguage() {
-        return getSharedPreferences().getString(context.getString(R.string.prefApplicationLanguagePrefKey), SYSTEM_LANGUAGE);
+        String lang = getSharedPreferences().getString(context.getString(R.string.prefApplicationLanguagePrefKey), SYSTEM_LANGUAGE);
+        return lang != null ? lang : SYSTEM_LANGUAGE;
     }
 
     public void putLanguage(@NotNull String languageCode) {
