@@ -48,4 +48,6 @@
     <string name="aspect_ratio">Aspect Ratio</string>
     <string name="shareTitle">Share to:</string>
     <string name="share">Share</string>
+    <string name="input_header">Shadow Legacy Settings</string>
+    <string name="output_header">New ADS Values</string>
 </resources>

@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
 import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
@@ -104,33 +105,49 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
                 .padding(horizontal = 20.dp, vertical = 4.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-      Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        ValueSlider(
-            label = stringResource(R.string.old_ads),
-            value = ads,
-            min = converter.ads.min,
-            max = converter.ads.max
+      Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SectionHeader(stringResource(R.string.input_header))
+        Card(
+            colors =
+                CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                )
         ) {
-          converter.ads.value = it
-          ads = it
-        }
-        ValueSlider(
-            label = stringResource(R.string.fov),
-            value = fov,
-            min = converter.fov.min,
-            max = converter.fov.max
-        ) {
-          converter.fov.value = it
-          fov = it
-        }
-        AspectRatioRow(selectedIndex = aspect) {
-          converter.aspectRatio.currentIndex = it
-          aspect = it
+          Column(
+              modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+              verticalArrangement = Arrangement.spacedBy(4.dp)
+          ) {
+            ValueSlider(
+                label = stringResource(R.string.old_ads),
+                value = ads,
+                min = converter.ads.min,
+                max = converter.ads.max
+            ) {
+              converter.ads.value = it
+              ads = it
+            }
+            ValueSlider(
+                label = stringResource(R.string.fov),
+                value = fov,
+                min = converter.fov.min,
+                max = converter.fov.max
+            ) {
+              converter.fov.value = it
+              fov = it
+            }
+            AspectRatioRow(selectedIndex = aspect) {
+              converter.aspectRatio.currentIndex = it
+              aspect = it
+            }
+          }
         }
       }
 
-      ResultGrid(values = result.asArray()) { index, value ->
-        copy(value.toString(), activity.getString(adsLabels[index]))
+      Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SectionHeader(stringResource(R.string.output_header))
+        ResultGrid(values = result.asArray()) { index, value ->
+          copy(value.toString(), activity.getString(adsLabels[index]))
+        }
       }
 
       Row(
@@ -159,6 +176,18 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
   }
 }
 
+/** Small caps label that splits the screen into "what you set" and "what you get". */
+@Composable
+private fun SectionHeader(text: String) {
+  Text(
+      text.uppercase(),
+      style = MaterialTheme.typography.labelSmall,
+      color = MaterialTheme.colorScheme.primary,
+      letterSpacing = 1.5.sp,
+      modifier = Modifier.padding(start = 4.dp)
+  )
+}
+
 @Composable
 private fun ResultGrid(values: IntArray, onCopy: (index: Int, value: Int) -> Unit) {
   Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -185,7 +214,9 @@ private fun ResultCell(label: String, value: Int, modifier: Modifier, onClick: (
       modifier = modifier.clickable(onClick = onClick),
       shape = RoundedCornerShape(14.dp),
       colors =
-          CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)
+          CardDefaults.cardColors(
+              containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
+          )
   ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp),

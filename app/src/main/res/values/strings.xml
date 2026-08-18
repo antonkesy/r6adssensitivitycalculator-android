@@ -71,8 +71,10 @@
     <string name="toClipboard">" to clipboard"</string>
     <string name="copyValues" translatable="false">Copy Values</string>
     <string name="everything">everything</string>
+    <string name="input_header">Shadow Legacy Settings</string>
+    <string name="output_header">New ADS Values</string>
     <string name="fov">FOV</string>
-    <string name="old_ads" translatable="false">Shadow Legacy ADS</string>
+    <string name="old_ads" translatable="false">ADS</string>
     <string name="aspect_ratio">Aspect Ratio</string>
     <string name="shareTitle">Share to:</string>
     <string name="share">Share</string>

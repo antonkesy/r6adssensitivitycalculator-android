@@ -48,4 +48,6 @@
     <string name="aspect_ratio">Seitenverhältnis</string>
     <string name="shareTitle">Teilen mit:</string>
     <string name="share">Teilen</string>
+    <string name="input_header">Shadow Legacy Einstellungen</string>
+    <string name="output_header">Neue ADS-Werte</string>
 </resources>
