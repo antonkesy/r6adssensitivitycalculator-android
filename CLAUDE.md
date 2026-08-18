@@ -12,19 +12,29 @@ sensitivity system to Ubisoft's Y5S3 FOV-based system. Single `:app` module, no 
 Build and test via the Gradle wrapper from the repo root:
 
 ```
-./gradlew assembleDebug          # build debug APK
-./gradlew test                   # run JVM unit tests (app/src/test)
-./gradlew connectedAndroidTest    # run instrumented tests (app/src/androidTest), needs a device/emulator
-./gradlew testDebugUnitTest --tests "*.R6Y5S3SensitivityConverterTest"   # run a single unit test class
+./gradlew assembleDebug testDebugUnitTest lintDebug   # exactly what CI runs
+./gradlew testDebugUnitTest      # all tests, UI included (Robolectric — no device needed)
+./gradlew testDebugUnitTest --tests "*.MainScreenTest"   # run a single test class
 ```
 
 There is no lint/format tool configured beyond `.pre-commit-config.yaml`, which only runs generic
 hygiene hooks (trailing whitespace, EOF fixer, YAML check, large-file check) — no Kotlin-specific
-linting is enforced.
+linting is enforced. Android lint runs in CI with `abortOnError` and uploads SARIF to code scanning.
 
-Test coverage is `R6Y5S3SensitivityConverterTest` only: it pins the converter's output for the
-default input and the range extremes so a UI change can't silently move the numbers. There are no
-Compose UI tests and `app/src/androidTest` is empty.
+**All tests are JVM tests.** `app/src/androidTest` is intentionally empty — the Compose screen
+tests run under Robolectric in `app/src/test`, so one fast `./gradlew testDebugUnitTest` covers
+everything and CI needs no emulator. Robolectric is pinned to `sdk=35` in
+`app/src/test/resources/robolectric.properties` because it has no android-all jar for compileSdk 37;
+raise that when a newer Robolectric supports it.
+
+Compose tests compose the screen directly with a `FakeSettings`-backed converter
+(`createAndroidComposeRule<ComponentActivity>()`); they deliberately do **not** launch
+`MainActivity`, whose `onCreate` calls into Play in-app update/review. Note the Robolectric screen
+is phone-sized and the main screen scrolls, so assert with `assertExists()` (or `performScrollTo()`
+first) for anything below the fold rather than `assertIsDisplayed()`.
+
+`R6Y5S3SensitivityConverterTest` and `PersistentSensitivityConverterTest` pin the converter's
+numeric output — if a change moves those numbers, that is the finding, not a stale test.
 
 ## Architecture
 

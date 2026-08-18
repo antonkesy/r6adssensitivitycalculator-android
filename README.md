@@ -1,5 +1,7 @@
 # r6adssensitivitycalculator-android
 
+[![android](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/android.yml/badge.svg)](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/android.yml)
+
 R6 Siege Y5S3 ADS Sensitivity Calculator Android application
 
 Quick 2-hour project to calculate the new ADS sensitivity for Tom Clancy's Rainbow Six: Siege by Ubisoft.
@@ -12,6 +14,7 @@ Not pretty but does it's job :)
   - [Background](#background)
   - [Screenshots](#screenshots)
   - [Install](#install)
+  - [Tests](#tests)
   - [License](#license)
 
 ## Background
@@ -28,6 +31,17 @@ I have the disease of changing my gaming settings every match ... :( Ubisoft cha
 ## Install
 
 [GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator "Rainbow Six Siege Y5S3 ADS Sensitivity Calculator on GooglePlayStore")
+
+## Tests
+
+```
+./gradlew testDebugUnitTest                            # everything, UI tests included
+./gradlew testDebugUnitTest --tests "*.MainScreenTest" # a single class
+./gradlew assembleDebug testDebugUnitTest lintDebug    # what CI runs
+```
+
+No emulator or device needed: the Compose screens are tested with [Robolectric](https://robolectric.org/)
+on the JVM, so everything lives in `app/src/test` and `app/src/androidTest` is empty.
 
 ## License
 

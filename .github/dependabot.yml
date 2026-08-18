@@ -1,0 +1,32 @@
+version: 2
+
+updates:
+  # Note: the Kotlin artifacts are declared as "...:$kotlin_version" and follow ext.kotlin_version
+  # in the root build.gradle — Dependabot cannot see those, so Kotlin stays a manual bump.
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # first match wins, so the narrower compose pattern has to come before androidx.*
+      compose:
+        patterns:
+          - androidx.compose*
+      androidx:
+        patterns:
+          - androidx.*
+      play-services:
+        patterns:
+          - com.google.android.play:*
+          - com.google.gms:*
+          - com.google.firebase:*
+      testing:
+        patterns:
+          - junit:junit
+          - org.robolectric:*
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
