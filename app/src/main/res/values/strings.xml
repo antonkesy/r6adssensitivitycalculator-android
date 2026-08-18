@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ADS Calculator</string>
+    <string name="app_name">R6 Siege ADS Calculator</string>
     <string name="ads_1" translatable="false">ADS 1x</string>
     <string name="ads_2" translatable="false">ADS 1.5x</string>
     <string name="ads_3" translatable="false">ADS 2x</string>
