@@ -48,11 +48,12 @@ class R6Y5S3SensitivityConverter(
     return (adsMultiplier / fovAdjustment * oldAds).toInt()
   }
 
+  /** Vertical FOV, in degrees, at which the horizontal FOV hits the 150° cap. */
   private fun calculateVerticalFOV(aspectRatio: Double): Double {
-    return 2 * atan(tan(Math.toRadians(75.0)) / aspectRatio)
+    return Math.toDegrees(2 * atan(tan(Math.toRadians(75.0)) / aspectRatio))
   }
 
   private fun calculateHorizontalFOV(verticalFOV: Double, aspectRatio: Double): Double {
-    return 2 * atan(tan(Math.toRadians(verticalFOV / 2.0)) * aspectRatio)
+    return Math.toDegrees(2 * atan(tan(Math.toRadians(verticalFOV / 2.0)) * aspectRatio))
   }
 }

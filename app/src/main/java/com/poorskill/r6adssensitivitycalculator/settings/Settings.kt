@@ -12,5 +12,8 @@ interface Settings {
   fun getUsage(): Int
   fun incrementUsage()
   fun getTheme(): Theme
+  fun putTheme(theme: Theme)
+  fun getLanguage(): String
+  fun putLanguage(languageCode: String)
   fun updateLanguage()
 }

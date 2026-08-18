@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ADS-Rechner</string>
-    <string name="btn_calculate">Berechnung</string>
     <string name="action_about">Über</string>
     <string name="action_help">Hilfe</string>
 
@@ -46,11 +45,9 @@
     <string name="toClipboard">" zur Zwischenablage"</string>
     <string name="everything">alles</string>
     <string name="fov">Sichtfeld</string>
-    <string name="old_ads">Alte ADS</string>
     <string name="aspect_ratio">Seitenverhältnis</string>
-    <string name="inputFOVHint">FOV-Wert eingeben</string>
-    <string name="inputOldADSHint">alten ADS-Wert eingeben</string>
     <string name="shareTitle">Teilen mit:</string>
-    <string name="tooBig">zu groß</string>
-    <string name="tooSmall">zu klein</string>
+    <string name="share">Teilen</string>
+    <string name="input_header">Shadow Legacy Einstellungen</string>
+    <string name="output_header">Neue ADS-Werte</string>
 </resources>
