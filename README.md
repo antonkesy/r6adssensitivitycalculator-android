@@ -1,6 +1,14 @@
 # r6adssensitivitycalculator-android
 
 [![android](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/android.yml/badge.svg)](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/android.yml)
+[![pre-commit](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/antonkesy/r6adssensitivitycalculator-android/actions/workflows/pre-commit.yml)
+[![license](https://img.shields.io/github/license/antonkesy/r6adssensitivitycalculator-android)](LICENSE)
+[![last commit](https://img.shields.io/github/last-commit/antonkesy/r6adssensitivitycalculator-android)](https://github.com/antonkesy/r6adssensitivitycalculator-android/commits/main)
+
+[![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)](https://developer.android.com/compose)
+[![API 23+](https://img.shields.io/badge/API-23%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com/tools/releases/platforms)
+[![Google Play](https://img.shields.io/badge/Google%20Play-Install-3DDC84?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator)
 
 R6 Siege Y5S3 ADS Sensitivity Calculator Android application
 
@@ -27,11 +35,6 @@ I have the disease of changing my gaming settings every match ... :( Ubisoft cha
 <img src=".store/graphics/Screenshot_2.png" width="200" />
 </p>
 
-
-## Install
-
-[GooglePlayStore](https://play.google.com/store/apps/details?id=com.poorskill.r6adssensitivitycalculator "Rainbow Six Siege Y5S3 ADS Sensitivity Calculator on GooglePlayStore")
-
 ## Tests
 
 ```
@@ -42,7 +45,3 @@ I have the disease of changing my gaming settings every match ... :( Ubisoft cha
 
 No emulator or device needed: the Compose screens are tested with [Robolectric](https://robolectric.org/)
 on the JVM, so everything lives in `app/src/test` and `app/src/androidTest` is empty.
-
-## License
-
-[MIT](LICENSE) © Anton Kesy
