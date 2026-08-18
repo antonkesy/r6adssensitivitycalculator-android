@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ADS Calculator</string>
-    <string name="btn_calculate">calculate</string>
     <string name="action_about">About</string>
     <string name="action_help">Help</string>
 
@@ -48,9 +47,6 @@
     <string name="fov">FOV</string>
     <string name="old_ads">Old ADS</string>
     <string name="aspect_ratio">Aspect Ratio</string>
-    <string name="inputFOVHint">input FOV value</string>
-    <string name="inputOldADSHint">input old ADS value</string>
     <string name="shareTitle">Share to:</string>
-    <string name="tooBig">too big</string>
-    <string name="tooSmall">too small</string>
+    <string name="share">Share</string>
 </resources>

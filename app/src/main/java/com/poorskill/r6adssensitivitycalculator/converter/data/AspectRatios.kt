@@ -22,7 +22,7 @@ class AspectRatios(startIndex: Int, private val onIndexChange: ((Int) -> Unit)? 
           AspectRatio("5:3", 5.0 / 3),
           AspectRatio("5:4", 5.0 / 4),
           AspectRatio("19:10", 19.0 / 10),
-          AspectRatio("21:10", 21.0 / 9)
+          AspectRatio("21:9", 21.0 / 9)
       )
     }
   }

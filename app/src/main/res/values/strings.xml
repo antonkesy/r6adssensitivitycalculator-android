@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">ADS Calculator</string>
-    <string name="btn_calculate">calculate</string>
-    <string name="equals" translatable="false">=</string>
     <string name="ads_1" translatable="false">ADS 1x</string>
     <string name="ads_2" translatable="false">ADS 1.5x</string>
     <string name="ads_3" translatable="false">ADS 2x</string>
@@ -12,8 +10,6 @@
     <string name="ads_8" translatable="false">ADS 12x</string>
     <string name="action_about">About</string>
     <string name="action_help">Help</string>
-    <string name="title_text" translatable="false">Rainbow Six Siege Y5S3</string>
-    <string name="subtitle_text" translatable="false">ADS SENSITIVITY CALCULATOR</string>
 
     <string name="copyrightAntonKesy" translatable="false">by Anton Kesy</string>
     <string name="poorskillWebsite" translatable="false">https://www.antonkesy.de</string>
@@ -78,12 +74,8 @@
     <string name="fov">FOV</string>
     <string name="old_ads">Old ADS</string>
     <string name="aspect_ratio">Aspect Ratio</string>
-    <string name="inputFOVHint">input FOV value</string>
-    <string name="inputOldADSHint">input old ADS value</string>
-    <string name="copy_start" translatable="false">R6 Siege Y5S3 ADS Sensitivity Calculator</string>
     <string name="shareTitle">Share to:</string>
-    <string name="tooBig">too big</string>
-    <string name="tooSmall">too small</string>
+    <string name="share">Share</string>
 
     <string name="blackIce" translatable="false">Black Ice</string>
     <string name="dustLine" translatable="false">Dust Line</string>

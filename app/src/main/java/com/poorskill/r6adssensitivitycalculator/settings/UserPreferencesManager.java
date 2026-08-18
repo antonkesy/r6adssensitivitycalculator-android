@@ -2,9 +2,9 @@ package com.poorskill.r6adssensitivitycalculator.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceManager;
 
 import com.poorskill.r6adssensitivitycalculator.R;
@@ -12,9 +12,9 @@ import com.poorskill.r6adssensitivitycalculator.ui.Theme;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
-
 public class UserPreferencesManager implements Settings {
+    public static final String SYSTEM_LANGUAGE = "system";
+
     private static final String prefADSKey = "adsKey";
     private static final String prefFOVKey = "fovKey";
     private static final String prefPosAspectRatioKey = "aspKey";
@@ -92,21 +92,32 @@ public class UserPreferencesManager implements Settings {
         return Theme.System;
     }
 
-    public void updateLanguage() {
-        String langCode = getSharedPreferences().getString(context.getString(R.string.prefApplicationLanguagePrefKey), "system");
-        if (langCode.equals("system")) {
-            langCode = Locale.getDefault().getLanguage();
-        }
-        setLocale(langCode);
+    public void putTheme(@NotNull Theme theme) {
+        // stored as a string id, unchanged from the ListPreference days
+        getEditorSharedPreferences().putString(context.getString(R.string.prefApplicationThemePrefKey), String.valueOf(theme.getId())).apply();
     }
 
-    private void setLocale(String languageCode) {
-        Locale locale = Locale.forLanguageTag(languageCode);
-        Locale.setDefault(locale);
-        Resources r = context.getResources();
-        Configuration c = r.getConfiguration();
-        c.setLocale(locale);
-        r.updateConfiguration(c, r.getDisplayMetrics());
-        context.createConfigurationContext(c);
+    @NotNull
+    public String getLanguage() {
+        return getSharedPreferences().getString(context.getString(R.string.prefApplicationLanguagePrefKey), SYSTEM_LANGUAGE);
+    }
+
+    public void putLanguage(@NotNull String languageCode) {
+        getEditorSharedPreferences().putString(context.getString(R.string.prefApplicationLanguagePrefKey), languageCode).apply();
+        updateLanguage();
+    }
+
+    /**
+     * Applies the stored language. AppCompat persists and re-applies this itself and recreates the
+     * running activities, so there is nothing to do beyond handing it the tag.
+     */
+    public void updateLanguage() {
+        String langCode = getLanguage();
+        LocaleListCompat locales = SYSTEM_LANGUAGE.equals(langCode)
+                ? LocaleListCompat.getEmptyLocaleList()
+                : LocaleListCompat.forLanguageTags(langCode);
+        if (!locales.equals(AppCompatDelegate.getApplicationLocales())) {
+            AppCompatDelegate.setApplicationLocales(locales);
+        }
     }
 }

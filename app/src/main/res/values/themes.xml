@@ -1,9 +1,6 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Theme.Base" parent="Theme.Material3.DayNight">
-        <item name="background">@color/backgroundLight</item>
-        <item name="colorPrimary">#8D9FA6</item>
-        <item name="colorSecondary">#5B5D5B</item>
-        <item name="color">#060C0D</item>
-    </style>
+    <!-- Window theme only: Compose owns every colour the user actually sees (see ui/theme/R6Theme.kt).
+         ponytail: the pre-composition frame follows the system light/dark background rather than the
+         selected season theme; add a per-theme windowBackground if that flash ever gets noticed. -->
+    <style name="Theme.Base" parent="Theme.AppCompat.DayNight.NoActionBar" />
 </resources>

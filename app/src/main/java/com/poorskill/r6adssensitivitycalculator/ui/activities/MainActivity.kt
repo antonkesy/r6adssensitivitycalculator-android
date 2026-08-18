@@ -1,142 +1,23 @@
 package com.poorskill.r6adssensitivitycalculator.ui.activities
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.activity.OnBackPressedCallback
-import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
-import com.poorskill.r6adssensitivitycalculator.databinding.ActivityMainBinding
 import com.poorskill.r6adssensitivitycalculator.services.google.GoogleServices
-import com.poorskill.r6adssensitivitycalculator.settings.Settings
-import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
-import com.poorskill.r6adssensitivitycalculator.ui.clearFocus
-import com.poorskill.r6adssensitivitycalculator.ui.components.TextEditSeekbar
-import com.poorskill.r6adssensitivitycalculator.ui.components.aspectratio.AspectRatioSpinner
-import com.poorskill.r6adssensitivitycalculator.ui.copyToClipboard
-import com.poorskill.r6adssensitivitycalculator.ui.openAbout
-import com.poorskill.r6adssensitivitycalculator.ui.openHelp
-import com.poorskill.r6adssensitivitycalculator.ui.openSettings
-import com.poorskill.r6adssensitivitycalculator.ui.shareString
+import com.poorskill.r6adssensitivitycalculator.ui.screens.MainScreen
 
 class MainActivity : BaseActivity() {
-  private val backToStartCallback =
-      object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-          binding.motionLayoutMain.transitionToStart()
-          isEnabled = false
-        }
-      }
 
-  private lateinit var settings: Settings
-  private lateinit var adsCalculator: PersistentSensitivityConverter
-  private lateinit var binding: ActivityMainBinding
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    val converter = PersistentSensitivityConverter(settings)
 
-    supportActionBar?.subtitle = getString(R.string.subtitle_text)
-
-    settings = UserPreferencesManager(this)
-    adsCalculator = PersistentSensitivityConverter(settings)
-    onBackPressedDispatcher.addCallback(this, backToStartCallback)
-
+    // Results are live now, so there is no calculate button to count: usage means launches.
+    settings.incrementUsage()
     with(GoogleServices(this, settings)) {
       checkInAppUpdate()
       checkInAppReview()
     }
 
-    setupViews()
-  }
-
-  private fun setupViews() {
-    TextEditSeekbar(
-        adsCalculator.ads,
-        binding.include.oldAdsTV,
-        binding.include.oldAdsEdit,
-        binding.include.adsSeekBar,
-        this
-    )
-
-    TextEditSeekbar(
-        adsCalculator.fov,
-        binding.include.fovTV,
-        binding.include.fovEdit,
-        binding.include.fovSeekBar,
-        this
-    )
-
-    AspectRatioSpinner(
-        binding.include.aspectRatioSpinner,
-        binding.include.aspectTV,
-        this,
-        adsCalculator.aspectRatio
-    )
-
-    binding.include2.ads0Row.setOnClickListener(adsViewClickListener(0, "ADS 1x"))
-
-    binding.include2.ads1Row.setOnClickListener(adsViewClickListener(1, "ADS 1.5x"))
-    binding.include2.ads2Row.setOnClickListener(adsViewClickListener(2, "ADS 2x"))
-    binding.include2.ads3Row.setOnClickListener(adsViewClickListener(3, "ADS 2.5x"))
-    binding.include2.ads4Row.setOnClickListener(adsViewClickListener(4, "ADS 3x"))
-    binding.include2.ads5Row.setOnClickListener(adsViewClickListener(5, "ADS 4x"))
-    binding.include2.ads6Row.setOnClickListener(adsViewClickListener(6, "ADS 5x"))
-    binding.include2.ads7Row.setOnClickListener(adsViewClickListener(7, "ADS 12x"))
-
-    binding.include2.btnCopyAll.setOnClickListener {
-      copyToClipboard(adsCalculator.calculate().toString(), this)
-    }
-
-    binding.include2.btnBack.setOnClickListener {
-      binding.motionLayoutMain.transitionToStart()
-      backToStartCallback.isEnabled = false
-    }
-
-    binding.include.btnCalculate.setOnClickListener {
-      clearFocus(this)
-      binding.motionLayoutMain.transitionToEnd()
-      val adsValues = adsCalculator.calculate()
-      binding.include2.outputAds0.text = adsValues.x1.toString()
-      binding.include2.outputAds1.text = adsValues.x1_5.toString()
-      binding.include2.outputAds2.text = adsValues.x2.toString()
-      binding.include2.outputAds3.text = adsValues.x2_5.toString()
-      binding.include2.outputAds4.text = adsValues.x3.toString()
-      binding.include2.outputAds5.text = adsValues.x4.toString()
-      binding.include2.outputAds6.text = adsValues.x5.toString()
-      binding.include2.outputAds7.text = adsValues.x12.toString()
-      backToStartCallback.isEnabled = true
-      settings.incrementUsage()
-    }
-
-    binding.include2.btnShare.setOnClickListener {
-      shareString(adsCalculator.calculate().toString(), this)
-    }
-    binding.include2.btnHelp.setOnClickListener { openHelp(this) }
-  }
-
-  private fun adsViewClickListener(adsValueIndex: Int, name: String): View.OnClickListener {
-    return View.OnClickListener {
-      copyToClipboard(adsCalculator.calculate().asArray()[adsValueIndex].toString(), this)
-    }
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-    val inflater = menuInflater
-    inflater.inflate(R.menu.menu_main, menu)
-    return true
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.action_settings -> openSettings(this)
-      R.id.action_about -> openAbout(this)
-      R.id.action_help -> openHelp(this)
-      else -> {
-        return super.onOptionsItemSelected(item)
-      }
-    }
-    return true
+    setThemedContent { MainScreen(converter, this@MainActivity) }
   }
 }

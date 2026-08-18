@@ -1,9 +1,0 @@
-<resources>
-    <!-- Base application theme. -->
-    <style name="Theme.Base" parent="Theme.Material3.DayNight">
-        <item name="background">@color/backgroundDark</item>
-        <item name="colorPrimary">#AFAFAF</item>
-        <item name="colorSecondary">#D6D6D6</item>
-        <item name="color">@color/white</item>
-    </style>
-</resources>
