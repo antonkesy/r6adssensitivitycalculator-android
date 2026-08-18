@@ -72,7 +72,7 @@
     <string name="copyValues" translatable="false">Copy Values</string>
     <string name="everything">everything</string>
     <string name="fov">FOV</string>
-    <string name="old_ads">Old ADS</string>
+    <string name="old_ads" translatable="false">Shadow Legacy ADS</string>
     <string name="aspect_ratio">Aspect Ratio</string>
     <string name="shareTitle">Share to:</string>
     <string name="share">Share</string>
