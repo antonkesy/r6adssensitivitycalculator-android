@@ -31,7 +31,7 @@ jobs:
 
       # Robolectric downloads its android-all jars here on first run
       - name: Cache Robolectric jars
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.m2/repository/org/robolectric
           key: robolectric-${{ runner.os }}-${{ hashFiles('app/src/test/resources/robolectric.properties') }}
