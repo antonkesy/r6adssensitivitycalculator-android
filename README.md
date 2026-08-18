@@ -22,8 +22,6 @@ Not pretty but does it's job :)
   - [Background](#background)
   - [Screenshots](#screenshots)
   - [Install](#install)
-  - [Tests](#tests)
-  - [License](#license)
 
 ## Background
 I have the disease of changing my gaming settings every match ... :( Ubisoft changed the way ADS sensitivity is calculated and I wanted to keep my old settings I switched between. The calculator provided by Ubisoft was to hard to use for me ...
