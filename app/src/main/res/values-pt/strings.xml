@@ -54,4 +54,5 @@
     <string name="share">Compartilhar</string>
     <string name="input_header">Configurações do Shadow Legacy</string>
     <string name="output_header">Novos valores ADS</string>
+    <string name="copyValues">Copiar valores</string>
 </resources>

@@ -54,4 +54,5 @@
     <string name="share">分享</string>
     <string name="input_header">Shadow Legacy 设置</string>
     <string name="output_header">新的 ADS 数值</string>
+    <string name="copyValues">复制数值</string>
 </resources>

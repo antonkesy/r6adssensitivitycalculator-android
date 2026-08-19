@@ -12,3 +12,5 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
       - uses: pre-commit/action@v3.0.1
+        env:
+          SKIP: android-lint # the android workflow already runs lintDebug
