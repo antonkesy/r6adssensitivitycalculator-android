@@ -19,7 +19,7 @@ fun openMail(address: String, subject: String, activity: Activity) =
     activity.startActivity(
         Intent(Intent.ACTION_SENDTO).apply {
           data = "mailto:".toUri() // only email apps should handle this
-          putExtra(Intent.EXTRA_EMAIL, address)
+          putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
           putExtra(Intent.EXTRA_SUBJECT, subject)
         }
     )
