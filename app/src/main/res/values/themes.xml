@@ -1,6 +1,3 @@
 <resources>
-    <!-- Window theme only: Compose owns every colour the user actually sees (see ui/theme/R6Theme.kt).
-         ponytail: the pre-composition frame follows the system light/dark background rather than the
-         selected season theme; add a per-theme windowBackground if that flash ever gets noticed. -->
     <style name="Theme.Base" parent="Theme.AppCompat.DayNight.NoActionBar" />
 </resources>

@@ -1,40 +1,30 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
-    compileSdkVersion 37
+    compileSdk 37
 
     defaultConfig {
         applicationId "com.poorskill.r6adssensitivitycalculator"
-        minSdkVersion 23
-        targetSdkVersion 37
-        versionCode 22
-        versionName "6.0"
+        minSdk 23
+        targetSdk 37
+        versionCode 23
+        versionName "6.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            optimization {
+                enable = true
+            }
         }
     }
 
     buildFeatures {
-        compose true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
+        compose = true
     }
 
     testOptions {
@@ -49,13 +39,11 @@ android {
         abortOnError = true
     }
 
-    namespace 'com.poorskill.r6adssensitivitycalculator'
+    namespace = 'com.poorskill.r6adssensitivitycalculator'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // no kotlin-stdlib: AGP's built-in Kotlin support adds it, matched to the compiler version
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     // kept only for PreferenceManager.getDefaultSharedPreferences: switching to a plain

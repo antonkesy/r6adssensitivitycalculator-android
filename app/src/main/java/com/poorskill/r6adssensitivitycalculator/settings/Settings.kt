@@ -3,17 +3,16 @@ package com.poorskill.r6adssensitivitycalculator.settings
 import com.poorskill.r6adssensitivitycalculator.ui.Theme
 
 interface Settings {
-  fun getAspectRatioPos(): Int
-  fun putAspectRatio(newAspectRatio: Int)
-  fun getADS(): Int
-  fun putADS(newADS: Int)
-  fun getFOV(): Int
-  fun putFOV(newFOV: Int)
-  fun getUsage(): Int
+  var ads: Int
+  var fov: Int
+  var aspectRatioPos: Int
+  var theme: Theme
+  /** Setting this also applies the locale — see [updateLanguage]. */
+  var language: String
+
+  val usage: Int
+
   fun incrementUsage()
-  fun getTheme(): Theme
-  fun putTheme(theme: Theme)
-  fun getLanguage(): String
-  fun putLanguage(languageCode: String)
+
   fun updateLanguage()
 }

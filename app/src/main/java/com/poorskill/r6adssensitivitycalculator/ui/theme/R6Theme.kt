@@ -143,6 +143,4 @@ private fun season(background: Color, primary: Color, secondary: Color): ColorSc
 
 private fun Color.lighten(fraction: Float) = lerp(this, Color.White, fraction)
 
-// ponytail: luminance threshold instead of a hand-tuned onPrimary per season. Bump a specific
-// season to an explicit colour if one of them ever reads badly on a real screen.
 private fun contrastOn(color: Color) = if (color.luminance() > 0.35f) Color.Black else Color.White

@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -59,7 +59,7 @@ class MainScreenTest {
 
     compose.onNodeWithText("67").assertIsDisplayed() // ADS 1x at ADS 100 / FOV 60
     compose.onNodeWithText("167").assertExists() // ADS 12x
-    assertEquals(100, settings.getADS())
+    assertEquals(100, settings.ads)
   }
 
   @Test
@@ -68,7 +68,7 @@ class MainScreenTest {
 
     sliders()[1].performSemanticsAction(SemanticsActions.SetProgress) { it(90f) }
 
-    assertEquals(90, settings.getFOV())
+    assertEquals(90, settings.fov)
   }
 
   /** The ADS slider first, then the FOV one — the order they are laid out in. */
@@ -113,7 +113,7 @@ class MainScreenTest {
     compose.onNodeWithText("16:9").performClick()
     compose.onNodeWithText("4:3").performClick()
 
-    assertEquals(2, settings.getAspectRatioPos())
+    assertEquals(2, settings.aspectRatioPos)
   }
 
   private fun currentClipboardText(): String? {

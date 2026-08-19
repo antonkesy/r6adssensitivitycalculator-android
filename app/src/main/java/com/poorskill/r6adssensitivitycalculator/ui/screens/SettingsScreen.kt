@@ -44,7 +44,7 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
   val languageEntries = stringArrayResource(R.array.language_entries)
   val languageValues = stringArrayResource(R.array.language_values)
 
-  var language by remember { mutableStateOf(settings.getLanguage()) }
+  var language by remember { mutableStateOf(settings.language) }
   val theme by appTheme
 
   Scaffold(
@@ -79,7 +79,7 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
           selectedIndex = themeValues.indexOf(theme.id.toString()).coerceAtLeast(0)
       ) { index ->
         val picked = Theme.entries.first { it.id.toString() == themeValues[index] }
-        settings.putTheme(picked)
+        settings.theme = picked
         appTheme.value = picked
       }
 
@@ -90,7 +90,7 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
       ) { index ->
         language = languageValues[index]
         // recreates the activity itself, via AppCompatDelegate.setApplicationLocales
-        settings.putLanguage(language)
+        settings.language = language
       }
     }
   }

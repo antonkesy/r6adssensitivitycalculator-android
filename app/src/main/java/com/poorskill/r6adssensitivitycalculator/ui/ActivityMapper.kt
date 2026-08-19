@@ -2,35 +2,27 @@ package com.poorskill.r6adssensitivitycalculator.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.ui.activities.AboutActivity
 import com.poorskill.r6adssensitivitycalculator.ui.activities.SettingsActivity
 
-fun openHelp(current: Activity) {
-  current.startActivity(
-      Intent(Intent.ACTION_VIEW, Uri.parse(current.getString(R.string.ubisoftHelpURL)))
-  )
-}
+fun openHelp(current: Activity) =
+    openURLInBrowser(current.getString(R.string.ubisoftHelpURL), current)
 
-fun openAbout(current: Activity) {
-  val intent = Intent(current, AboutActivity::class.java)
-  current.startActivity(intent)
-}
+fun openAbout(current: Activity) = current.startActivity(Intent(current, AboutActivity::class.java))
 
-fun openSettings(current: Activity) {
-  val intent = Intent(current, SettingsActivity::class.java)
-  current.startActivity(intent)
-}
+fun openSettings(current: Activity) =
+    current.startActivity(Intent(current, SettingsActivity::class.java))
 
-fun openMail(address: String, subject: String, activity: Activity) {
-  val intent = Intent(Intent.ACTION_SENDTO)
-  intent.data = Uri.parse("mailto:") // only email apps should handle this
-  intent.putExtra(Intent.EXTRA_EMAIL, address)
-  intent.putExtra(Intent.EXTRA_SUBJECT, subject)
-  activity.startActivity(intent)
-}
+fun openMail(address: String, subject: String, activity: Activity) =
+    activity.startActivity(
+        Intent(Intent.ACTION_SENDTO).apply {
+          data = "mailto:".toUri() // only email apps should handle this
+          putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
+          putExtra(Intent.EXTRA_SUBJECT, subject)
+        }
+    )
 
-fun openURLInBrowser(url: String, activity: Activity) {
-  activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-}
+fun openURLInBrowser(url: String, activity: Activity) =
+    activity.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))

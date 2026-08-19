@@ -34,9 +34,9 @@ class PersistentSensitivityConverterTest {
         listOf<Pair<String, Any>>("ads" to 80, "fov" to 85, "aspectRatio" to 7),
         settings.writes
     )
-    assertEquals(80, settings.getADS())
-    assertEquals(85, settings.getFOV())
-    assertEquals(7, settings.getAspectRatioPos())
+    assertEquals(80, settings.ads)
+    assertEquals(85, settings.fov)
+    assertEquals(7, settings.aspectRatioPos)
   }
 
   @Test

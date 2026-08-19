@@ -7,56 +7,52 @@ import com.poorskill.r6adssensitivitycalculator.ui.Theme
  * actually persisted, rather than only that it changed the screen.
  */
 class FakeSettings(
-    private var ads: Int = 50,
-    private var fov: Int = 60,
-    private var aspectRatioPos: Int = 0,
-    private var usage: Int = 0,
-    private var theme: Theme = Theme.System,
-    private var language: String = "system"
+    ads: Int = 50,
+    fov: Int = 60,
+    aspectRatioPos: Int = 0,
+    usage: Int = 0,
+    theme: Theme = Theme.System,
+    language: String = "system"
 ) : Settings {
 
   val writes = mutableListOf<Pair<String, Any>>()
 
-  override fun getAspectRatioPos() = aspectRatioPos
+  override var ads: Int = ads
+    set(value) {
+      field = value
+      writes += "ads" to value
+    }
 
-  override fun putAspectRatio(newAspectRatio: Int) {
-    aspectRatioPos = newAspectRatio
-    writes += "aspectRatio" to newAspectRatio
-  }
+  override var fov: Int = fov
+    set(value) {
+      field = value
+      writes += "fov" to value
+    }
 
-  override fun getADS() = ads
+  override var aspectRatioPos: Int = aspectRatioPos
+    set(value) {
+      field = value
+      writes += "aspectRatio" to value
+    }
 
-  override fun putADS(newADS: Int) {
-    ads = newADS
-    writes += "ads" to newADS
-  }
+  override var theme: Theme = theme
+    set(value) {
+      field = value
+      writes += "theme" to value
+    }
 
-  override fun getFOV() = fov
+  override var language: String = language
+    set(value) {
+      field = value
+      writes += "language" to value
+    }
 
-  override fun putFOV(newFOV: Int) {
-    fov = newFOV
-    writes += "fov" to newFOV
-  }
-
-  override fun getUsage() = usage
+  override var usage: Int = usage
+    private set
 
   override fun incrementUsage() {
     usage++
     writes += "usage" to usage
-  }
-
-  override fun getTheme() = theme
-
-  override fun putTheme(theme: Theme) {
-    this.theme = theme
-    writes += "theme" to theme
-  }
-
-  override fun getLanguage() = language
-
-  override fun putLanguage(languageCode: String) {
-    language = languageCode
-    writes += "language" to languageCode
   }
 
   /** The real implementation calls AppCompatDelegate; nothing to do off-device. */

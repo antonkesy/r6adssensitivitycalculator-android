@@ -234,7 +234,7 @@ private fun ResultList(values: IntArray, onCopy: (index: Int, value: Int) -> Uni
 
 @Composable
 private fun AspectRatioRow(selectedIndex: Int, onSelect: (Int) -> Unit) {
-  val ratios = remember { AspectRatios.getAll() }
+  val ratios = AspectRatios.ALL
   var expanded by remember { mutableStateOf(false) }
   Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
     Text(
