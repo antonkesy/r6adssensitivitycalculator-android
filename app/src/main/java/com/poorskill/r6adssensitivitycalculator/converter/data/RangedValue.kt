@@ -9,6 +9,5 @@ class RangedValue(
     private val onChange: ((Int) -> Unit)? = null
 ) {
 
-  // ponytail: min/max are advisory — the slider does the clamping, see RangedValueTest
   var value: Int by Delegates.observable(value) { _, _, new -> onChange?.invoke(new) }
 }
