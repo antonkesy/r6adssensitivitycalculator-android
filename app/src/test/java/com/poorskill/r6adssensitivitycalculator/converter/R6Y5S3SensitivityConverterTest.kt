@@ -35,9 +35,9 @@ class R6Y5S3SensitivityConverterTest {
 
   @Test
   fun aspectRatioIndexIsClamped() {
-    assertEquals(AspectRatios(0).getCurrent(), AspectRatios(-1).getCurrent())
-    assertEquals(AspectRatios(7).getCurrent(), AspectRatios(99).getCurrent())
-    assertEquals("21:9", AspectRatios(7).getCurrent().name)
+    assertEquals(AspectRatios(0).current, AspectRatios(-1).current)
+    assertEquals(AspectRatios(7).current, AspectRatios(99).current)
+    assertEquals("21:9", AspectRatios(7).current.name)
   }
 
   /**
@@ -47,12 +47,12 @@ class R6Y5S3SensitivityConverterTest {
    */
   @Test
   fun horizontalFovClampIsUnreachable() {
-    val widest = AspectRatios.getAll().maxOf { it.value }
+    val widest = AspectRatios.ALL.maxOf { it.value }
     val horizontalFov = Math.toDegrees(2 * Math.atan(Math.tan(Math.toRadians(90.0 / 2)) * widest))
     assertTrue("horizontal FOV was $horizontalFov", horizontalFov < 150)
 
     // ...which is why every aspect ratio currently yields the same result.
     val reference = convert(50, 75, aspectIndex = 0)
-    AspectRatios.getAll().indices.forEach { assertArrayEquals(reference, convert(50, 75, it)) }
+    AspectRatios.ALL.indices.forEach { assertArrayEquals(reference, convert(50, 75, it)) }
   }
 }

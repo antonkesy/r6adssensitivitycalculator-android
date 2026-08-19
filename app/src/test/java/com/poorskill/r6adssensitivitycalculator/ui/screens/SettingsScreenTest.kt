@@ -36,7 +36,7 @@ class SettingsScreenTest {
     compose.onAllNodesWithText("System")[0].performClick() // theme row's current value
     compose.onNodeWithText("Black Ice").performClick()
 
-    assertEquals(Theme.BlackIce, settings.getTheme())
+    assertEquals(Theme.BlackIce, settings.theme)
     // no Activity.recreate(): the process-wide state is what repaints the open screens
     assertEquals(Theme.BlackIce, appTheme.value)
     compose.onNodeWithText("Black Ice").assertExists()
@@ -49,13 +49,13 @@ class SettingsScreenTest {
     compose.onAllNodesWithText("System")[1].performClick() // language row's current value
     compose.onNodeWithText("German").performClick()
 
-    assertEquals("de", settings.getLanguage())
+    assertEquals("de", settings.language)
   }
 
   @Test
   fun showsTheStoredSelections() {
-    settings.putTheme(Theme.SkullRain)
-    settings.putLanguage("ru")
+    settings.theme = Theme.SkullRain
+    settings.language = "ru"
     compose.runOnUiThread { appTheme.value = Theme.SkullRain }
 
     showScreen()

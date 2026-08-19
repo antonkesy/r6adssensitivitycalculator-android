@@ -40,7 +40,7 @@ numeric output — if a change moves those numbers, that is the finding, not a s
 
 **Conversion math is isolated from Android.** The core logic lives in
 `converter/R6Y5S3SensitivityConverter.kt`, which implements the `SensitivityConverter` interface
-(`converter/SensitivityConverter.kt`) and takes plain data (`RangedValue<Int>` for ADS/FOV,
+(`converter/SensitivityConverter.kt`) and takes plain data (`RangedValue` for ADS/FOV,
 `AspectRatios` for aspect ratio) with no Android dependencies — this is the piece to touch for any
 change to the sensitivity formula itself, and the natural place to add real unit tests.
 
@@ -48,10 +48,10 @@ change to the sensitivity formula itself, and the natural place to add real unit
 `R6Y5S3SensitivityConverter`, backing `ads`/`fov`/`aspectRatio` with a `Settings` instance (read on
 construction, written via `onChange` callbacks on `RangedValue`/`AspectRatios`) so that any
 edit to those values is auto-persisted. `Settings` is an interface implemented by
-`UserPreferencesManager` (Java, wraps `SharedPreferences`) — go through the interface, don't
+`UserPreferencesManager` (wraps `SharedPreferences`) — go through the interface, don't
 reach for `SharedPreferences` directly.
 
-**`RangedValue<T>` and `AspectRatios`** (in `converter/data/`) are mutable, observable value
+**`RangedValue` and `AspectRatios`** (in `converter/data/`) are mutable, observable value
 holders that use Kotlin `Delegates.observable` to fire a persistence callback on every mutation.
 They deliberately know nothing about Compose: the UI keeps its own `rememberSaveable` state and
 writes through to them, which is what triggers the save.
@@ -76,5 +76,5 @@ converted ADS values (x1 through x12); `asArray()` is used when UI code needs to
 result by row position.
 
 Google Play services (in-app update/review) are wrapped in `services/google/GoogleServices.kt` and
-invoked once from `MainActivity.onCreate`. The review prompt is gated on `Settings.getUsage()`,
+invoked once from `MainActivity.onCreate`. The review prompt is gated on `Settings.usage`,
 which now counts app launches (it counted calculate-button presses before the button went away).

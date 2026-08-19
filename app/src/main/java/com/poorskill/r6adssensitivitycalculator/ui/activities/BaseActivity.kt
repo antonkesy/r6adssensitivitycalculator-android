@@ -25,7 +25,7 @@ open class BaseActivity : AppCompatActivity() {
     enableEdgeToEdge()
     settings = UserPreferencesManager(this)
     settings.updateLanguage()
-    appTheme.value = settings.getTheme()
+    appTheme.value = settings.theme
   }
 
   protected fun setThemedContent(content: @Composable () -> Unit) = setContent {
