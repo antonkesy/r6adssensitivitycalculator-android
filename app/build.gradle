@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdk 37
@@ -25,16 +23,12 @@ android {
     }
 
     buildFeatures {
-        compose true
+        compose = true
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
     }
 
     testOptions {
@@ -49,11 +43,11 @@ android {
         abortOnError = true
     }
 
-    namespace 'com.poorskill.r6adssensitivitycalculator'
+    namespace = 'com.poorskill.r6adssensitivitycalculator'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // no kotlin-stdlib: AGP's built-in Kotlin support adds it, matched to the compiler version
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     // kept only for PreferenceManager.getDefaultSharedPreferences: switching to a plain
