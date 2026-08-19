@@ -69,7 +69,7 @@
     <string name="ubisoftHelpURL">https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3IMlDGlaRFgdvQNq3BOSFv/guide-to-ads-sensitivity-in-y5s3</string>
     <string name="copied">"copied "</string>
     <string name="toClipboard">" to clipboard"</string>
-    <string name="copyValues" translatable="false">Copy Values</string>
+    <string name="copyValues">Copy Values</string>
     <string name="everything">everything</string>
     <string name="input_header">Shadow Legacy Settings</string>
     <string name="output_header">New ADS Values</string>

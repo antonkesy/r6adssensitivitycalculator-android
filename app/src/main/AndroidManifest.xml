@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Base"
-        android:allowBackup="true"
-        android:fullBackupContent="true">
+        android:allowBackup="true">
         <activity android:name=".ui.activities.AboutActivity" />
         <activity
             android:name=".ui.activities.SettingsActivity"

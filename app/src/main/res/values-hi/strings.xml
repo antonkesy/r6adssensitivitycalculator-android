@@ -54,4 +54,5 @@
     <string name="share">साझा करें</string>
     <string name="input_header">Shadow Legacy सेटिंग्स</string>
     <string name="output_header">नए ADS मान</string>
+    <string name="copyValues">मान कॉपी करें</string>
 </resources>

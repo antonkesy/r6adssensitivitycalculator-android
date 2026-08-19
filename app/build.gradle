@@ -37,6 +37,7 @@ android {
     lint {
         sarifReport = true
         abortOnError = true
+        warningsAsErrors = true
     }
 
     namespace = 'com.poorskill.r6adssensitivitycalculator'

@@ -45,7 +45,7 @@
     <string name="ubisoftHelpURL">https://www.ubisoft.com/en-gb/game/rainbow-six/siege/news-updates/3IMlDGlaRFgdvQNq3BOSFv/guide-to-ads-sensitivity-in-y5s3</string>
     <string name="copied">" copié "</string>
     <string name="toClipboard">" dans le presse-papiers "</string>
-    <string name="copyValues" translatable="false">Copie Values</string>
+    <string name="copyValues">Copier les valeurs</string>
     <string name="everything">tout</string>
     <string name="fov">Champ de vision</string>
     <string name="aspect_ratio">Ratio d\'aspect</string>
