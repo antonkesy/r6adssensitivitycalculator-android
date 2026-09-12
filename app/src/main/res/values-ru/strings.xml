@@ -23,6 +23,7 @@
     <string name="dark">Тьма</string>
 
     <string name="app_language_title">Язык</string>
+    <string name="visible_scopes_header">Отображаемые значения ADS</string>
     <string name="system">Система</string>
     <string name="english">английский</string>
     <string name="russian">русский</string>

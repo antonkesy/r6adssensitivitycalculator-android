@@ -6,18 +6,26 @@ import org.junit.Test
 
 class SensitivityTest {
 
+  /** 1x = 1, 1.5x = 2, ... 12x = 9 */
   private val sensitivity =
-      Sensitivity(x1 = 1, x1_5 = 2, x2 = 3, x2_5 = 4, x3 = 5, x4 = 6, x5 = 7, x12 = 8)
+      Sensitivity(AdsScope.entries.withIndex().associate { (i, scope) -> scope to i + 1 })
+
+  @Test
+  fun getIndexesByScope() {
+    assertEquals(1, sensitivity[AdsScope.X1])
+    assertEquals(8, sensitivity[AdsScope.X8])
+    assertEquals(9, sensitivity[AdsScope.X12])
+  }
 
   @Test
   fun asArrayIsInScopeOrder() {
     // The UI indexes into this by row position, so the order has to match the on-screen labels.
-    assertArrayEquals(intArrayOf(1, 2, 3, 4, 5, 6, 7, 8), sensitivity.asArray())
+    assertArrayEquals(intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9), sensitivity.asArray())
   }
 
   @Test
   fun toStringIsTheSharePayload() {
-    // This exact text is what Copy Values and Share put on the clipboard.
+    // This exact text is what Copy Values and Share put on the clipboard with every scope shown.
     assertEquals(
         """
         ADS 1x = 1
@@ -27,10 +35,19 @@ class SensitivityTest {
         ADS 3x = 5
         ADS 4x = 6
         ADS 5x = 7
-        ADS 12x = 8
+        ADS 8x = 8
+        ADS 12x = 9
         """
             .trimIndent(),
         sensitivity.toString()
+    )
+  }
+
+  @Test
+  fun formatOnlyListsTheGivenScopesInScopeOrder() {
+    assertEquals(
+        "ADS 1x = 1\nADS 8x = 8\nADS 12x = 9",
+        sensitivity.format(setOf(AdsScope.X12, AdsScope.X1, AdsScope.X8))
     )
   }
 }

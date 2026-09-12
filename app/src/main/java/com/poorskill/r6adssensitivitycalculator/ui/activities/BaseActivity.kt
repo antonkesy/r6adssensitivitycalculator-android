@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.settings.UserPreferencesManager
+import com.poorskill.r6adssensitivitycalculator.ui.screens.visibleScopes
 import com.poorskill.r6adssensitivitycalculator.ui.theme.R6Theme
 import com.poorskill.r6adssensitivitycalculator.ui.theme.appTheme
 
@@ -26,6 +27,7 @@ open class BaseActivity : AppCompatActivity() {
     settings = UserPreferencesManager(this)
     settings.updateLanguage()
     appTheme.value = settings.theme
+    visibleScopes.value = settings.visibleScopes
   }
 
   protected fun setThemedContent(content: @Composable () -> Unit) = setContent {

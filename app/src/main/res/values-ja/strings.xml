@@ -23,6 +23,7 @@
     <string name="dark">闇</string>
 
     <string name="app_language_title">言語</string>
+    <string name="visible_scopes_header">表示する ADS 値</string>
     <string name="system">システム</string>
     <string name="english">英語</string>
     <string name="russian">ロシア</string>

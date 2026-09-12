@@ -1,5 +1,6 @@
 package com.poorskill.r6adssensitivitycalculator.settings
 
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.ui.Theme
 
 /**
@@ -12,7 +13,8 @@ class FakeSettings(
     aspectRatioPos: Int = 0,
     usage: Int = 0,
     theme: Theme = Theme.System,
-    language: String = "system"
+    language: String = "system",
+    visibleScopes: Set<AdsScope> = AdsScope.entries.toSet()
 ) : Settings {
 
   val writes = mutableListOf<Pair<String, Any>>()
@@ -45,6 +47,12 @@ class FakeSettings(
     set(value) {
       field = value
       writes += "language" to value
+    }
+
+  override var visibleScopes: Set<AdsScope> = visibleScopes
+    set(value) {
+      field = value
+      writes += "visibleScopes" to value
     }
 
   override var usage: Int = usage

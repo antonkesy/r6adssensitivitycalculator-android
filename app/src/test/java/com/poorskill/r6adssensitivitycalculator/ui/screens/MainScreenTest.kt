@@ -13,9 +13,11 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.settings.FakeSettings
 import com.poorskill.r6adssensitivitycalculator.ui.Theme
 import com.poorskill.r6adssensitivitycalculator.ui.theme.R6Theme
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -32,6 +34,10 @@ class MainScreenTest {
 
   private val settings = FakeSettings()
 
+  @After
+  fun resetProcessWideScopes() =
+      compose.runOnUiThread { visibleScopes.value = AdsScope.entries.toSet() }
+
   private fun showScreen() {
     val converter = PersistentSensitivityConverter(settings)
     compose.setContent { R6Theme(Theme.System) { MainScreen(converter, compose.activity) } }
@@ -43,11 +49,12 @@ class MainScreenTest {
 
     // assertExists, not assertIsDisplayed: the lower rows sit below the fold on a phone-sized
     // screen and the content scrolls
-    listOf("ADS 1x", "ADS 1.5x", "ADS 2x", "ADS 2.5x", "ADS 3x", "ADS 4x", "ADS 5x", "ADS 12x")
-        .forEach { compose.onNodeWithText(it).assertExists() }
+    AdsScope.entries.forEach { compose.onNodeWithText(it.displayName).assertExists() }
+    compose.onNodeWithText("ADS 8x").assertExists() // the interpolated scope is on by default
 
     // defaults: ADS 50, FOV 60, 16:9 — same numbers R6Y5S3SensitivityConverterTest pins
     compose.onNodeWithText("33").assertIsDisplayed()
+    compose.onNodeWithText("68").assertExists()
     compose.onNodeWithText("83").assertExists()
   }
 
@@ -58,6 +65,7 @@ class MainScreenTest {
     sliders()[0].performSemanticsAction(SemanticsActions.SetProgress) { it(100f) }
 
     compose.onNodeWithText("67").assertIsDisplayed() // ADS 1x at ADS 100 / FOV 60
+    compose.onNodeWithText("137").assertExists() // ADS 8x
     compose.onNodeWithText("167").assertExists() // ADS 12x
     assertEquals(100, settings.ads)
   }
@@ -94,6 +102,35 @@ class MainScreenTest {
         """
         ADS 1x = 33
         ADS 1.5x = 53
+        ADS 2x = 53
+        ADS 2.5x = 54
+        ADS 3x = 54
+        ADS 4x = 54
+        ADS 5x = 54
+        ADS 8x = 68
+        ADS 12x = 83
+        """
+            .trimIndent(),
+        currentClipboardText()
+    )
+  }
+
+  @Test
+  fun hidingScopesRemovesTheirRowsAndDropsThemFromCopyValues() {
+    compose.runOnUiThread {
+      visibleScopes.value = AdsScope.entries.toSet() - AdsScope.X8 - AdsScope.X1_5
+    }
+    showScreen()
+
+    compose.onNodeWithText("ADS 8x").assertDoesNotExist()
+    compose.onNodeWithText("ADS 1.5x").assertDoesNotExist()
+    compose.onNodeWithText("ADS 12x").assertExists()
+
+    compose.onNodeWithText("Copy Values").performScrollTo().performClick()
+
+    assertEquals(
+        """
+        ADS 1x = 33
         ADS 2x = 53
         ADS 2.5x = 54
         ADS 3x = 54

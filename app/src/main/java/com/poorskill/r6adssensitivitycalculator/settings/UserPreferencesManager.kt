@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceManager
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.ui.Theme
 
 class UserPreferencesManager(private val context: Context) : Settings {
@@ -29,6 +30,18 @@ class UserPreferencesManager(private val context: Context) : Settings {
   override var aspectRatioPos: Int
     get() = prefs.getInt(PREF_ASPECT_RATIO, 0)
     set(value) = prefs.edit { putInt(PREF_ASPECT_RATIO, value) }
+
+  override var visibleScopes: Set<AdsScope>
+    // copy out of the set getStringSet returns (it must not be mutated) and drop names that no
+    // longer exist; an empty or missing selection means "everything"
+    get() =
+        prefs
+            .getStringSet(PREF_VISIBLE_SCOPES, null)
+            ?.mapNotNull { name -> AdsScope.entries.find { it.name == name } }
+            ?.toSet()
+            ?.takeIf { it.isNotEmpty() } ?: AdsScope.entries.toSet()
+    set(value) =
+        prefs.edit { putStringSet(PREF_VISIBLE_SCOPES, value.mapTo(HashSet()) { it.name }) }
 
   override val usage: Int
     get() = prefs.getInt(PREF_USAGE, 0)
@@ -70,5 +83,6 @@ class UserPreferencesManager(private val context: Context) : Settings {
     private const val PREF_FOV = "fovKey"
     private const val PREF_ASPECT_RATIO = "aspKey"
     private const val PREF_USAGE = "useKey"
+    private const val PREF_VISIBLE_SCOPES = "visibleScopesKey"
   }
 }

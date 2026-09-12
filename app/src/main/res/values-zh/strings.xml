@@ -23,6 +23,7 @@
     <string name="dark">黑暗</string>
 
     <string name="app_language_title">语言</string>
+    <string name="visible_scopes_header">显示的 ADS 数值</string>
     <string name="system">系统</string>
     <string name="english">英语</string>
     <string name="russian">俄语</string>

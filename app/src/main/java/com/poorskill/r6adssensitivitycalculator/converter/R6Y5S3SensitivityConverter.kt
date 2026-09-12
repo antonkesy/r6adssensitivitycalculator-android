@@ -1,11 +1,16 @@
 package com.poorskill.r6adssensitivitycalculator.converter
 
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
 import com.poorskill.r6adssensitivitycalculator.converter.data.RangedValue
 import com.poorskill.r6adssensitivitycalculator.converter.data.Sensitivity
 import kotlin.math.atan
 import kotlin.math.tan
 
+/**
+ * Ubisoft's Y5S3 conversion. The per-scope multipliers live on [AdsScope]; this class holds the
+ * FOV maths that turns them into slider values.
+ */
 class R6Y5S3SensitivityConverter(
     val ads: RangedValue,
     val fov: RangedValue,
@@ -18,24 +23,14 @@ class R6Y5S3SensitivityConverter(
         if (horizontalFOV > 150) calculateVerticalFOV(aspectRatio.current.value)
         else fov.value.toDouble()
 
-    val result =
-        IntArray(FOV_MULTIPLIER.size) { i ->
+    return Sensitivity(
+        AdsScope.entries.associateWith { scope ->
           calculateNewAds(
-              ADS_MULTIPLIER[i],
-              calculateFOVAdjustment(FOV_MULTIPLIER[i], verticalFOV),
+              scope.adsMultiplier,
+              calculateFOVAdjustment(scope.fovMultiplier, verticalFOV),
               ads.value
           )
         }
-
-    return Sensitivity(
-        x1 = result[0],
-        x1_5 = result[1],
-        x2 = result[2],
-        x2_5 = result[3],
-        x3 = result[4],
-        x4 = result[5],
-        x5 = result[6],
-        x12 = result[7]
     )
   }
 
@@ -51,9 +46,4 @@ class R6Y5S3SensitivityConverter(
 
   private fun calculateHorizontalFOV(verticalFOV: Double, aspectRatio: Double) =
       Math.toDegrees(2 * atan(tan(Math.toRadians(verticalFOV / 2.0)) * aspectRatio))
-
-  private companion object {
-    val FOV_MULTIPLIER = doubleArrayOf(0.9, 0.59, 0.49, 0.42, 0.35, 0.3, 0.22, 0.092)
-    val ADS_MULTIPLIER = doubleArrayOf(0.6, 0.59, 0.49, 0.42, 0.35, 0.3, 0.22, 0.14)
-  }
 }

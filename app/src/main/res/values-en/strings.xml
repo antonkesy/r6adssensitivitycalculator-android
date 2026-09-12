@@ -21,6 +21,7 @@
     <string name="dark">Dark</string>
     <!-- Language Preferences-->
     <string name="app_language_title">Language</string>
+    <string name="visible_scopes_header">Shown ADS values</string>
     <string name="system">System</string>
     <string name="english">English</string>
     <string name="russian">Russian*</string>

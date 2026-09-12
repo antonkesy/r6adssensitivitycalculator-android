@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,15 +31,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.poorskill.r6adssensitivitycalculator.R
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.settings.Settings
 import com.poorskill.r6adssensitivitycalculator.ui.Theme
 import com.poorskill.r6adssensitivitycalculator.ui.theme.appTheme
 
 /**
- * Replaces the two-entry `PreferenceFragmentCompat`. Same preference keys and same stored values,
- * so settings made by an older build are read back unchanged.
+ * Replaces the two-entry `PreferenceFragmentCompat`. Same preference keys and same stored values
+ * for theme and language, so settings made by an older build are read back unchanged; the
+ * "shown ADS values" picker is new.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,6 +54,7 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
 
   var language by remember { mutableStateOf(settings.language) }
   val theme by appTheme
+  val scopes by visibleScopes
 
   Scaffold(
       topBar = {
@@ -63,15 +72,14 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
       }
   ) { innerPadding ->
     Column(
-        modifier = Modifier.fillMaxSize().padding(innerPadding).padding(horizontal = 20.dp),
+        modifier =
+            Modifier.fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-      Text(
-          stringResource(R.string.application_header),
-          style = MaterialTheme.typography.labelMedium,
-          color = MaterialTheme.colorScheme.primary,
-          modifier = Modifier.padding(vertical = 12.dp)
-      )
+      SectionHeader(stringResource(R.string.application_header))
 
       SettingRow(
           title = stringResource(R.string.app_theme_title),
@@ -92,8 +100,112 @@ fun SettingsScreen(settings: Settings, onBack: () -> Unit) {
         // recreates the activity itself, via AppCompatDelegate.setApplicationLocales
         settings.language = language
       }
+
+      var pickerOpen by remember { mutableStateOf(false) }
+      SettingButtonRow(
+          title = stringResource(R.string.visible_scopes_header),
+          value = "${scopes.size} / ${AdsScope.entries.size}"
+      ) {
+        pickerOpen = true
+      }
+      if (pickerOpen) {
+        ScopePickerDialog(scopes = scopes, onDismiss = { pickerOpen = false }) { next ->
+          settings.visibleScopes = next
+          visibleScopes.value = next
+        }
+      }
     }
   }
+}
+
+/** Title on the left, a button with the current value on the right — same look as [SettingRow]. */
+@Composable
+private fun SettingButtonRow(title: String, value: String, onClick: () -> Unit) {
+  Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Text(
+        title,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.weight(1f)
+    )
+    TextButton(onClick = onClick) { Text(value, style = MaterialTheme.typography.titleMedium) }
+  }
+}
+
+/**
+ * One checkbox per scope. Every tick is applied immediately (like the dropdowns), so closing the
+ * dialog is just closing it. The last ticked scope is disabled: an empty result list would only
+ * look broken.
+ */
+@Composable
+private fun ScopePickerDialog(
+    scopes: Set<AdsScope>,
+    onDismiss: () -> Unit,
+    onChange: (Set<AdsScope>) -> Unit
+) {
+  AlertDialog(
+      onDismissRequest = onDismiss,
+      title = { Text(stringResource(R.string.visible_scopes_header)) },
+      text = {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+          AdsScope.entries.forEach { scope ->
+            val on = scope in scopes
+            ScopeCheckRow(
+                title = scope.displayName,
+                checked = on,
+                enabled = !(on && scopes.size == 1)
+            ) { checked ->
+              onChange(if (checked) scopes + scope else scopes - scope)
+            }
+          }
+        }
+      },
+      confirmButton = {
+        TextButton(onClick = onDismiss) { Text(stringResource(android.R.string.ok)) }
+      }
+  )
+}
+
+/**
+ * The whole row toggles (and carries the checkbox semantics), so the label is the tap target and
+ * tests can find the checkbox by its text.
+ */
+@Composable
+private fun ScopeCheckRow(
+    title: String,
+    checked: Boolean,
+    enabled: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+  Row(
+      modifier =
+          Modifier.fillMaxWidth()
+              .toggleable(
+                  value = checked,
+                  enabled = enabled,
+                  role = Role.Checkbox,
+                  onValueChange = onCheckedChange
+              )
+              .padding(vertical = 4.dp),
+      verticalAlignment = Alignment.CenterVertically
+  ) {
+    Checkbox(checked = checked, onCheckedChange = null, enabled = enabled)
+    Text(
+        title,
+        style = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.weight(1f).padding(start = 12.dp)
+    )
+  }
+}
+
+@Composable
+private fun SectionHeader(text: String) {
+  Text(
+      text,
+      style = MaterialTheme.typography.labelMedium,
+      color = MaterialTheme.colorScheme.primary,
+      modifier = Modifier.padding(vertical = 12.dp)
+  )
 }
 
 @Composable

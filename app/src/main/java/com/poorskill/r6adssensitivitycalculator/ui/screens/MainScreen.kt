@@ -45,7 +45,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.poorskill.r6adssensitivitycalculator.R
 import com.poorskill.r6adssensitivitycalculator.converter.PersistentSensitivityConverter
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
+import com.poorskill.r6adssensitivitycalculator.converter.data.Sensitivity
 import com.poorskill.r6adssensitivitycalculator.ui.components.ValueSlider
 import com.poorskill.r6adssensitivitycalculator.ui.copyToClipboard
 import com.poorskill.r6adssensitivitycalculator.ui.openAbout
@@ -54,22 +56,17 @@ import com.poorskill.r6adssensitivitycalculator.ui.openSettings
 import com.poorskill.r6adssensitivitycalculator.ui.shareString
 import kotlinx.coroutines.launch
 
-private val adsLabels =
-    intArrayOf(
-        R.string.ads_1,
-        R.string.ads_2,
-        R.string.ads_3,
-        R.string.ads_4,
-        R.string.ads_5,
-        R.string.ads_6,
-        R.string.ads_7,
-        R.string.ads_8
-    )
+/**
+ * Which scopes the result list shows. Process-wide for the same reason `appTheme` is: switching a
+ * scope off in Settings has to repaint the already-open main screen without `recreate()`. Seeded
+ * from [com.poorskill.r6adssensitivitycalculator.settings.Settings.visibleScopes] in BaseActivity.
+ */
+val visibleScopes = mutableStateOf<Set<AdsScope>>(AdsScope.entries.toSet())
 
 /**
  * Inputs and converted values on one screen — the results update as you drag, so there is no
- * calculate button and no second page (the old build slid between two MotionLayout states). The
- * eight results sit in a 2-column grid so the whole thing fits without scrolling on a normal phone.
+ * calculate button and no second page (the old build slid between two MotionLayout states). Only
+ * the scopes picked in Settings are listed; everything is one scrolling column.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,6 +76,8 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
   var aspect by rememberSaveable { mutableIntStateOf(converter.aspectRatio.currentIndex) }
   // writing through the converter is what persists the value (RangedValue.onChange -> Settings)
   val result = remember(ads, fov, aspect) { converter.calculate() }
+  val scopes by visibleScopes
+  val shown = remember(scopes) { AdsScope.entries.filter { it in scopes } }
 
   val snackbarHostState = remember { SnackbarHostState() }
   val scope = rememberCoroutineScope()
@@ -146,8 +145,8 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
 
       Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         SectionHeader(stringResource(R.string.output_header))
-        ResultList(values = result.asArray()) { index, value ->
-          copy(value.toString(), activity.getString(adsLabels[index]))
+        ResultList(scopes = shown, result = result) { scope ->
+          copy(result[scope].toString(), scope.displayName)
         }
       }
 
@@ -157,7 +156,7 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
       ) {
         val everything = stringResource(R.string.everything)
         FilledTonalButton(
-            onClick = { copy(result.toString(), everything) },
+            onClick = { copy(result.format(scopes), everything) },
             modifier = Modifier.weight(1f)
         ) {
           Icon(painterResource(R.drawable.ic_baseline_content_copy_24), contentDescription = null)
@@ -165,7 +164,7 @@ fun MainScreen(converter: PersistentSensitivityConverter, activity: Activity) {
           Text(stringResource(R.string.copyValues))
         }
         FilledTonalButton(
-            onClick = { shareString(result.toString(), activity) },
+            onClick = { shareString(result.format(scopes), activity) },
             modifier = Modifier.weight(1f)
         ) {
           Icon(painterResource(R.drawable.ic_baseline_share_24), contentDescription = null)
@@ -191,11 +190,15 @@ private fun SectionHeader(text: String) {
 
 /**
  * One value per line inside a single card. Rows are hairline-separated rather than individually
- * boxed, so a row costs ~40dp instead of the ~56dp a card per value would: eight of them plus the
- * inputs still fit a normal phone without scrolling.
+ * boxed, so a row costs ~40dp instead of the ~56dp a card per value would: all nine of them plus
+ * the inputs still fit a normal phone without scrolling.
  */
 @Composable
-private fun ResultList(values: IntArray, onCopy: (index: Int, value: Int) -> Unit) {
+private fun ResultList(
+    scopes: List<AdsScope>,
+    result: Sensitivity,
+    onCopy: (scope: AdsScope) -> Unit
+) {
   Card(
       shape = RoundedCornerShape(14.dp),
       colors =
@@ -203,7 +206,7 @@ private fun ResultList(values: IntArray, onCopy: (index: Int, value: Int) -> Uni
               containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
           )
   ) {
-    values.forEachIndexed { index, value ->
+    scopes.forEachIndexed { index, scope ->
       // zebra striping instead of dividers: easier to keep your eye on one line, same height
       val stripe =
           if (index % 2 == 0) MaterialTheme.colorScheme.surfaceContainerHighest
@@ -212,18 +215,18 @@ private fun ResultList(values: IntArray, onCopy: (index: Int, value: Int) -> Uni
           modifier =
               Modifier.fillMaxWidth()
                   .background(stripe)
-                  .clickable { onCopy(index, value) }
+                  .clickable { onCopy(scope) }
                   .padding(horizontal = 14.dp, vertical = 6.dp),
           verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
-            stringResource(adsLabels[index]),
+            scope.displayName,
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f)
         )
         Text(
-            value.toString(),
+            result[scope].toString(),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.primary
         )

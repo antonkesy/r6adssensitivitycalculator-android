@@ -23,6 +23,7 @@
     <string name="dark">अंधेरा</string>
 
     <string name="app_language_title">भाषा: हिन्दी</string>
+    <string name="visible_scopes_header">दिखाए गए ADS मान</string>
     <string name="system">प्रणाली</string>
     <string name="english">अंग्रेज़ी</string>
     <string name="russian">रूसी</string>
