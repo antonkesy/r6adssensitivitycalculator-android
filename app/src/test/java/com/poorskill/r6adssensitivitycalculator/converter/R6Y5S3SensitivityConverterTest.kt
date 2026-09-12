@@ -1,5 +1,6 @@
 package com.poorskill.r6adssensitivitycalculator.converter
 
+import com.poorskill.r6adssensitivitycalculator.converter.data.AdsScope
 import com.poorskill.r6adssensitivitycalculator.converter.data.AspectRatios
 import com.poorskill.r6adssensitivitycalculator.converter.data.RangedValue
 import org.junit.Assert.assertArrayEquals
@@ -7,7 +8,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Values pinned from the pre-Compose build: the UI rewrite must not move the numbers. */
+/**
+ * The eight original scopes are pinned from the pre-Compose build: no change may move those
+ * numbers. 3.5x and 8x are the interpolated scopes added later — see [AdsScope.X3_5]/[AdsScope.X8].
+ */
 class R6Y5S3SensitivityConverterTest {
 
   private fun convert(ads: Int, fov: Int, aspectIndex: Int = 0): IntArray =
@@ -22,15 +26,28 @@ class R6Y5S3SensitivityConverterTest {
   @Test
   fun defaultInput() {
     // ADS 50, FOV 60, 16:9 — the out-of-the-box state
-    assertArrayEquals(intArrayOf(33, 53, 53, 54, 54, 54, 54, 83), convert(50, 60))
+    assertArrayEquals(intArrayOf(33, 53, 53, 54, 54, 54, 54, 54, 68, 83), convert(50, 60))
   }
 
   @Test
   fun rangeExtremes() {
-    assertArrayEquals(intArrayOf(0, 1, 1, 1, 1, 1, 1, 1), convert(1, 60))
-    assertArrayEquals(intArrayOf(67, 106, 107, 108, 109, 109, 109, 167), convert(100, 60))
-    assertArrayEquals(intArrayOf(0, 1, 1, 1, 1, 1, 1, 1), convert(1, 90))
-    assertArrayEquals(intArrayOf(70, 118, 120, 122, 124, 124, 126, 193), convert(100, 90))
+    assertArrayEquals(intArrayOf(0, 1, 1, 1, 1, 1, 1, 1, 1, 1), convert(1, 60))
+    assertArrayEquals(intArrayOf(67, 106, 107, 108, 109, 109, 109, 109, 137, 167), convert(100, 60))
+    assertArrayEquals(intArrayOf(0, 1, 1, 1, 1, 1, 1, 1, 1, 1), convert(1, 90))
+    assertArrayEquals(intArrayOf(70, 118, 120, 122, 124, 124, 124, 126, 158, 193), convert(100, 90))
+  }
+
+  @Test
+  fun interpolatedScopesSitBetweenTheirNeighbours() {
+    // 3.5x and 8x are interpolated, so at least check they land between the real scopes
+    val result = convert(100, 90)
+    val x3_5 = result[AdsScope.X3_5.ordinal]
+    val x8 = result[AdsScope.X8.ordinal]
+    assertTrue(
+        "3.5x was $x3_5",
+        x3_5 >= result[AdsScope.X3.ordinal] && x3_5 <= result[AdsScope.X4.ordinal]
+    )
+    assertTrue("8x was $x8", x8 > result[AdsScope.X5.ordinal] && x8 < result[AdsScope.X12.ordinal])
   }
 
   @Test

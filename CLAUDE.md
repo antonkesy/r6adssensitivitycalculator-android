@@ -34,7 +34,8 @@ is phone-sized and the main screen scrolls, so assert with `assertExists()` (or 
 first) for anything below the fold rather than `assertIsDisplayed()`.
 
 `R6Y5S3SensitivityConverterTest` and `PersistentSensitivityConverterTest` pin the converter's
-numeric output — if a change moves those numbers, that is the finding, not a stale test.
+numeric output — if a change moves those numbers, that is the finding, not a stale test. The 3.5x
+and 8x values are pinned too, but they are our interpolation (see `AdsScope`), not Ubisoft numbers.
 
 ## Architecture
 
@@ -42,7 +43,12 @@ numeric output — if a change moves those numbers, that is the finding, not a s
 `converter/R6Y5S3SensitivityConverter.kt`, which implements the `SensitivityConverter` interface
 (`converter/SensitivityConverter.kt`) and takes plain data (`RangedValue` for ADS/FOV,
 `AspectRatios` for aspect ratio) with no Android dependencies — this is the piece to touch for any
-change to the sensitivity formula itself, and the natural place to add real unit tests.
+change to the sensitivity formula itself, and the natural place to add real unit tests. The
+per-scope constants (FOV/ADS multipliers), scope order and row labels all live on the
+`converter/data/AdsScope.kt` enum; its entry names are the persisted keys for the "shown scopes"
+setting, so don't rename them. `X3_5` and `X8` are not in Ubisoft's Y5S3 table; they are
+log-interpolated between their neighbours. `AdsScope.DEFAULT_VISIBLE` (1x, 2.5x, 3.5x, 8x) is what
+the main screen lists until the user changes it.
 
 **Persistence is a decorator, not baked into the math.** `PersistentSensitivityConverter` wraps
 `R6Y5S3SensitivityConverter`, backing `ads`/`fov`/`aspectRatio` with a `Settings` instance (read on
@@ -59,21 +65,25 @@ writes through to them, which is what triggers the save.
 **UI is Jetpack Compose, three activities, no ViewModel/MVVM layer.** Each activity extends
 `BaseActivity`, which loads `Settings`, applies the stored language, seeds the theme and exposes
 `setThemedContent { }`. Screens live in `ui/screens/` (`MainScreen`, `SettingsScreen`,
-`AboutScreen`); `MainScreen` shows the inputs and the 8 converted values on one scrolling screen
-with no calculate step — results recompute as the sliders move. Screen-navigation helpers (opening
+`AboutScreen`); `MainScreen` shows the inputs and the converted values (minus any scopes hidden in
+Settings) on one scrolling screen with no calculate step — results recompute as the sliders move. Screen-navigation helpers (opening
 Settings/About/Help) are top-level functions in `ui/ActivityMapper.kt`.
 
 **Theming lives in `ui/theme/R6Theme.kt`.** All 9 themes (System/Light/Dark plus 6 R6 season
 palettes) are Material 3 `ColorScheme`s keyed by the `ui/Theme.kt` enum, whose ids are the values
 stored in SharedPreferences — don't renumber them. `appTheme` is a process-wide `mutableStateOf`
-so picking a theme in Settings repaints open screens without `recreate()`. XML themes are gone
+so picking a theme in Settings repaints open screens without `recreate()`; `visibleScopes` in
+`ui/screens/MainScreen.kt` works the same way for the "shown ADS values" picker dialog, and both are
+seeded from `Settings` in `BaseActivity.onCreate`. Tests that touch either must reset it in
+`@After`. XML themes are gone
 apart from a bare `Theme.Base` window theme. Activities remain `AppCompatActivity` because
 `AppCompatDelegate.setApplicationLocales` (how the language preference is applied) needs it below
 API 33.
 
-**`Sensitivity`** (`converter/data/Sensitivity.kt`) is the output data class holding the 8
-converted ADS values (x1 through x12); `asArray()` is used when UI code needs to index into the
-result by row position.
+**`Sensitivity`** (`converter/data/Sensitivity.kt`) is the output data class holding the 10
+converted ADS values as a `Map<AdsScope, Int>`; index it with `result[scope]`, use `asArray()` for
+values in scope order, and `format(scopes)` for the share/clipboard text of a subset (`toString()`
+is the full set).
 
 Google Play services (in-app update/review) are wrapped in `services/google/GoogleServices.kt` and
 invoked once from `MainActivity.onCreate`. The review prompt is gated on `Settings.usage`,

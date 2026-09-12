@@ -23,6 +23,7 @@
     <string name="dark">Foncé</string>
 
     <string name="app_language_title">Langue</string>
+    <string name="visible_scopes_header">Valeurs ADS affichées</string>
     <string name="system">Système</string>
     <string name="english">Anglais</string>
     <string name="russian">russe</string>

@@ -23,6 +23,7 @@
     <string name="dark">Sombrio</string>
 
     <string name="app_language_title">Língua</string>
+    <string name="visible_scopes_header">Valores ADS exibidos</string>
     <string name="system">Sistema</string>
     <string name="english">Inglês</string>
     <string name="russian">russo</string>

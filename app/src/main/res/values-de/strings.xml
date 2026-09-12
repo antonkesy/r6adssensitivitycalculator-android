@@ -21,6 +21,7 @@
     <string name="dark">Dunkel</string>
 
     <string name="app_language_title">Sprache</string>
+    <string name="visible_scopes_header">Angezeigte ADS-Werte</string>
     <string name="system">System</string>
     <string name="english">Englisch</string>
     <string name="russian">Russisch</string>
