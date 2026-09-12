@@ -34,8 +34,8 @@ is phone-sized and the main screen scrolls, so assert with `assertExists()` (or 
 first) for anything below the fold rather than `assertIsDisplayed()`.
 
 `R6Y5S3SensitivityConverterTest` and `PersistentSensitivityConverterTest` pin the converter's
-numeric output — if a change moves those numbers, that is the finding, not a stale test. The 8x
-value is pinned too, but it is our interpolation (see `AdsScope.X8`), not a Ubisoft number.
+numeric output — if a change moves those numbers, that is the finding, not a stale test. The 3.5x
+and 8x values are pinned too, but they are our interpolation (see `AdsScope`), not Ubisoft numbers.
 
 ## Architecture
 
@@ -46,8 +46,9 @@ value is pinned too, but it is our interpolation (see `AdsScope.X8`), not a Ubis
 change to the sensitivity formula itself, and the natural place to add real unit tests. The
 per-scope constants (FOV/ADS multipliers), scope order and row labels all live on the
 `converter/data/AdsScope.kt` enum; its entry names are the persisted keys for the "shown scopes"
-setting, so don't rename them. `X8` is not in Ubisoft's table — the game has no 8x slider — it is
-log-interpolated between 5x and 12x.
+setting, so don't rename them. `X3_5` and `X8` are not in Ubisoft's Y5S3 table; they are
+log-interpolated between their neighbours. `AdsScope.DEFAULT_VISIBLE` (1x, 2.5x, 3.5x, 8x) is what
+the main screen lists until the user changes it.
 
 **Persistence is a decorator, not baked into the math.** `PersistentSensitivityConverter` wraps
 `R6Y5S3SensitivityConverter`, backing `ads`/`fov`/`aspectRatio` with a `Settings` instance (read on
@@ -79,7 +80,7 @@ apart from a bare `Theme.Base` window theme. Activities remain `AppCompatActivit
 `AppCompatDelegate.setApplicationLocales` (how the language preference is applied) needs it below
 API 33.
 
-**`Sensitivity`** (`converter/data/Sensitivity.kt`) is the output data class holding the 9
+**`Sensitivity`** (`converter/data/Sensitivity.kt`) is the output data class holding the 10
 converted ADS values as a `Map<AdsScope, Int>`; index it with `result[scope]`, use `asArray()` for
 values in scope order, and `format(scopes)` for the share/clipboard text of a subset (`toString()`
 is the full set).

@@ -36,7 +36,7 @@ class MainScreenTest {
 
   @After
   fun resetProcessWideScopes() =
-      compose.runOnUiThread { visibleScopes.value = AdsScope.entries.toSet() }
+      compose.runOnUiThread { visibleScopes.value = AdsScope.DEFAULT_VISIBLE }
 
   private fun showScreen() {
     val converter = PersistentSensitivityConverter(settings)
@@ -44,18 +44,28 @@ class MainScreenTest {
   }
 
   @Test
-  fun showsEveryScopeAndItsConvertedValue() {
+  fun showsTheDefaultScopesAndTheirConvertedValues() {
     showScreen()
 
     // assertExists, not assertIsDisplayed: the lower rows sit below the fold on a phone-sized
     // screen and the content scrolls
-    AdsScope.entries.forEach { compose.onNodeWithText(it.displayName).assertExists() }
-    compose.onNodeWithText("ADS 8x").assertExists() // the interpolated scope is on by default
+    listOf("ADS 1x", "ADS 2.5x", "ADS 3.5x", "ADS 8x")
+        .forEach { compose.onNodeWithText(it).assertExists() }
+    listOf("ADS 1.5x", "ADS 2x", "ADS 3x", "ADS 4x", "ADS 5x", "ADS 12x")
+        .forEach { compose.onNodeWithText(it).assertDoesNotExist() }
 
     // defaults: ADS 50, FOV 60, 16:9 — same numbers R6Y5S3SensitivityConverterTest pins
-    compose.onNodeWithText("33").assertIsDisplayed()
-    compose.onNodeWithText("68").assertExists()
-    compose.onNodeWithText("83").assertExists()
+    compose.onNodeWithText("33").assertIsDisplayed() // ADS 1x
+    compose.onNodeWithText("68").assertExists() // ADS 8x
+  }
+
+  @Test
+  fun showsEveryScopeWhenAllAreEnabled() {
+    compose.runOnUiThread { visibleScopes.value = AdsScope.entries.toSet() }
+    showScreen()
+
+    AdsScope.entries.forEach { compose.onNodeWithText(it.displayName).assertExists() }
+    compose.onNodeWithText("83").assertExists() // ADS 12x
   }
 
   @Test
@@ -66,7 +76,6 @@ class MainScreenTest {
 
     compose.onNodeWithText("67").assertIsDisplayed() // ADS 1x at ADS 100 / FOV 60
     compose.onNodeWithText("137").assertExists() // ADS 8x
-    compose.onNodeWithText("167").assertExists() // ADS 12x
     assertEquals(100, settings.ads)
   }
 
@@ -93,7 +102,26 @@ class MainScreenTest {
   }
 
   @Test
-  fun copyValuesPutsTheWholeSharePayloadOnTheClipboard() {
+  fun copyValuesPutsTheVisibleScopesOnTheClipboard() {
+    showScreen()
+
+    compose.onNodeWithText("Copy Values").performScrollTo().performClick()
+
+    assertEquals(
+        """
+        ADS 1x = 33
+        ADS 2.5x = 54
+        ADS 3.5x = 54
+        ADS 8x = 68
+        """
+            .trimIndent(),
+        currentClipboardText()
+    )
+  }
+
+  @Test
+  fun enablingEveryScopePutsThemAllOnTheClipboardInScopeOrder() {
+    compose.runOnUiThread { visibleScopes.value = AdsScope.entries.toSet() }
     showScreen()
 
     compose.onNodeWithText("Copy Values").performScrollTo().performClick()
@@ -105,37 +133,10 @@ class MainScreenTest {
         ADS 2x = 53
         ADS 2.5x = 54
         ADS 3x = 54
+        ADS 3.5x = 54
         ADS 4x = 54
         ADS 5x = 54
         ADS 8x = 68
-        ADS 12x = 83
-        """
-            .trimIndent(),
-        currentClipboardText()
-    )
-  }
-
-  @Test
-  fun hidingScopesRemovesTheirRowsAndDropsThemFromCopyValues() {
-    compose.runOnUiThread {
-      visibleScopes.value = AdsScope.entries.toSet() - AdsScope.X8 - AdsScope.X1_5
-    }
-    showScreen()
-
-    compose.onNodeWithText("ADS 8x").assertDoesNotExist()
-    compose.onNodeWithText("ADS 1.5x").assertDoesNotExist()
-    compose.onNodeWithText("ADS 12x").assertExists()
-
-    compose.onNodeWithText("Copy Values").performScrollTo().performClick()
-
-    assertEquals(
-        """
-        ADS 1x = 33
-        ADS 2x = 53
-        ADS 2.5x = 54
-        ADS 3x = 54
-        ADS 4x = 54
-        ADS 5x = 54
         ADS 12x = 83
         """
             .trimIndent(),

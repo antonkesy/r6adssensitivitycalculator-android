@@ -10,7 +10,10 @@ interface Settings {
   var theme: Theme
   /** Setting this also applies the locale — see [updateLanguage]. */
   var language: String
-  /** Which scopes the main screen lists. Never empty: the last one cannot be switched off. */
+  /**
+   * Which scopes the main screen lists; [AdsScope.DEFAULT_VISIBLE] until changed. Never empty:
+   * the last one cannot be switched off.
+   */
   var visibleScopes: Set<AdsScope>
 
   val usage: Int

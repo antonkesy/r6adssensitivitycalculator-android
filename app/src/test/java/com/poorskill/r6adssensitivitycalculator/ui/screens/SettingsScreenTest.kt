@@ -34,7 +34,7 @@ class SettingsScreenTest {
   fun resetProcessWideState() =
       compose.runOnUiThread {
         appTheme.value = Theme.System
-        visibleScopes.value = AdsScope.entries.toSet()
+        visibleScopes.value = AdsScope.DEFAULT_VISIBLE
       }
 
   /**
@@ -86,10 +86,10 @@ class SettingsScreenTest {
   fun togglingAScopeInThePickerPersistsItAndUpdatesTheMainScreenState() {
     showScreen()
 
-    compose.onNodeWithText("9 / 9").performClick() // opens the picker
+    compose.onNodeWithText("4 / 10").performClick() // opens the picker
     compose.onNodeWithText("ADS 8x").assertIsOn().tap()
 
-    val expected = AdsScope.entries.toSet() - AdsScope.X8
+    val expected = AdsScope.DEFAULT_VISIBLE - AdsScope.X8
     assertEquals(expected, settings.visibleScopes)
     assertEquals(listOf<Pair<String, Any>>("visibleScopes" to expected), settings.writes)
     // no Activity.recreate(): the open main screen reads the same process-wide state
@@ -98,7 +98,7 @@ class SettingsScreenTest {
 
     compose.onNodeWithText("ADS 8x").tap()
 
-    assertEquals(AdsScope.entries.toSet(), settings.visibleScopes)
+    assertEquals(AdsScope.DEFAULT_VISIBLE, settings.visibleScopes)
     compose.onNodeWithText("ADS 8x").assertIsOn()
   }
 
@@ -108,7 +108,7 @@ class SettingsScreenTest {
     showScreen()
 
     compose.onNodeWithText("ADS 8x").assertDoesNotExist()
-    compose.onNodeWithText("8 / 9").performClick()
+    compose.onNodeWithText("9 / 10").performClick()
     compose.onNodeWithText("ADS 8x").assertIsOff()
 
     compose.onNodeWithText("OK").tap()
@@ -120,7 +120,7 @@ class SettingsScreenTest {
     compose.runOnUiThread { visibleScopes.value = setOf(AdsScope.X1) }
     showScreen()
 
-    compose.onNodeWithText("1 / 9").performClick()
+    compose.onNodeWithText("1 / 10").performClick()
     compose.onNodeWithText("ADS 1x").assertIsOn().assertIsNotEnabled()
     compose.onNodeWithText("ADS 12x").assertIsOff()
   }

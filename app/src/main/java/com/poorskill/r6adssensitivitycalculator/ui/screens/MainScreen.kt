@@ -61,7 +61,7 @@ import kotlinx.coroutines.launch
  * scope off in Settings has to repaint the already-open main screen without `recreate()`. Seeded
  * from [com.poorskill.r6adssensitivitycalculator.settings.Settings.visibleScopes] in BaseActivity.
  */
-val visibleScopes = mutableStateOf<Set<AdsScope>>(AdsScope.entries.toSet())
+val visibleScopes = mutableStateOf(AdsScope.DEFAULT_VISIBLE)
 
 /**
  * Inputs and converted values on one screen — the results update as you drag, so there is no
@@ -190,8 +190,8 @@ private fun SectionHeader(text: String) {
 
 /**
  * One value per line inside a single card. Rows are hairline-separated rather than individually
- * boxed, so a row costs ~40dp instead of the ~56dp a card per value would: all nine of them plus
- * the inputs still fit a normal phone without scrolling.
+ * boxed, so a row costs ~40dp instead of the ~56dp a card per value would: even all ten of them
+ * plus the inputs fit a normal phone without much scrolling.
  */
 @Composable
 private fun ResultList(

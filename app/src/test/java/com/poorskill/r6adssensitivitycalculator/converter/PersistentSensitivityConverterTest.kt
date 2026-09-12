@@ -43,14 +43,14 @@ class PersistentSensitivityConverterTest {
   fun calculateUsesTheEditedValues() {
     val converter = PersistentSensitivityConverter(FakeSettings(ads = 50, fov = 60))
     assertArrayEquals(
-        intArrayOf(33, 53, 53, 54, 54, 54, 54, 68, 83),
+        intArrayOf(33, 53, 53, 54, 54, 54, 54, 54, 68, 83),
         converter.calculate().asArray()
     )
 
     converter.ads.value = 100
 
     assertArrayEquals(
-        intArrayOf(67, 106, 107, 108, 109, 109, 109, 137, 167),
+        intArrayOf(67, 106, 107, 108, 109, 109, 109, 109, 137, 167),
         converter.calculate().asArray()
     )
   }

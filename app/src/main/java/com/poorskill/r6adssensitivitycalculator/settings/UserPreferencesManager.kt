@@ -33,13 +33,13 @@ class UserPreferencesManager(private val context: Context) : Settings {
 
   override var visibleScopes: Set<AdsScope>
     // copy out of the set getStringSet returns (it must not be mutated) and drop names that no
-    // longer exist; an empty or missing selection means "everything"
+    // longer exist; an empty or missing selection falls back to the default set
     get() =
         prefs
             .getStringSet(PREF_VISIBLE_SCOPES, null)
             ?.mapNotNull { name -> AdsScope.entries.find { it.name == name } }
             ?.toSet()
-            ?.takeIf { it.isNotEmpty() } ?: AdsScope.entries.toSet()
+            ?.takeIf { it.isNotEmpty() } ?: AdsScope.DEFAULT_VISIBLE
     set(value) =
         prefs.edit { putStringSet(PREF_VISIBLE_SCOPES, value.mapTo(HashSet()) { it.name }) }
 

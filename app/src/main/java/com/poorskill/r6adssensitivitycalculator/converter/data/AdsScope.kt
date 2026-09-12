@@ -13,11 +13,13 @@ enum class AdsScope(val label: String, val fovMultiplier: Double, val adsMultipl
   X2("2x", 0.49, 0.49),
   X2_5("2.5x", 0.42, 0.42),
   X3("3x", 0.35, 0.35),
+  /** Not in Ubisoft's table either: log-interpolated between 3x and 4x, like [X8]. */
+  X3_5("3.5x", 0.322, 0.322),
   X4("4x", 0.3, 0.3),
   X5("5x", 0.22, 0.22),
   /**
-   * Not in Ubisoft's table (the game has no 8x slider): log-interpolated between the 5x and 12x
-   * rows with t = ln(8/5) / ln(12/5). The raw results land just under the next integer
+   * Not in Ubisoft's Y5S3 table (it predates the 8x slider): log-interpolated between the 5x and
+   * 12x rows with t = ln(8/5) / ln(12/5). The raw results land just under the next integer
    * (68.9955 at ADS 50 / FOV 60), so nudging these constants or switching `.toInt()` to rounding
    * moves the pinned test numbers.
    */
@@ -27,4 +29,9 @@ enum class AdsScope(val label: String, val fovMultiplier: Double, val adsMultipl
   /** The row label, e.g. "ADS 8x". Also the share/clipboard text. */
   val displayName
     get() = "ADS $label"
+
+  companion object {
+    /** What the main screen lists until the user picks otherwise in Settings. */
+    val DEFAULT_VISIBLE: Set<AdsScope> = setOf(X1, X2_5, X3_5, X8)
+  }
 }

@@ -14,7 +14,7 @@ class FakeSettings(
     usage: Int = 0,
     theme: Theme = Theme.System,
     language: String = "system",
-    visibleScopes: Set<AdsScope> = AdsScope.entries.toSet()
+    visibleScopes: Set<AdsScope> = AdsScope.DEFAULT_VISIBLE
 ) : Settings {
 
   val writes = mutableListOf<Pair<String, Any>>()
