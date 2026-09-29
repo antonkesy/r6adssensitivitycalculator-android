@@ -45,7 +45,7 @@ android {
 
 dependencies {
     // no kotlin-stdlib: AGP's built-in Kotlin support adds it, matched to the compiler version
-    implementation 'androidx.core:core-ktx:1.19.0'
+    implementation 'androidx.core:core-ktx:1.19.1'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     // kept only for PreferenceManager.getDefaultSharedPreferences: switching to a plain
     // getSharedPreferences() would change the file name and drop every existing user's settings
