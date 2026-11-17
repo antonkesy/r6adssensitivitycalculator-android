@@ -63,7 +63,7 @@ dependencies {
     // UI tests run under Robolectric on the JVM — no emulator, so `./gradlew test` covers
     // everything and CI stays one fast job. app/src/androidTest is intentionally empty.
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.17'
+    testImplementation 'org.robolectric:robolectric:4.18'
     testImplementation 'androidx.test.ext:junit:1.3.0'
     testImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
